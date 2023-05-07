@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->integer('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('nic');
-            $table->integer('account_number');
+            $table->string('nic')->nullable();
+            $table->integer('account_number')->nullable();
             $table->string('account_type')->nullable();
             $table->string('area')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/cashier', function () {
-    return view('Cashier\Cashier-home');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::get('/user', 'getUser')->name('user');
+    });
+
+    // Route::get('/', [HomeController::class, 'index'])->name('name');
+    // Route::get('/user', [HomeController::class, 'getUser'])->name('user');
+
+
+});
