@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
     <div class="container-fluid d-flex" style="height:100vh">
         <div class="row">
@@ -20,7 +19,6 @@
                     </ul>
                 </div>
             </div>
-
 
             <div class="col-10">
                 <div class="container py-3">
@@ -44,7 +42,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-6">
                                 <div class="card">
@@ -78,7 +75,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-header">
@@ -95,8 +91,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
