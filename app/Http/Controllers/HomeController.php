@@ -21,9 +21,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function cashierHomepage()
     {
-        return view('home');
+        return view('cashier.home');
 
     }
 }

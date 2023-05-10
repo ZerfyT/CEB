@@ -19,18 +19,21 @@
 </head>
 
 <body>
-    <div id="app">
+    @include('layouts.header')
 
-        @include('layouts.header')
+    <div id="id" class="container-fluid d-flex" style="height:100vh">
+        <div class="row">
 
-        @include('layouts.left-sidebar')
+            @include('layouts.left-sidebar')
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <main class="col-10">
+                @yield('content')
+            </main>
 
-        @include('layouts.footer')
+            @include('layouts.footer')
+        </div>
     </div>
+
 </body>
 
 </html>

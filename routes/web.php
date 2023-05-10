@@ -21,7 +21,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::controller(HomeController::class)->group(function () {
-        Route::get('/', 'index')->name('home');
+        Route::get('/', 'cashierHomepage')->name('home');
         Route::get('/user', 'getUser')->name('user');
     });
 
