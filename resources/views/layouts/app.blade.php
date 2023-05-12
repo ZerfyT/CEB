@@ -23,7 +23,7 @@
 
         @include('layouts.left-sidebar')
 
-        <div class="content">
+        <div class="main-content">
 
             @include('layouts.header')
 

@@ -20,14 +20,16 @@
         </button>
 
         {{-- Navigation Links --}}
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#"><i class="bi bi-bell-fill"></i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="bi bi-person-circle mx-3"></i></a>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="bi bi-bell-fill"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-person-circle mx-3"></i></a>
+                </li>
+            </ul>
+        </div>
         {{-- <button><i class="bi bi-list-ul p-3 text-secondary"></button> --}}
     </div>
 </nav>

@@ -15,7 +15,7 @@
     </div>
 </div> --}}
 
-<nav id="sidebar" class="d-lg-block">
+<nav id="sidebar" class="">
     <div class="sidebar-header">
         <h3>Username</h3>
         <i class="bi bi-person-circle"></i>
