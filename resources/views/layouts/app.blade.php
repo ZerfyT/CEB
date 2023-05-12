@@ -19,19 +19,22 @@
 </head>
 
 <body>
-    @include('layouts.header')
+    <div class="wrapper">
 
-    <div id="id" class="container-fluid d-flex" style="height:100vh">
-        <div class="row">
+        @include('layouts.left-sidebar')
 
-            @include('layouts.left-sidebar')
+        <div class="content">
 
-            <main class="col-10">
+            @include('layouts.header')
+
+            <main class="">
                 @yield('content')
             </main>
 
             @include('layouts.footer')
+
         </div>
+
     </div>
 
 </body>
