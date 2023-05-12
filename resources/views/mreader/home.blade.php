@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('sidebar')
-    @include('cashier.sidebar')
+    @include('mreader.sidebar')
 @endsection
 
 @section('content')

@@ -1,39 +1,30 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
+// @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
 // Bootstrap Icons
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "bootstrap-icons/font/bootstrap-icons.css";
 // @import 'twbs/bootstrap-icons/font/bootstrap-icons';
 
-@import 'header';
-@import 'sidebar';
+@import "header";
+@import "sidebar";
 
 body {
     font-family: $font-family-sans-serif;
-    background: #fafafa;
-}
-
-.wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
+    background: $body-background-color;
 }
 
 .main-content {
-    width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }
-
 
 a,
 a:hover,
@@ -42,4 +33,3 @@ a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
-

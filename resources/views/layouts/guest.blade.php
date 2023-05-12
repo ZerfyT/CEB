@@ -12,22 +12,24 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div id="app">
+    <div class="wrapper d-flex align-items-stretch">
 
-        @include('layouts.header')
+        <div class="main-content w-100">
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+            @include('layouts.header')
 
-        @include('layouts.footer')
+            <main class="py-4">
+                @yield('content')
+            </main>
+
+            @include('layouts.footer')
+        </div>
     </div>
 </body>
 
