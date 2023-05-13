@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('sidebar')
-    @include('cashier.sidebar')
+    @include('mreader.sidebar')
 @endsection
 
 @section('content')
-    
+    <div class="container py-3">
         <label class="form-control" for="floatingInput">Home</label> <br>
         <h2 class="fw-bold">Home</h2>
 
@@ -22,7 +22,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <button onclick="window.location.href='{{ route('payment-home') }}'" class="btn btn-primary">Pay Bill</button>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <button class="btn btn-primary">View Bill</button>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <button onclick="window.location.href='{{ route('profile') }}'" class="btn btn-primary">My Profile</button>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -69,11 +69,11 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <button onclick="window.location.href='{{ route('email-history') }}'" class="btn btn-primary">Email History</button>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
- 
+    </div>
 @endsection

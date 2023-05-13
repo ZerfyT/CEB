@@ -12,7 +12,6 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     {{-- Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -22,28 +21,25 @@
 </head>
 
 <body>
+    <div class="wrapper d-flex align-items-stretch">
 
+        {{-- @include('layouts.sidebar') --}}
+        @yield('sidebar')
 
-    <div class="fixed-top">
-        @include('layouts.header')
-    </div>
+        <div class="main-content w-100">
 
-    <div class="container-fluid py-5">
-        <div id="id" class="container-fluid d-flex" style="height:100vh">
-            <div class="row w-100">
+            @include('layouts.header')
 
-                @include('layouts.left-sidebar')
+            <main class="py-4">
+                @yield('content')
+            </main>
 
-                <main class="col-10">
-                    <div class="container py-3">
-                        @yield('content')
-                    </div>
-                </main>
+            @include('layouts.footer')
 
-                @include('layouts.footer')
-            </div>
         </div>
+
     </div>
+
 </body>
 
 </html>
