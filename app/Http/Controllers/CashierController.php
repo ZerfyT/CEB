@@ -31,6 +31,11 @@ class CashierController extends Controller
         return view('cashier.payments.customer-bill');
     }
 
+    public function cashierGenarateBill()
+    {
+        return view('cashier.payments.genarate-bill');
+    }
+
     public function cashierPaymentHistory()
     {
         return view('cashier.payment-history');
