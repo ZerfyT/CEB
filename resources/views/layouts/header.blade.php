@@ -4,11 +4,10 @@
             {{ config('app.name', 'Laravel') }}
         </a>
         <a href=""><i class="bi bi-list-ul p-3 text-secondary"></i></a>
-        {{-- <button><i class="bi bi-list-ul p-3 text-secondary"></button> --}}
     </div>
 
     <div>
         <i class="bi bi-bell-fill"></i>
-        <i class="bi bi-person-circle mx-3"></i>
+        <i class="bi bi-person-circle mx-3" onclick="window.location.href='{{ route('profile') }}'"></i>
     </div>
 </nav>

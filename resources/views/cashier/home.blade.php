@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-3">
+    
         <label class="form-control" for="floatingInput">Home</label> <br>
         <h2 class="fw-bold">Home</h2>
 
@@ -18,7 +18,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button onclick="window.location.href='{{ route('payment-home') }}'" class="btn btn-primary">Pay Bill</button>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button class="btn btn-primary">View Bill</button>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button onclick="window.location.href='{{ route('profile') }}'" class="btn btn-primary">My Profile</button>
                         </div>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                             <p class="card-text">With supporting text below as a natural lead-in to additional
                                 content.
                             </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <button onclick="window.location.href='{{ route('email-history') }}'" class="btn btn-primary">Email History</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+ 
 @endsection
