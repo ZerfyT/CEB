@@ -8,19 +8,19 @@
 
     <ul class="list-unstyled components py-3 px-0">
         <li>
-            <a href="#">Home</a>
+            <a href="{{route('home')}}">Home</a>
         </li>
         <li>
-            <a href="#">My Accounts</a>
+            <a href="{{route('payment-home')}}">Payments</a>
         </li>
         <li>
-            <a href="#">Payments</a>
+            <a href="{{route('payment-history')}}">Payments History</a>
         </li>
         <li>
-            <a href="#">Contacts</a>
+            <a href="{{route('email-history')}}">Email History</a>
         </li>
         <li>
-            <a href="#">My Profile</a>
+            <a href="{{route('profile')}}">My Profile</a>
         </li>
     </ul>
 </nav>

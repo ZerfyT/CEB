@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('sidebar')
+    @include('cashier.sidebar')
+@endsection
+
 @section('content')
     <label class="form-control" for="floatingInput">Payment</label> <br>
     <h2 class="fw-bold">Payment</h2>
@@ -18,14 +22,14 @@
     
     {{-- Table --}}
     <div class="container py-4">
-        <table class="table table-sm">
-            <thead>
-              <tr class="table-active">
+        <table class="table table-sm table-bordered table-hover">
+            <thead class="bg-secondary">
+              <tr class="">
                 <th class="col-1">ID</th>
                 <th class="col-3">Account No</th>
                 <th class="col-3">Date</th>
                 <th class="col-3">Address</th>
-                <th class="col-2">Sta</th>
+                <th class="col-2">Status</th>
               </tr>
             </thead>
             <tbody class="table-light">

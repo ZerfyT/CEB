@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('sidebar')
+    @include('cashier.sidebar')
+@endsection
+
 @section('content')
     <label class="form-control" for="floatingInput">Cashier/Profile</label> <br>
     <h2 class="fw-bold">Profile</h2>
@@ -50,7 +54,7 @@
                         <div class="text-center">
                             <button class="btn btn-danger">Change Password</button>
                         </div>
-                        
+
                 </div>
                 </form>
             </div>
