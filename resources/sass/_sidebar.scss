@@ -8,25 +8,29 @@
     background: $sidebar-background-color;
     color: $text-color-white;
     transition: all 0.3s;
-}
 
-#sidebar.active {
-    margin-left: -250px;
-}
+    .sidebar-header {
+        background: rgba(85, 85, 85, 0.5);
+    }
 
-#sidebar .sidebar-header {
-    background: rgba(85, 85, 85, 0.5);
-}
+    &.active {
+        margin-left: -250px;
+    }
 
-#sidebar ul li a {
-    padding: 15px;
-    font-size: 1.1em;
-    display: block;
-}
+    ul {
+        li {
+            a {
+                padding: 15px;
+                font-size: 1.1em;
+                display: block;
 
-#sidebar ul li a:hover {
-    color: $sidebar-background-color;
-    background: $text-color-white;
+                &:hover {
+                    color: $sidebar-background-color;
+                    background: $text-color-white;
+                }
+            }
+        }
+    }
 }
 
 /* ---------------------------------------------------
@@ -37,12 +41,11 @@
     #sidebar {
         margin-left: -250px;
     }
+
     #sidebar.active {
         margin-left: 0;
     }
-}
 
-@media (max-width: 992px) {
     #sidebarToggler {
         display: initial;
     }
