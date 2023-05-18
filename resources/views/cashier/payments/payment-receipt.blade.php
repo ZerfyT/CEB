@@ -44,7 +44,7 @@
                         <td class="text-end">5000.00</td>
                     </tr>
                     <tr>
-                        <th class="text-center">Remaining Amount(Rs.)</th>
+                        <th class="">Remaining Amount(Rs.)</th>
                         <td class="text-end align-middle">1000.00</td>
                     </tr>
                 </tbody>
