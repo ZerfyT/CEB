@@ -8,7 +8,7 @@
 
     <ul class="list-unstyled components py-3 px-0">
         <li>
-            <a href="{{route('home')}}">Home</a>
+            <a href="{{route('cashier.home')}}">Home</a>
         </li>
         <li>
             <a href="{{route('payment-home')}}">Payments</a>

@@ -24,6 +24,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $permissions = [
             ['name' => 'list-users'],
+            ['name' => 'create-users'],
             ['name' => 'delete-users'],
 
             ['name' => 'change-role'],
@@ -44,11 +45,13 @@ class RoleAndPermissionSeeder extends Seeder
 
         $superAdminRole = Role::create(['name' => 'super-admin']);
         $adminRole = Role::create(['name' => 'admin']);
-        $cashier = Role::create(['name' => 'cashier']);
-        $meterReader = Role::create(['name' => 'meter-reader']);
+        $cashierRole = Role::create(['name' => 'cashier']);
+        $meterReaderRole = Role::create(['name' => 'meter-reader']);
         $userRole = Role::create(['name' => 'user']);
 
         $superAdminRole->givePermissionTo(Permission::all());
-        $adminRole->givePermissionTo('list-users');
+        $adminRole->givePermissionTo('list-users', 'list-role', 'list-permission');
+        $meterReaderRole->givePermissionTo('list-users');
+        $cashierRole->givePermissionTo('list-users');
     }
 }
