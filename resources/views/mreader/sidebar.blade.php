@@ -8,19 +8,16 @@
 
     <ul class="list-unstyled components py-3 px-0">
         <li>
-            <a href="#">Home</a>
+            <a href="{{ route('mreader.home') }}">Home</a>
         </li>
         <li>
-            <a href="#">My Accounts</a>
+            <a href="{{ route('mreader.customers') }}">Customers</a>
         </li>
         <li>
-            <a href="#">Payments</a>
+            <a href="{{ route('mreader.readings') }}">Meter Reading</a>
         </li>
         <li>
-            <a href="#">Contacts</a>
-        </li>
-        <li>
-            <a href="#">My Profile</a>
+            <a href="{{ route('mreader.profile') }}">My Profile</a>
         </li>
     </ul>
 </nav>
