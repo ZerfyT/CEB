@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Bill;
 use Illuminate\Http\Request;
 
 class CashierController extends Controller
@@ -18,7 +20,8 @@ class CashierController extends Controller
 
     public function cashierPayments()
     {
-        return view('cashier.payments.payment-home');
+        $customers = User::all();
+        return view('cashier.payments.payment-home' , compact('customers'));
     }
 
     public function cashierPay()
@@ -26,9 +29,11 @@ class CashierController extends Controller
         return view('cashier.payments.paybill');
     }
 
-    public function cashierCustomerBill()
+    public function cashierCustomerBill(User $user)
     {
-        return view('cashier.payments.customer-bill');
+       
+        $bills = Bill::where('user_id', $user->id)->get();
+        return view('cashier.payments.customer-bill' ,compact('user'),compact('bills'));
     }
 
     public function cashierGenarateBill()
