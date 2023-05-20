@@ -20,7 +20,6 @@
         </div>
     </div>
 
-
     {{-- Table --}}
     <div class="container py-4">
         <table class="table table-sm table-bordered table-hover">
