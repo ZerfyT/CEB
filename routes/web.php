@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\MReaderController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,8 +74,12 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/payment', function () {
-    return view('customer.payment');
+Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(CustomerController::class)->group(function () {
+    Route::get('/home', 'customerHome')->name('customer.home');
+    Route::get('/payment', 'customerPayment')->name('customer.payment');
+    Route::get('/profile', 'customerProfile')->name('customer.profile');
+    Route::get('/detail', 'customerDetails')->name('customer.details');
+    Route::get('/account', 'customerAccount')->name('customer.account');
 });
 // Route::fallback(function () {
 //     return view('index');

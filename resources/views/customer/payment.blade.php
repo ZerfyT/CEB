@@ -1,20 +1,12 @@
 @extends('layouts.app')
-@include('layouts.header')
 
 
-
-
-
-<head>
-    <title>Payment History</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-</head>
+@section('sidebar')
+@include('customer.sidebar')
+@endsection
 
 @section('content')
 <div class="row">
-    <div class="col-md-2" id="sidebar">
-        @include('layouts.Sidebar')
-    </div>
     <div class="col-md-10">
         <div class="d-flex">
             <a href="" class="btn btn-primary-link btn floating"><small>Home</small></a>
@@ -28,7 +20,6 @@
             <p class="h6">Welcome to your E-bill online portal</p>
         </div>
         <div class="container con">
-
             <div class="head-2 d-flex justify-content-between">
                 <div class="state">
                     <p class="h5">Electricity Account Statement</p>
