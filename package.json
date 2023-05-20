@@ -13,7 +13,11 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+<<<<<<< HEAD
         "bootstrap-icons": "^1.10.5",
         "chart.js": "^4.3.0"
+=======
+        "bootstrap-icons": "^1.10.5"
+>>>>>>> f1c67be (header and side bar)
     }
 }

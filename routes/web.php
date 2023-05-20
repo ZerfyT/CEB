@@ -73,7 +73,9 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-
+Route::get('/payment', function () {
+    return view('customer.payment');
+});
 // Route::fallback(function () {
 //     return view('index');
 // })->name('index');

@@ -8,6 +8,7 @@
 
     <ul class="list-unstyled components py-3 px-0">
         <li>
+<<<<<<< HEAD
             <a href="{{route('cashier.home')}}">Home</a>
         </li>
         <li>
@@ -21,6 +22,21 @@
         </li>
         <li>
             <a href="{{route('profile')}}">My Profile</a>
+=======
+            <a href="#">Home</a>
+        </li>
+        <li>
+            <a href="#">My Accounts</a>
+        </li>
+        <li>
+            <a href="#">Payments</a>
+        </li>
+        <li>
+            <a href="#">Contacts</a>
+        </li>
+        <li>
+            <a href="#">My Profile</a>
+>>>>>>> f1c67be (header and side bar)
         </li>
     </ul>
 </nav>
