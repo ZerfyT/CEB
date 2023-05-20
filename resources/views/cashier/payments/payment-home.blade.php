@@ -20,6 +20,7 @@
         </div>
     </div>
 
+
     {{-- Table --}}
     <div class="container py-4">
         <table class="table table-sm table-bordered table-hover">
@@ -30,6 +31,7 @@
                     <th class="col-3">Name</th>
                     <th class="col-3">Email Address</th>
                 </tr>
+                
             </thead>
             <tbody class="table-light">
                 @foreach ($customers as $customer)
