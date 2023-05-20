@@ -10,8 +10,6 @@
 
 @import "bootstrap/scss/bootstrap";
 
-
-
 // Bootstrap Icons
 @import "bootstrap-icons/font/bootstrap-icons.css";
 // @import 'twbs/bootstrap-icons/font/bootstrap-icons';
@@ -20,81 +18,106 @@
 @import "sidebar";
 
 body {
-  font-family: $font-family-sans-serif;
-  background: $body-background-color;
+    font-family: $font-family-sans-serif;
+    background: $body-background-color;
 }
 
 .main-content {
-  min-height: 100vh;
-  transition: all 0.3s;
+    min-height: 100vh;
+    transition: all 0.3s;
 }
 
 a,
 a:hover,
 a:focus {
-  color: inherit;
-  text-decoration: none;
-  transition: all 0.3s;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
 // Mreader Home
 .card {
-  margin-bottom: 1.5rem;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-  padding: 10px 6px;
+    margin-bottom: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+    padding: 10px 6px;
 
-  .card-body {
-    padding: 0 20px 20px 20px;
-    h6 {
-      font-size: 28px;
-      color: #012970;
-      font-weight: 700;
-      margin: 0;
-      padding: 0;
-    }
+    .card-body {
+        padding: 0 20px 20px 20px;
+        h6 {
+            font-size: 28px;
+            color: #012970;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
 
-    .card-title {
-      padding: 20px 0 15px 0;
-      font-size: 18px;
-      font-weight: 500;
-      color: #012970;
-      span {
-        color: #899bbd;
-        font-size: 14px;
-        font-weight: 400;
-      }
-    }
+        .card-title {
+            padding: 20px 0 15px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #012970;
+            span {
+                color: #899bbd;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
 
-    .card-icon {
-      font-size: 32px;
-      line-height: 0;
-      width: 64px;
-      height: 64px;
-      flex: {
-        grow: 0;
-        shrink: 0;
-      }
+        .card-icon {
+            font-size: 32px;
+            line-height: 0;
+            width: 64px;
+            height: 64px;
+            flex: {
+                grow: 0;
+                shrink: 0;
+            }
+        }
     }
-  }
+}
+.register {
+    .card {
+        background-color: #dfe5f0;
+        .form {
+            .form-control {
+                border-style: #012970;
+            }
+        }
+    }
+}
+
+.login-wrap {
+    .card {
+        background-color: #dfe5f0;
+    }
+}
+
+.con {
+    background-color: #e5e7eb;
+    padding: 15px;
+    border-radius: 10px;
+    .card {
+        background-color: #cdcfd1;
+    }
 }
 
 @mixin card-icon-color($color, $background) {
-  .card-icon {
-    color: $color;
-    background: $background;
-  }
+    .card-icon {
+        color: $color;
+        background: $background;
+    }
 }
 
 .sales-card {
-  @include card-icon-color(#4154f1, #f6f6fe);
+    @include card-icon-color(#4154f1, #f6f6fe);
 }
 
 .revenue-card {
-  @include card-icon-color(#2eca6a, #e0f8e9);
+    @include card-icon-color(#2eca6a, #e0f8e9);
 }
 
 .customers-card {
-  @include card-icon-color(#ff771d, #ffecdf);
+    @include card-icon-color(#ff771d, #ffecdf);
 }

@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="row form-outline mb-3 mt-3">
-                            <label for="email" class=" col-form-label">{{ __('Email Address') }}</label>
+                            <label for="email" class=" col-form-label">{{ __('Email Address:') }}</label>
                             <div class="">
                                 <input id="email" type="email" class="form-control rounded-pill @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@gmail.com">
 
@@ -26,7 +26,7 @@
 
 
                         <div class="row form-outline mb-3">
-                            <label for="password" class="col-form-label">{{ __('Password') }}</label>
+                            <label for="password" class="col-form-label">{{ __('Password:') }}</label>
 
                             <div class="">
                                 <input id="password" type="password" class="form-control rounded-pill @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
