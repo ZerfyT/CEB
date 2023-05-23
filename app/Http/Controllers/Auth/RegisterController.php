@@ -74,4 +74,15 @@ class RegisterController extends Controller
 
         return $user->assignRole('user');
     }
+
+    /**
+     * Redirect to customer home page after a successful registration.
+     *
+     * @return string
+     */
+    protected function redirectTo() {
+        return '/customer/home';
+    }
+
+
 }
