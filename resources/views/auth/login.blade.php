@@ -26,7 +26,7 @@
 
 
                         <div class="row form-outline mb-3">
-                            <label for="password" class="col-form-label">{{ __('Password:') }}</label>
+                            <label for="password" class="col-form-label text-muted">{{ __('Password:') }}</label>
 
                             <div class="">
                                 <input id="password" type="password" class="form-control rounded-pill @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">

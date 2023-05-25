@@ -32,7 +32,8 @@
 
             {{-- Add Meter Reading (Manual) --}}
             <div class="add-customer">
-                <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal" data-bs-target="#modelNewCustomer">
+                <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
+                    data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
@@ -44,38 +45,27 @@
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col-1">ID</th>
-                        <th class="col-3">Account No</th>
-                        <th class="col-3">Acc. Type</th>
                         <th class="col-3">Name</th>
+                        <th class="col-2">Account No</th>
+                        <th class="col-2">Acc. Type</th>
                         <th class="col-3">Address</th>
-                        <th class="col-2">Status</th>
+                        <th class="col-1">Status</th>
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">1</th>
-                        <td>456222467</td>
-                        <td>Domestic</td>
-                        <td>Larry the Bird</td>
-                        <td>Galle</td>
-                        <td>Deactive</td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">2</th>
-                        <td>456222467</td>
-                        <td>Thornton</td>
-                        <td>Domestic</td>
-                        <td>Baddegama</td>
-                        <td>Active</td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">3</th>
-                        <td>456222467</td>
-                        <td>Domestic</td>
-                        <td>Thomas</td>
-                        <td>Galle</td>
-                        <td>Active</td>
-                    </tr>
+
+                    @foreach ($users as $user)
+                        <tr onclick="window.location.href=''">
+                            <th scope="row">{{ $user->id }}</th>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->account_number }}</td>
+                            <td>{{ $user->account_type }}</td>
+                            <td>{{ $user->address }}</td>
+                            <td>{{ $user->is_active }}</td>
+                        </tr>
+                    @endforeach
+
+
                 </tbody>
             </table>
         </div>
@@ -90,25 +80,26 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="POST" action="{{ route('mreader.registerCustomer') }}">
+                            @csrf
                             <div class="mb-3">
                                 <label for="fname" class="col-form-label">Full Name:</label>
-                                <input type="text" class="form-control" id="fname">
+                                <input type="text" class="form-control" id="fname" name="fname" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="col-form-label">Email:</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="col-form-label">Address:</label>
-                                <input type="text" class="form-control" id="address">
+                                <input type="text" class="form-control" id="address" name="address" required>
                             </div>
                             <div class="mb-3">
                                 <label for="pNumber" class="col-form-label">Phone Number:</label>
-                                <input type="number" class="form-control" id="pNumber">
+                                <input type="number" class="form-control" id="pNumber" name="pNumber" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-success">Save</button>
+                                <button type="submit" class="btn btn-outline-success" name="submit">Save</button>
                             </div>
                         </form>
                     </div>

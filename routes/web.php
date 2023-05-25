@@ -39,7 +39,11 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::get('/customers', 'customerList')->name('mreader.customers');
     Route::get('/readings', 'mReadings')->name('mreader.readings');
     Route::get('/profile', 'profile')->name('mreader.profile');
+    Route::post('/registerCustomer', 'registerCustomer')->name('mreader.registerCustomer');
+    Route::post('/addMReading', 'addMReading')->name('mreader.addMReading');
+
 });
+
 
 
 // Route::group(['middleware' => 'auth'], function () {
