@@ -36,7 +36,7 @@ class AdminSeeder extends Seeder
             'role_id' => 3,
             'name' => 'Cashier Test',
             'email' => 'cashier@gmail.com',
-            'password' => bcrypt('1111111')
+            'password' => bcrypt('11111111')
         ]);
         $cashier->assignRole('cashier');
 

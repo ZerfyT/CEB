@@ -40,20 +40,6 @@
                         <td>{{ $customer->email }}</td>
                     </tr>
                 @endforeach
-                {{-- <tr onclick="window.location.href='{{ route('customer-bill') }}'">
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr onclick="window.location.href='{{ route('customer-bill') }}'">
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                    <td>@md00o</td>
-                </tr> --}}
             </tbody>
         </table>
     </div>
