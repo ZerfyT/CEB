@@ -22,12 +22,15 @@
         <div class="container d-flex justify-content-between align-items-end">
             {{-- Search Button --}}
             <div class="search">
-                <label for="AccountNo" class="rounded mb-1">Account No</label>
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-success">Search</button>
-                </div>
+                <form method="GET" action="{{ route('mreader.search', ['page' => 'mReadings']) }}">
+                    @csrf
+                    <label for="AccountNo" class="rounded mb-1">Account No</label>
+                    <div class="input-group">
+                        <input type="search" name="searchKey" class="form-control rounded" placeholder="Search"
+                            aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit" class="btn btn-outline-success">Search</button>
+                    </div>
+                </form>
             </div>
 
             {{-- Add Meter Reading (Manual) --}}

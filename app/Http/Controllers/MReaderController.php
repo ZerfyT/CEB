@@ -28,6 +28,7 @@ class MReaderController extends Controller
         return redirect()->route('mreader.customers');
     }
 
+
     /**
      * Add new Meter Reading to DB.
      */
@@ -57,35 +58,69 @@ class MReaderController extends Controller
         }
     }
 
+
+    /**
+     * Search User by Account Number
+     */
+    public function searchAccounts(Request $request, $page)
+    {
+        // $user = User::getUserByAccountNumber($request->searchKey);
+        $user = User::where('account_number', $request->searchKey)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'User Not Found');
+        }
+
+        if ($page == 'customers') {
+            // $users = $user;
+            // return redirect()->route('mreader.customers', compact('users'));
+            return $this->customerList($user->id);
+        } else if ($page == 'mReadings') {
+            $mReadings = MeterReading::where('user_id', $user->id)->get();
+            if (!$mReadings) {
+                return redirect()->back()->with('error', 'No Readings found.');
+            }
+            return $this->mReadings($user->id);
+
+            // return redirect()->route('mreader.readings', ['user_id' => $user->id]);
+        }
+    }
+
+
+
     /**
      * Routes for Meter Reader
      */
+
     public function index()
     {
         return view('mreader.home');
     }
-    public function customerList()
+
+
+    public function customerList($user_id = null)
     {
-        $users = User::where('role_id', 5)->get();
+        $users = User::where('role_id', 5);
+        if (isset($user_id)) {
+            $users = $users->where('id', $user_id);
+        }
+        $users = $users->get();
         return view('mreader.customers-list', compact('users'));
     }
 
-    public function mReadings()
+
+    public function mReadings($user_id = null)
     {
-        // $lastMReading = DB::table('meter_reading')->where()
-        // if() {
-
-        // }
-        // else {
-
-        // // }
         $mReadings = DB::table('meter_readings')
             ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number')
-            ->orderBy('users.address')
-            ->get();
+            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+
+        if (isset($user_id)) {
+            $mReadings->where('user_id', $user_id);
+        }
+        $mReadings = $mReadings->orderBy('users.address')->get();
         return view('mreader.mreading-list', compact('mReadings'));
     }
+
 
     public function profile()
     {

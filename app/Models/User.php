@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function meterReadings() {
         return $this->hasMany(MeterReading::class);
     }
+
+    public static function getUserByAccountNumber($accountNumber) {
+        return User::where('account_number', $accountNumber)->first();
+    }
 }

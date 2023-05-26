@@ -41,7 +41,7 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::get('/profile', 'profile')->name('mreader.profile');
     Route::post('/registerCustomer', 'registerCustomer')->name('mreader.registerCustomer');
     Route::post('/addMReading', 'addMReading')->name('mreader.addMReading');
-
+    Route::get('/search/{page}', 'searchAccounts')->name('mreader.search');
 });
 
 
