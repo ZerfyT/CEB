@@ -103,6 +103,26 @@ a:focus {
     }
 }
 
+.cards-info .card{
+    cursor: pointer;
+    border-style: solid;
+    border-color: rgba($color: #e7e2e2, $alpha: 1.0);
+    .card-body {
+        background-color: #f3f170;
+        :hover{
+            background-color: #ff771d;
+        }
+    }
+}
+.customer-say .card-wrp{
+    border-style:solid;
+    border-color: rgba($color: #e7e2e2, $alpha: 1.0);
+    border-radius: 10px;
+    .card-body{
+        padding: 10px;
+    }
+}
+
 @mixin card-icon-color($color, $background) {
     .card-icon {
         color: $color;
