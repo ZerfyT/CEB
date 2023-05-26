@@ -17,7 +17,7 @@
                 <div class="container p-5 d-flex justify-content-start py-3">
                     <ul class="list-unstyled">
                         <li>
-                            <h5>#######</h5>
+                            <h5>{{ $billDetails->id }}</h5>
                         </li>
                         <li class="">Domestic</li>
                     </ul>

@@ -11,13 +11,13 @@
             <a href="{{route('cashier.home')}}">Home</a>
         </li>
         <li>
-            <a href="{{route('payment-home')}}">Payments</a>
+            <a href="{{ route('payment-home') }}">Payments</a>
         </li>
         <li>
-            <a href="{{route('payment-history')}}">Payments History</a>
+            <a href="{{ route('payment-history') }}">Payments History</a>
         </li>
         <li>
-            <a href="{{route('email-history')}}">Email History</a>
+            <a href="{{ route('email-history') }}">Email History</a>
         </li>
         <li>
             <a href="{{route('profile')}}">My Profile</a>

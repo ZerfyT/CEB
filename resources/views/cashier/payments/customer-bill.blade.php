@@ -22,28 +22,14 @@
             </thead>
             <tbody class="table-light">
                 @foreach ($bills as $bill)
-                    <tr onclick="window.location.href='{{ route('genarate-bill') }}'">
+                    <tr onclick="window.location.href='{{ route('genarate-bill',$bill->id) }}'">
                         <th scope="row">{{ $bill->id }}</th>
                         <td>{{ $bill->user_id }}</td>
                         <td>{{ $bill->date }}</td>
                         <td>{{ $bill->amount }}</td>
                         <td>{{ $bill->status }}</td>
                     </tr>
-                     @endforeach
-                    {{-- <tr onclick="window.location.href='{{ route('genarate-bill') }}'">
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>10000</td>
-              </tr>
-              <tr onclick="window.location.href='{{ route('genarate-bill') }}'">
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-                <td>2000</td>
-              </tr> --}}
+                @endforeach
             </tbody>
         </table>
     </div>
