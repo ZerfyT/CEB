@@ -1,32 +1,37 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="container">
+<!-- carousel -->
+<div class="container-fluid">
     <div class="carousel slide" id="carouselID" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('img/H-img/3.jpg') }}" alt="" class="d-block w-100 rounded">
+                <img src="{{ asset('img/H-img/3.jpg') }}" alt="" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('img/H-img/6.jpg') }}" alt="" class="d-block w-100 rounded">
+                <img src="{{ asset('img/H-img/6.jpg') }}" alt="" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('img/H-img/4.jpg') }}" alt="" class="d-block w-100 rounded">
+                <img src="{{ asset('img/H-img/4.jpg') }}" alt="" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('img/H-img/5.jpg') }}" alt="" class="d-block w-100 rounded">
+                <img src="{{ asset('img/H-img/5.jpg') }}" alt="" class="d-block w-100">
             </div>
+
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselID" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselID" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselID" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselID" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-    <hr class="hr" />
+</div>
+<hr class="hr" />
+<div class="container">
     <div class="row">
         <div class="cards-info col-sm-12 col-lg-3">
             <div class="card text-center">
@@ -78,12 +83,10 @@
                 </p>
             </div>
         </div>
-        
         <div class="col-md-6">
             <img src="{{ asset('img/H-img/e-img.jpg') }}" alt="" class="img-fluid rounded">
         </div>
     </div>
-
     <div class="row mt-3">
         <div class="text-center row">
             <h2 class="fw-bold">OUR CUSTOMER'S SAY</h2>
