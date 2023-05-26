@@ -44,29 +44,29 @@
             <table class="table table-sm table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
-                        <th class="col-1">ID</th>
-                        <th class="col-3">Account No</th>
-                        <th class="col-3">Date</th>
-                        <th class="col-3">Meter Reading</th>
-                        <th class="col-2">Status</th>
+                        <th class="col">ID</th>
+                        <th class="col">Address</th>
+                        <th class="col">Name</th>
+                        <th class="col">Account No</th>
+                        <th class="col">Meter Reading</th>
+                        <th class="col">Date</th>
+                        {{-- <th class="col-2">Status</th> --}}
                     </tr>
                 </thead>
                 <tbody class="table-light">
-
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">1</th>
-                        <td>456222467</td>
-                        <td>2023 / 2 / 10</td>
-                        <td>23566</td>
-                        <td class="text-center"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">3</th>
-                        <td>456222469</td>
-                        <td>2023 / 2 / 10</td>
-                        <td>23566</td>
-                        <td class="text-center"><i class="bi bi-x-circle-fill text-danger fs-5"></i></td>
-                    </tr>
+                    @foreach ($mReadings as $mReading)
+                        <tr onclick="window.location.href=''">
+                            <th scope="row">{{ $mReading->id }}</th>
+                            <td>{{ $mReading->address }}</td>
+                            <td>{{ $mReading->name }}</td>
+                            <td>{{ $mReading->account_number }}</td>
+                            <td>{{ $mReading->meter_reading }}</td>
+                            <td>{{ $mReading->date }}</td>
+                            {{-- <td class="text-center">
+                                <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                            </td> --}}
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -81,7 +81,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('mreader.addMReading')}}">
+                        <form method="POST" action="{{ route('mreader.addMReading') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="accNo" class="col-form-label">Account No:</label>
@@ -103,4 +103,22 @@
                 </div>
             </div>
         </div>
+
+        {{-- @error('error')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @enderror --}}
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     @endsection

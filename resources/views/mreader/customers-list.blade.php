@@ -61,7 +61,13 @@
                             <td>{{ $user->account_number }}</td>
                             <td>{{ $user->account_type }}</td>
                             <td>{{ $user->address }}</td>
-                            <td>{{ $user->is_active }}</td>
+                            <td class="text-center">
+                                @if ($user->is_active)
+                                    <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                                @else
+                                    <i class="bi bi-x-circle-fill text-danger fs-5">
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
 
