@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UsersDataTable;
 use App\Models\MeterReading;
 use App\Models\User;
 use Carbon\Carbon;
@@ -120,14 +121,30 @@ class MReaderController extends Controller
     }
 
 
-    public function customerList($user_id = null)
+    // public function customerList($user_id = null)
+    // {
+    //     $users = User::where('role_id', 5);
+    //     if (isset($user_id)) {
+    //         $users = $users->where('id', $user_id);
+    //     }
+    //     $users = $users->get();
+    //     return view('mreader.customers-list', compact('users'));
+    // }
+
+    public function customerList(UsersDataTable $dataTable)
     {
-        $users = User::where('role_id', 5);
-        if (isset($user_id)) {
-            $users = $users->where('id', $user_id);
-        }
-        $users = $users->get();
-        return view('mreader.customers-list', compact('users'));
+        // $data = User::select('*');
+        // return DataTables::of($data)
+        //     ->addColumnIndex()
+        //     ->addColumn('action', function ($data) {
+        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+        //         return $btn;
+        //     })
+        //     ->rawColumns(['action'])
+        //     ->make(true);
+        // return view('mreader.customers-list');
+
+        return $dataTable->render('mreader.customers-list');
     }
 
 
