@@ -36,7 +36,6 @@ class CashierController extends Controller
         return view('cashier.payments.paybill');
     }
 
-    // Display each customer's bills according to customer ID.
     public function cashierCustomerBill(User $user)
     {
 

@@ -9,10 +9,13 @@ class Bill extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = [
+        'id',
+        'user_id',
+        'status',
+        'amount',
+        'date'
+    ];
 
 
 }
