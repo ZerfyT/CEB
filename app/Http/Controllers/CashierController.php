@@ -37,24 +37,22 @@ class CashierController extends Controller
     }
 
     // Display each customer's bills according to customer ID.
-    public function cashierCustomerBill($customer_id, $bill_id)
+    public function cashierCustomerBill(User $user)
     {
 
-        $customer = User::findOrFail($customer_id);
-        $bill = $customer->bills()->findOrFail($bill_id);
-
-        return view('cashier.payments.customer-bill', ['customer' => $customer->id, 'bill' => $bill->id]);
+        $bills = Bill::where('user_id', $user->id)->get();
+        return view('cashier.payments.customer-bill', ['user' => $user, 'bills' => $bills]);
     }
 
-
-    // Display genarated bill according to bill id using customer and bill details.
-    public function cashierGenarateBill($bill_id)
+    public function cashierGenarateBill(User $user_id)
     {
+        $user_id = User::where('role_id', 5)->get();
 
-        $bill = Bill::findOrFail($bill_id);
-        $customer = $bill->user;
+        $customer = User::find($user_id);
+        $billDetails = Bill::where('user_id', $user_id)->first();
 
-        return view('cashier.payments.genarate-bill', ['customer' => $customer, 'bill' => $bill]);
+        // Pass the retrieved data to the view
+        return view('cashier.payments.genarate-bill', compact('customer', 'billDetails'));
     }
 
     // Display payment history of customers.

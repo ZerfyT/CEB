@@ -12,8 +12,24 @@
         <div class="container p-5 flex-wrap border border-secondary bg-secondary w-75">
             <div class="row border-bottom">
 
-                <div class="col-6">
-                    <div class="container p-5 d-flex justify-content-start py-3">
+    <div class="container p-5 flex-wrap border border-secondary bg-secondary w-75">
+        <div class="row border-bottom">
+
+            <div class="col-6">
+                <div class="container p-5 d-flex justify-content-start py-3">
+                    <ul class="list-unstyled">
+                        <li>
+                            <h5>{{ $billDetails->id }}</h5>
+                        </li>
+                        <li class="">Domestic</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="container">
+                    <div class="container d-flex justify-content-end">
                         <ul class="list-unstyled">
                             <li>
                                 <h5>{{ $customer->id }}</h5>

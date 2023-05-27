@@ -23,7 +23,7 @@
             <tbody class="table-light">
                 @if (!is_null($bills))
                 @foreach ($bills as $bill)
-                    <tr onclick="window.location.href='{{ route('genarate-bill') }}'">
+                    <tr onclick="window.location.href='{{ route('genarate-bill',$bill->id) }}'">
                         <th scope="row">{{ $bill->id }}</th>
                         <td>{{ $bill->user_id }}</td>
                         <td>{{ $bill->date }}</td>
