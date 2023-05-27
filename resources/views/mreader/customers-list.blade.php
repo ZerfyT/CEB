@@ -44,7 +44,8 @@
 
         {{-- Table --}}
         <div class="container py-4">
-            <table class="table table-bordered table-hover">
+            {{ $dataTable->table() }}
+            {{-- <table class="table table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col-1">ID</th>
@@ -52,7 +53,9 @@
                         <th class="col-2">Account No</th>
                         <th class="col-2">Acc. Type</th>
                         <th class="col-3">Address</th>
+                        <th class="col-3">Mobile Number</th>
                         <th class="col-1">Status</th>
+                        <th class="col-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-light">
@@ -64,6 +67,10 @@
                             <td>{{ $user->account_number }}</td>
                             <td>{{ $user->account_type }}</td>
                             <td>{{ $user->address }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
+                            </td>
                             <td class="text-center">
                                 @if ($user->is_active)
                                     <i class="bi bi-check-circle-fill text-success fs-5"></i>
@@ -76,8 +83,12 @@
 
 
                 </tbody>
-            </table>
+            </table> --}}
         </div>
+
+        @push('scripts')
+            {{ $dataTable->scripts() }}
+        @endpush
 
         {{-- Model - Add Meter Reading --}}
         <div class="modal fade" id="modelNewCustomer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
