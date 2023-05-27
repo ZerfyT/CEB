@@ -6,6 +6,7 @@ use App\Models\MeterReading;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MReaderController extends Controller
@@ -83,6 +84,28 @@ class MReaderController extends Controller
 
             // return redirect()->route('mreader.readings', ['user_id' => $user->id]);
         }
+    }
+
+    /**
+     * Update Profile Info
+     */
+    public function updateProfileInfo(Request $request) {
+        $user = Auth::user();
+
+        $request->validate([
+            'fname' => 'string|max:255',
+            'email' => 'email|unique:users,email,' . $user->id,
+            'pNumber' => 'numeric|max:10'
+
+        ]);
+
+        $user->name = $request->fname;
+        $user->email = $request->email;
+        $user->phone = $request->pNumber;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile details updated successfully.');
+
     }
 
 
