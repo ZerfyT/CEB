@@ -24,7 +24,7 @@ Auth::routes();
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
     Route::get('/payment', 'cashierPayments')->name('payment-home');
-    Route::get('/payment/customer-bill/{customer_id}/{bill_id}', 'cashierCustomerBill')->name('customer-bill');
+    Route::get('/payment/customer-bill/{customer_id}', 'cashierCustomerBill')->name('customer-bill');
     Route::get('/payment/genarate-bill/{bill_id}', 'cashierGenarateBill')->name('genarate-bill');
     Route::get('/payment/paybill', 'cashierPay')->name('paybill');
     Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
