@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\DataTables\UsersDataTable;
 use App\Models\MeterReading;
 use App\Models\User;
 use Carbon\Carbon;
@@ -121,6 +122,17 @@ class MReaderController extends Controller
     }
 
 
+    // public function customerList($user_id = null)
+    // {
+    //     $users = User::where('role_id', 5);
+    //     if (isset($user_id)) {
+    //         $users = $users->where('id', $user_id);
+    //     }
+    //     $users = $users->get();
+    //     return view('mreader.customers-list', compact('users'));
+    // }
+
+    public function customerList(UsersDataTable $dataTable)
     // public function customerList($user_id = null)
     // {
     //     $users = User::where('role_id', 5);

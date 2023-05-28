@@ -54,7 +54,9 @@
                         <th class="col-2">Acc. Type</th>
                         <th class="col-3">Address</th>
                         <th class="col-3">Mobile Number</th>
+                        <th class="col-3">Mobile Number</th>
                         <th class="col-1">Status</th>
+                        <th class="col-3">Actions</th>
                         <th class="col-3">Actions</th>
                     </tr>
                 </thead>
@@ -71,6 +73,10 @@
                             <td>
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
                             </td>
+                            <td>{{ $user->phone }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
+                            </td>
                             <td class="text-center">
                                 @if ($user->is_active)
                                     <i class="bi bi-check-circle-fill text-success fs-5"></i>
@@ -83,6 +89,7 @@
 
 
                 </tbody>
+            </table> --}}
             </table> --}}
         </div>
 
