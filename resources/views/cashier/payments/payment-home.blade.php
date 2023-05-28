@@ -22,26 +22,32 @@
 
     {{-- Table --}}
     <div class="container py-4">
-        <table class="table table-sm table-bordered table-hover">
-            <thead class="bg-secondary">
-                <tr class="">
-                    <th class="col-1">ID</th>
-                    <th class="col-3">Account No</th>
-                    <th class="col-3">Name</th>
-                    <th class="col-3">Email Address</th>
+        <table id="customers-table" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Account No</th>
                 </tr>
-                
             </thead>
-            <tbody class="table-light">
+            <tbody>
                 @foreach ($customers as $customer)
-                    <tr onclick="window.location.href='{{ route('customer-bill',$customer->id) }}'">
-                        <th scope="row">{{ $customer->id }}</th>
-                        <td>{{ $customer->acount_number }}</td>
+                    <tr>
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->email }}</td>
+                        <td>{{ $customer->account_no }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+
+        @push('scripts')
+            <script>
+                $(document).ready(function() {
+                    $('#customers-table').DataTable();
+                });
+            </script>
+        @endpush
     </div>
 @endsection

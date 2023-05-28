@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Bill;
 use App\Models\Payment;
+use App\DataTables;
+use App\DataTables\UsersDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +30,7 @@ class CashierController extends Controller
     public function cashierPayments()
     {
         $customers = User::where('role_id', 5)->get();
-        return view('cashier.payments.payment-home', compact('customers'));
+        return DataTables::of($customers)->make(true);
     }
 
     public function cashierPay()

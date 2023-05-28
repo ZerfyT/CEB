@@ -32,6 +32,7 @@
 
             <main class="py-4 px-2">
                 @yield('content')
+                
             </main>
 
             @include('layouts.footer')
@@ -39,7 +40,7 @@
         </div>
 
     </div>
-
+    @stack('scripts')
 </body>
 
 </html>
