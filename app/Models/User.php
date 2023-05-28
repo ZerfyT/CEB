@@ -55,11 +55,18 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function meterReadings() {
+    public function meterReadings()
+    {
         return $this->hasMany(MeterReading::class);
     }
 
-    public static function getUserByAccountNumber($accountNumber) {
+    public static function getUserByAccountNumber($accountNumber)
+    {
         return User::where('account_number', $accountNumber)->first();
+    }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'user_id');
     }
 }

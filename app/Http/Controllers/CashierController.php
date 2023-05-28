@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Bill;
 use App\Models\Payment;
-use App\DataTables;
-use App\DataTables\UsersDataTable;
+use App\DataTables\CustomersDataTable;
+
+use App\DataTables\BillDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\DataTables\UsersDataTable;
+use App\DataTables\BillsDataTable;
+
 
 
 class CashierController extends Controller
@@ -27,23 +31,22 @@ class CashierController extends Controller
     }
 
     // Display customers in cashier payments page.
-    public function cashierPayments()
+    public function cashierPayments(CustomersDataTable $dataTable)
     {
-        $customers = User::where('role_id', 5)->get();
-        return DataTables::of($customers)->make(true);
+        return $dataTable->render('cashier.payments.payment-home');
     }
+
 
     public function cashierPay()
     {
         return view('cashier.payments.paybill');
     }
 
-    public function cashierCustomerBill(User $user)
-    {
+    public function cashierCustomerBill(BillsDataTable $dataTable)
+{
+    return $dataTable->render('cashier.payments.customer-bill');
+}
 
-        $bills = Bill::where('user_id', $user->id)->get();
-        return view('cashier.payments.customer-bill', ['user' => $user, 'bills' => $bills]);
-    }
 
     public function cashierGenarateBill(User $user_id)
     {
