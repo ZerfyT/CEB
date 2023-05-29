@@ -31,7 +31,7 @@
                     <th class="col-3">Name</th>
                     <th class="col-3">Email Address</th>
                 </tr>
-                
+
             </thead>
             <tbody class="table-light">
                 @foreach ($customers as $customer)

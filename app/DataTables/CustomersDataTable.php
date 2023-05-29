@@ -22,8 +22,9 @@ class CustomersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('action', function ($customer) {
-            return view('components.tb_buttons', ['customer' => $customer]);
+        ->addColumn('action', function ($user) {
+            return view('components.tb_buttons', ['user' => $user]);
+            // return '<a href="' . route('customer-bill', $user->id) . '">View Payments</a>';
         });
          // ->setRowId('id');
     }
@@ -44,7 +45,11 @@ class CustomersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('customers-table')
+            // ->setTableId('customers-table')
+            ->setTableAttributes([
+                'class' => 'table table-md table-bordered table-hover'
+            ])
+            ->setTableHeadClass('bg-secondary')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -74,6 +79,8 @@ class CustomersDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
+                ->orderable(false)
+                ->searchable(false)
                 // ->width(60)
                 ->addClass('text-center')
                 // ->render(function ($row) {

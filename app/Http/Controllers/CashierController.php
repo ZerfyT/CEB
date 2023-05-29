@@ -24,11 +24,13 @@ class CashierController extends Controller
         return view('cashier.email-history');
     }
 
+
     // Display cashier homepage.
     public function cashierHomepage()
     {
         return view('cashier.home');
     }
+
 
     // Display customers in cashier payments page.
     public function cashierPayments(CustomersDataTable $dataTable)
@@ -42,10 +44,13 @@ class CashierController extends Controller
         return view('cashier.payments.paybill');
     }
 
-    public function cashierCustomerBill(BillsDataTable $dataTable)
-{
-    return $dataTable->render('cashier.payments.customer-bill');
-}
+
+    public function cashierCustomerBill(User $user, BillsDataTable $dataTable)
+    {
+        // $bills = $user->bills();
+        $dataTable->setUser($user);
+        return $dataTable->render('cashier.payments.customer-bill');
+    }
 
 
     public function cashierGenarateBill(User $user_id)

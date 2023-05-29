@@ -14,6 +14,15 @@ use Yajra\DataTables\Services\DataTable;
 
 class BillsDataTable extends DataTable
 {
+
+    private $user;
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
     /**
      * Build the DataTable class.
      *
@@ -21,10 +30,11 @@ class BillsDataTable extends DataTable
      */
     public function dataTable($query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
-            ->addColumn('action', function ($bill) {
-                return view('components.tb_bill_buttons', ['bill' => $bill]);
-            });
+        return (new EloquentDataTable($query));
+        // return (new EloquentDataTable($query))
+        //     ->addColumn('action', function ($bill) {
+        //         return '<a href="' . route('users.payments', $user->id) . '">View Payments</a>';
+        //     });
         // ->setRowId('id');
     }
 
@@ -33,9 +43,10 @@ class BillsDataTable extends DataTable
      */
     public function query(Bill $model): QueryBuilder
     {
-        return $model->newQuery()->with('user')->whereHas('user', function ($query) {
-            $query->where('role_id', 5);
-        });
+        return $model->newQuery()->where('user_id', $this->user->id);
+        // return $model->newQuery()->with('user')->whereHas('user', function ($query) {
+        //     $query->where('role_id', 5);
+        // });
     }
     /**
      * Optional method if you want to use the html builder.
@@ -43,7 +54,7 @@ class BillsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('bills-table')
+            // ->setTableId('bills-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -70,11 +81,11 @@ class BillsDataTable extends DataTable
             Column::make('date'),
             Column::make('amount'),
             Column::make('status'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                // ->width(60)
-                ->addClass('text-center'),
+            // Column::computed('action')
+            //     ->exportable(false)
+            //     ->printable(false)
+            //     // ->width(60)
+            //     ->addClass('text-center'),
         ];
     }
 
