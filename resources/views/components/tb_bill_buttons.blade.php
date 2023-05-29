@@ -1,3 +1,3 @@
 <div class="btn-group">
-    <a href="" class="btn btn-sm btn-outline-success">View</a>
+    <a href="{{ route('genarate-bill', ['id' => $bill->id]) }}" class="btn btn-sm btn-outline-success">View</a>
 </div>

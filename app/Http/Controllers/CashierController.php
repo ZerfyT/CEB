@@ -55,12 +55,7 @@ class CashierController extends Controller
 
     public function cashierGenarateBill(User $user_id)
     {
-        $user_id = User::where('role_id', 5)->get();
-
-        $customer = User::find($user_id);
-        $billDetails = Bill::where('user_id', $user_id)->first();
-
-        // Pass the retrieved data to the view
+      // Pass the retrieved data to the view
         return view('cashier.payments.genarate-bill', compact('customer', 'billDetails'));
     }
 
