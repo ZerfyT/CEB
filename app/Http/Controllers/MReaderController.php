@@ -32,12 +32,23 @@ class MReaderController extends Controller
 
 
     /**
+     * Load Meter Reading Submit Form Modal
+     */
+    public function createMReadingModal($userId)
+    {
+        $user = User::findOrFail($userId);
+        return view('components.modal_add_reading')->with('user', $user);
+    }
+
+
+    /**
      * Add new Meter Reading to DB.
      */
-    public function addMReading(Request $request)
+    public function saveMReading(Request $request, $userId)
     {
-        $user = User::where('account_number', $request->accNo)->first();
-        $carbon = Carbon::createFromFormat('Y-m-d', $request->input('date'));
+        // $user = User::where('account_number', $request->accNo)->first();
+        $user = User::findOrFail($userId);
+        $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
         $dateSubmit = DB::table('meter_readings')
             ->whereYear('date', $carbon->year)
             ->whereMonth('date', $carbon->month)
@@ -90,7 +101,8 @@ class MReaderController extends Controller
     /**
      * Update Profile Info
      */
-    public function updateProfileInfo(Request $request) {
+    public function updateProfileInfo(Request $request)
+    {
         $user = Auth::user();
 
         $request->validate([
@@ -106,7 +118,6 @@ class MReaderController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Profile details updated successfully.');
-
     }
 
 
