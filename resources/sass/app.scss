@@ -107,19 +107,15 @@ a:focus {
         background-color: #cdcfd1;
     }
 }
-
-.cards-info .card{
-    cursor: pointer;
-    border-style: solid;
+.customer-say .card-wrp{
+    border-style:solid;
     border-color: rgba($color: #e7e2e2, $alpha: 1.0);
-    .card-body {
-        background-color: #f3f170;
-        :hover{
-            background-color: #ff771d;
-        }
+    border-radius: 10px;
+    .card-body{
+        padding: 10px;
     }
 }
-.customer-say .card-wrp{
+.features .card-wrp{
     border-style:solid;
     border-color: rgba($color: #e7e2e2, $alpha: 1.0);
     border-radius: 10px;
