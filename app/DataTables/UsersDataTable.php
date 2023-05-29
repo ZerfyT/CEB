@@ -24,7 +24,8 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('actions', function ($user) {
-                return view('components.tb_controllers', ['user' => $user]);
+                // return '<button class="btn btn-sm btn-outline-success rounded" data-bs-toggle="modal" data-bs-target="#modelMeterReading" data-user-id="'.$user->id.'">Add Reading</button>';
+                return view('components.tb_action_add_reading', ['user' => $user]);
             });
         // ->setRowId('id');
     }
@@ -44,6 +45,10 @@ class UsersDataTable extends DataTable
     {
         return $this->builder()
             ->setTableId('users-table')
+            ->setTableAttribute([
+                'class' => 'table table-bordered table-hover'
+            ])
+            ->setTableHeadClass('table-secondary')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
