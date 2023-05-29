@@ -89,6 +89,23 @@
         {{-- Model - Add Meter Reading --}}
         @include('components.modal_add_reading')
 
+        {{-- Model - Add Meter Reading --}}
+        <div class="modal fade" id="modelMeterReading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="AddMeterReadingLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="AddMeterReadingLabel">Add Meter Reading</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @include('components.modal_add_reading')
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
