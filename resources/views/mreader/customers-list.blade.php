@@ -23,7 +23,7 @@
             {{-- Register New Customer --}}
             <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
-                    data-bs-target="#modelNewCustomer">
+                        data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
