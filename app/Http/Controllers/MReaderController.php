@@ -36,11 +36,11 @@ class MReaderController extends Controller
     /**
      * Load Meter Reading Submit Form Modal
      */
-    public function createMReadingModal($userId)
-    {
-        $user = User::findOrFail($userId);
-        return view('components.modal_add_reading')->with('user', $user);
-    }
+//    public function createMReadingModal($userId)
+//    {
+//        $user = User::findOrFail($userId);
+//        return view('components.modal_add_reading')->with('user', $user);
+//    }
 
 
     /**
