@@ -19,7 +19,7 @@
                 <div class="container p-5 d-flex justify-content-start py-3">
                     <ul class="list-unstyled">
                         <li>
-                            <h5>{{ $billDetails->id }}</h5>
+                            <h5></h5>
                         </li>
                         <li class="">Domestic</li>
                     </ul>
@@ -55,7 +55,6 @@
 
 
             {{-- Bill --}}
-            @foreach ($customer->bills as $bill)
 
                 <div class="container py-3 d-flex justify-content-center">
                     <h3>2023 November</h3>
@@ -116,5 +115,4 @@
                 </div>
 
         </div>
-    @endforeach
 @endsection

@@ -6,8 +6,6 @@ use App\Models\User;
 use App\Models\Bill;
 use App\Models\Payment;
 use App\DataTables\CustomersDataTable;
-
-use App\DataTables\BillDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -53,10 +51,13 @@ class CashierController extends Controller
     }
 
 
-    public function cashierGenarateBill(User $user_id)
+    public function cashierGenarateBill($bill_id)
     {
+
+        $bill = Bill::findOrFail($bill_id);
+        $customer = $bill->user();
       // Pass the retrieved data to the view
-        return view('cashier.payments.genarate-bill', compact('customer', 'billDetails'));
+        return view('cashier.payments.genarate-bill', compact('bill','customer'));
     }
 
     // Display payment history of customers.

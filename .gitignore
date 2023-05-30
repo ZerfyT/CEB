@@ -18,3 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.tmp.driveupload
+public/{path where you want to save logs}
+{path where you want to save logs}

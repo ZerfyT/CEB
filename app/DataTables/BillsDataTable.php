@@ -30,12 +30,11 @@ class BillsDataTable extends DataTable
      */
     public function dataTable($query): EloquentDataTable
     {
-        return (new EloquentDataTable($query));
-        // return (new EloquentDataTable($query))
-        //     ->addColumn('action', function ($bill) {
-        //         return '<a href="' . route('users.payments', $user->id) . '">View Payments</a>';
-        //     });
-        // ->setRowId('id');
+        return (new EloquentDataTable($query))
+            ->addColumn('action', function ($bill_id) {
+                return view('components.tb_bill_buttons', ['bill_id' => $bill_id]);
+                // ->setRowId('id');
+            });
     }
 
     /**
@@ -81,11 +80,11 @@ class BillsDataTable extends DataTable
             Column::make('date'),
             Column::make('amount'),
             Column::make('status'),
-            // Column::computed('action')
-            //     ->exportable(false)
-            //     ->printable(false)
-            //     // ->width(60)
-            //     ->addClass('text-center'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                // ->width(60)
+                ->addClass('text-center'),
         ];
     }
 
