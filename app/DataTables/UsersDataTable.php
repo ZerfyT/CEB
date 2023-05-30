@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
@@ -28,6 +26,8 @@ class UsersDataTable extends DataTable
 
     /**
      * Get the query source of dataTable.
+     * @param User $user User
+     * @return QueryBuilder Query
      */
     public function query(User $model): QueryBuilder
     {
