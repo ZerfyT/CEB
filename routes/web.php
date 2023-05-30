@@ -47,7 +47,7 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::get('/profile', 'profile')->name('mreader.profile');
     Route::post('/registerCustomer', 'registerCustomer')->name('mreader.registerCustomer');
     Route::get('/readings/add-reading/{userId}', 'createMReadingModal')->name('mreader.createMReadingModal');
-    Route::post('/readings/add-reading/{userId}', 'saveMReading')->name('mreader.saveMReading');
+    Route::post('/readings/add-reading', 'saveMReading')->name('mreader.saveMReading');
     Route::get('/search/{page}', 'searchAccounts')->name('mreader.search');
     Route::post('/profile/update-info', 'updateProfileInfo')->name('mreader.updateProfileInfo');
 });
