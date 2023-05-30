@@ -34,21 +34,23 @@ class MReaderController extends Controller
     /**
      * Load Meter Reading Submit Form Modal
      */
-    public function createMReadingModal($userId)
-    {
-        $user = User::findOrFail($userId);
-        return view('components.modal_add_reading')->with('user', $user);
-    }
+//    public function createMReadingModal($userId)
+//    {
+//        $user = User::findOrFail($userId);
+//        return view('components.modal_add_reading')->with('user', $user);
+//    }
 
 
     /**
      * Add new Meter Reading to DB.
      */
-    public function saveMReading(Request $request, $userId)
+    public function saveMReading(Request $request)
     {
         // $user = User::where('account_number', $request->accNo)->first();
-        $user = User::findOrFail($userId);
+        $user = User::findOrFail($request->user_id);
+//        Debugger::info($user);
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
+
         $dateSubmit = DB::table('meter_readings')
             ->whereYear('date', $carbon->year)
             ->whereMonth('date', $carbon->month)
@@ -98,37 +100,33 @@ class MReaderController extends Controller
         }
     }
 
-    /**
-     * Update Profile Info
-     */
-    public function updateProfileInfo(Request $request)
+    public function customerList(UsersDataTable $dataTable)
     {
-        $user = Auth::user();
+        // $data = User::select('*');
+        // return DataTables::of($data)
+        //     ->addColumnIndex()
+        //     ->addColumn('action', function ($data) {
+        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+        //         return $btn;
+        //     })
+        //     ->rawColumns(['action'])
+        //     ->make(true);
+        // return view('mreader.customers-list');
 
-        $request->validate([
-            'fname' => 'string|max:255',
-            'email' => 'email|unique:users,email,' . $user->id,
-            'pNumber' => 'numeric|max:10'
-
-        ]);
-
-        $user->name = $request->fname;
-        $user->email = $request->email;
-        $user->phone = $request->pNumber;
-        $user->save();
-
-        return redirect()->back()->with('success', 'Profile details updated successfully.');
+        return $dataTable->render('mreader.customers-list');
     }
 
-
-
-    /**
-     * Routes for Meter Reader
-     */
-
-    public function index()
+    public function mReadings($user_id = null)
     {
-        return view('mreader.home');
+        $mReadings = DB::table('meter_readings')
+            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
+            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+
+        if (isset($user_id)) {
+            $mReadings->where('user_id', $user_id);
+        }
+        $mReadings = $mReadings->orderBy('users.address')->get();
+        return view('mreader.mreading-list', compact('mReadings'));
     }
 
 
@@ -153,36 +151,36 @@ class MReaderController extends Controller
     //     return view('mreader.customers-list', compact('users'));
     // }
 
-    public function customerList(UsersDataTable $dataTable)
+    /**
+     * Update Profile Info
+     */
+    public function updateProfileInfo(Request $request)
     {
-        // $data = User::select('*');
-        // return DataTables::of($data)
-        //     ->addColumnIndex()
-        //     ->addColumn('action', function ($data) {
-        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-        //         return $btn;
-        //     })
-        //     ->rawColumns(['action'])
-        //     ->make(true);
-        // return view('mreader.customers-list');
+        $user = Auth::user();
 
-        return $dataTable->render('mreader.customers-list');
+        $request->validate([
+            'fname' => 'string|max:255',
+            'email' => 'email|unique:users,email,' . $user->id,
+            'pNumber' => 'numeric|max:10'
+
+        ]);
+
+        $user->name = $request->fname;
+        $user->email = $request->email;
+        $user->phone = $request->pNumber;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile details updated successfully.');
     }
 
+    /**
+     * Routes for Meter Reader
+     */
 
-    public function mReadings($user_id = null)
+    public function index()
     {
-        $mReadings = DB::table('meter_readings')
-            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
-
-        if (isset($user_id)) {
-            $mReadings->where('user_id', $user_id);
-        }
-        $mReadings = $mReadings->orderBy('users.address')->get();
-        return view('mreader.mreading-list', compact('mReadings'));
+        return view('mreader.home');
     }
-
 
     public function profile()
     {

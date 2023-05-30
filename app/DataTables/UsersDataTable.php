@@ -4,13 +4,10 @@ namespace App\DataTables;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
@@ -25,13 +22,16 @@ class UsersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('actions', function ($user) {
                 // return '<button class="btn btn-sm btn-outline-success rounded" data-bs-toggle="modal" data-bs-target="#modelMeterReading" data-user-id="'.$user->id.'">Add Reading</button>';
-                return view('components.tb_action_add_reading', ['user' => $user]);
+                return view('components.tb_action_add_reading', compact('user'));
+
             });
         // ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
+     * @param User $user User
+     * @return QueryBuilder Query
      */
     public function query(User $model): QueryBuilder
     {

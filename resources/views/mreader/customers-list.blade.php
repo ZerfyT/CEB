@@ -20,23 +20,10 @@
 
 
         <div class="container d-flex justify-content-between align-items-end">
-            {{-- Search Button --}}
-            <div class="search">
-                <form method="GET" action="{{ route('mreader.search', ['page' => 'customers']) }}">
-                    @csrf
-                    <label for="AccountNo" class="rounded mb-1">Account No</label>
-                    <div class="input-group">
-                        <input type="search" name="searchKey" class="form-control rounded" placeholder="Search"
-                            aria-label="Search" aria-describedby="search-addon" />
-                        <button type="submit" class="btn btn-outline-success">Search</button>
-                    </div>
-                </form>
-            </div>
-
-            {{-- Add Meter Reading (Manual) --}}
+            {{-- Register New Customer --}}
             <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
-                    data-bs-target="#modelNewCustomer">
+                        data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
@@ -95,61 +82,12 @@
         @push('scripts')
             {{ $dataTable->scripts() }}
         @endpush
-        @stack('scripts')
+
+        {{-- Model - Register New Customer --}}
+        @include('components.modal_register_new_customer')
 
         {{-- Model - Add Meter Reading --}}
-        <div class="modal fade" id="modelNewCustomer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="NewCustomerLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="NewCustomerLabel">Register New Customer</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('mreader.registerCustomer') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="fname" class="col-form-label">Full Name:</label>
-                                <input type="text" class="form-control" id="fname" name="fname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="col-form-label">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="col-form-label">Address:</label>
-                                <input type="text" class="form-control" id="address" name="address" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="pNumber" class="col-form-label">Phone Number:</label>
-                                <input type="number" class="form-control" id="pNumber" name="pNumber" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-outline-success" name="submit">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Model - Add Meter Reading --}}
-        <div class="modal fade" id="modelMeterReading" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="AddMeterReadingLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="AddMeterReadingLabel">Add Meter Reading</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @include('components.modal_add_reading')
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @include('components.modal_add_reading')
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -161,5 +99,5 @@
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
-        @endif
-    @endsection
+    @endif
+@endsection
