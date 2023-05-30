@@ -36,11 +36,11 @@ class MReaderController extends Controller
     /**
      * Load Meter Reading Submit Form Modal
      */
-    public function createMReadingModal($userId)
-    {
-        $user = User::findOrFail($userId);
-        return view('components.modal_add_reading')->with('user', $user);
-    }
+//    public function createMReadingModal($userId)
+//    {
+//        $user = User::findOrFail($userId);
+//        return view('components.modal_add_reading')->with('user', $user);
+//    }
 
 
     /**
@@ -139,7 +139,16 @@ class MReaderController extends Controller
      */
     public function updateProfileInfo(Request $request)
     {
-        $user = Auth::user();
+        // $data = User::select('*');
+        // return DataTables::of($data)
+        //     ->addColumnIndex()
+        //     ->addColumn('action', function ($data) {
+        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+        //         return $btn;
+        //     })
+        //     ->rawColumns(['action'])
+        //     ->make(true);
+        // return view('mreader.customers-list');
 
         $data = $request->validate([
             'fname' => 'string|max:255',
@@ -228,7 +237,15 @@ class MReaderController extends Controller
 
     public function index()
     {
-        return view('mreader.home');
+        $mReadings = DB::table('meter_readings')
+            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
+            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+
+        if (isset($user_id)) {
+            $mReadings->where('user_id', $user_id);
+        }
+        $mReadings = $mReadings->orderBy('users.address')->get();
+        return view('mreader.mreading-list', compact('mReadings'));
     }
 
     public function profile()
