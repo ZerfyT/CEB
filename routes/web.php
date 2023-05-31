@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\MReaderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\CustomerController;
 
 
 Auth::routes();
+
+Route::get('auth/google', [GoogleAuthController::class,'redirect'])->name('google-auth');
+Route::get('auth/google/callback', [GoogleAuthController::class,'callbackGoogle']);
 
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
