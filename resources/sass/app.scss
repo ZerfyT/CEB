@@ -147,20 +147,11 @@ a:focus {
     }
 }
 
-.navigation{
     ul li a{
         color: #f8d303;
         
     }
-}
 
-
-@mixin card-icon-color($color, $background) {
-    .card-icon {
-        color: $color;
-        background: $background;
-    }
-}
 
 .sales-card {
     @include card-icon-color(#4154f1, #f6f6fe);
