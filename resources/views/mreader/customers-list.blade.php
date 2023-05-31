@@ -23,7 +23,7 @@
             {{-- Register New Customer --}}
             <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
-                        data-bs-target="#modelNewCustomer">
+                    data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
@@ -89,15 +89,4 @@
         {{-- Model - Add Meter Reading --}}
         @include('components.modal_add_reading')
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-    @endif
-@endsection
+    @endsection

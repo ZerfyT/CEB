@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
 use App\Models\MeterReading;
 use App\Models\User;
@@ -33,16 +34,6 @@ class MReaderController extends Controller
 
 
     /**
-     * Load Meter Reading Submit Form Modal
-     */
-//    public function createMReadingModal($userId)
-//    {
-//        $user = User::findOrFail($userId);
-//        return view('components.modal_add_reading')->with('user', $user);
-//    }
-
-
-    /**
      * Add new Meter Reading to DB.
      */
     public function saveMReading(Request $request)
@@ -53,6 +44,7 @@ class MReaderController extends Controller
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
 
         $dateSubmit = DB::table('meter_readings')
+            ->where('user_id', $user->id)
             ->whereYear('date', $carbon->year)
             ->whereMonth('date', $carbon->month)
             ->exists();
@@ -117,40 +109,20 @@ class MReaderController extends Controller
         return $dataTable->render('mreader.customers-list');
     }
 
-    public function mReadings($user_id = null)
+    public function mReadings(MeterReadingsDataTable $dataTable)
     {
-        $mReadings = DB::table('meter_readings')
-            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+        // $mReadings = DB::table('meter_readings')
+        //     ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
+        //     ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
 
-        if (isset($user_id)) {
-            $mReadings->where('user_id', $user_id);
-        }
-        $mReadings = $mReadings->orderBy('users.address')->get();
-        return view('mreader.mreading-list', compact('mReadings'));
+        // if (isset($user_id)) {
+        //     $mReadings->where('user_id', $user_id);
+        // }
+        // $mReadings = $mReadings->orderBy('users.address')->get();
+        // return view('mreader.mreading-list', compact('mReadings'));
+        return $dataTable->render('mreader.mreading-list');
     }
 
-
-    // public function customerList($user_id = null)
-    // {
-    //     $users = User::where('role_id', 5);
-    //     if (isset($user_id)) {
-    //         $users = $users->where('id', $user_id);
-    //     }
-    //     $users = $users->get();
-    //     return view('mreader.customers-list', compact('users'));
-    // }
-
-    // public function customerList(UsersDataTable $dataTable)
-    // public function customerList($user_id = null)
-    // {
-    //     $users = User::where('role_id', 5);
-    //     if (isset($user_id)) {
-    //         $users = $users->where('id', $user_id);
-    //     }
-    //     $users = $users->get();
-    //     return view('mreader.customers-list', compact('users'));
-    // }
 
     /**
      * Update Profile Info

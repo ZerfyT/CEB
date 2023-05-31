@@ -14,4 +14,9 @@ class MeterReading extends Model
         'meter_reading',
         'date',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

@@ -40,6 +40,18 @@
 
     </div>
 
+    @if ($errors->any())
+        @include('components.alert_error', ['message' => $errors->first()])
+    @endif
+
+    @if (session('error'))
+        @include('components.alert_error', ['message' => session('error')])
+    @endif
+
+    @if (session('success'))
+        @include('components.alert_success', ['message' => session('success')])
+    @endif
+
     @stack('scripts')
 
 </body>
