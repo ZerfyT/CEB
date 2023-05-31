@@ -17,22 +17,6 @@
         {{-- Heading --}}
         <h2 class="fw-bold">Profile Info</h2>
 
-        @if ($errors->any())
-            @include('components.alert_error', ['message' => $errors->first()])
-        @endif
-        @if (Session::get('error') && Session::get('error') != null)
-            @include('components.alert_error', ['message' => Session::get('error')])
-            @php
-                Session::put('error', null);
-            @endphp
-        @endif
-        @if (Session::get('success') && Session::get('success') != null)
-            @include('components.alert_success', ['message' => Session::get('success')])
-            @php
-                Session::put('success', null);
-            @endphp
-        @endif
-
         <div class="container">
             <div class="row border rounded shadow-sm">
                 <div class="col-md-6 border border-top-0 border-bottom-0 border-start-0 shadow-sm">
