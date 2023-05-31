@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class MReaderController extends Controller
 {
@@ -21,7 +22,7 @@ class MReaderController extends Controller
         $user = User::create([
             'name' => $request->fname,
             'email' => $request->email,
-            'password' => bcrypt('password'),
+            'password' => Hash::make('password'),
             'phone' => $request->pNumber,
             'address' => $request->address,
             'role_id' => '5',
@@ -105,22 +106,61 @@ class MReaderController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
+        $data = $request->validate([
             'fname' => 'string|max:255',
+            'nic' => 'max:12',
             'email' => 'email|unique:users,email,' . $user->id,
-            'pNumber' => 'numeric|max:10'
-
+            'address' => 'max:255',
+            'pNumber' => 'max:10'
         ]);
 
-        $user->name = $request->fname;
-        $user->email = $request->email;
-        $user->phone = $request->pNumber;
-        $user->save();
+        $user->update([
+            'name' => $data['fname'] ?? $user->name,
+            'nic' => $data['nic'] ?? $user->nic,
+            'email' => $data['email'] ?? $user->email,
+            'address' => $data['address'] ?? $user->address,
+            'phone' => $data['pNumber'] ?? $user->phone,
+            'update_at' => now()
+        ]);
+
+        // $user->name = $request->fname;
+        // // $user->nic = $request->nic ?? '';
+        // $user->email = $request->email;
+        // // $user->address = $request->address ?? ' ';
+        // $user->phone = $request->pNumber ?? ' ';
+        // $user->save();
 
         return redirect()->back()->with('success', 'Profile details updated successfully.');
     }
 
 
+
+    /**
+     * Update Profile Password
+     */
+    public function updateProfilePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'currentPassword' => 'required|string|max:255',
+            'newPassword' => 'required|confirmed|string|min:8|max:255',
+            'confirmPassword' => 'required|string|max:255',
+        ]);
+
+        if (!Hash::check($request->currentPassword, $user->password))
+        {
+            return redirect()->back()->with('error', "Current Password is Invalid");
+        }
+
+        if (strcmp($request->currentPassword, $request->newPassword) == 0)
+        {
+            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
+        }
+
+        $user->password =  Hash::make($request->newPassword);
+        $user->save();
+        return redirect()->back()->with('success', "Password Changed Successfully");
+    }
 
     /**
      * Routes for Meter Reader

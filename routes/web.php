@@ -50,6 +50,7 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::post('/readings/add-reading', 'saveMReading')->name('mreader.saveMReading');
     Route::get('/search/{page}', 'searchAccounts')->name('mreader.search');
     Route::post('/profile/update-info', 'updateProfileInfo')->name('mreader.updateProfileInfo');
+    Route::post('/profile/update-passwd', 'updateProfilePassword')->name('mreader.updateProfilePassword');
 });
 
 
