@@ -66,8 +66,8 @@
                         </div>
                         <div class="icon text-center mt-3">
                             <a href="{{ route('google-auth') }}" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-google"></i></a>
-                            {{-- <a href="" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-facebook"></i></a>
-                            <a href="" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-apple"></i></i></a> --}}
+                            <a href="{{ route('facebook-auth') }}" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-facebook"></i></a>
+                            {{-- <a href="" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-apple"></i></i></a> --}}
                         </div>
                     </form>
                 </div>
