@@ -32,6 +32,9 @@ Route::get('auth/google/callback', [GoogleAuthController::class,'callbackGoogle'
 Route::get('auth/facebook', [FacebookAuthController::class,'redirect'])->name('facebook-auth');
 Route::get('auth/facebook/callback', [FacebookAuthController::class,'facebookCallback']);
 
+Route::get('auth/facebook', [FacebookAuthController::class,'redirect'])->name('facebook-auth');
+Route::get('auth/facebook/callback', [FacebookAuthController::class,'facebookCallback']);
+
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
     Route::get('/payment', 'cashierPayments')->name('payment-home');
