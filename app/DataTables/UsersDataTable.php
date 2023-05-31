@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
@@ -22,16 +20,22 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            // ->addColumn('action', 'users.action')
-            ->setRowId('id');
+            ->addColumn('actions', function ($user) {
+                // return '<button class="btn btn-sm btn-outline-success rounded" data-bs-toggle="modal" data-bs-target="#modelMeterReading" data-user-id="'.$user->id.'">Add Reading</button>';
+                return view('components.tb_action_add_reading', compact('user'));
+
+            });
+        // ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
+     * @param User $user User
+     * @return QueryBuilder Query
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->where('role_id', 5);
     }
 
     /**
@@ -40,20 +44,24 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('users-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('users-table')
+            ->setTableAttribute([
+                'class' => 'table table-bordered table-hover'
+            ])
+            ->setTableHeadClass('table-secondary')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -62,18 +70,18 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
             Column::make('address'),
             Column::make('account_number'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('actions')
+                ->title('Actions')
+                ->exportable(false)
+                ->printable(false)
+                // ->width(300)
+                ->addClass('text-center')
+            // ->view('components.tb_controllers') // Blade view for the actions column
         ];
     }
 
