@@ -65,4 +65,6 @@ class User extends Authenticatable
     public static function getUserByAccountNumber($accountNumber) {
         return User::where('account_number', $accountNumber)->first();
     }
+
+    
 }

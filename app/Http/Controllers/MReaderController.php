@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
 use App\Models\MeterReading;
 use App\Models\User;
@@ -51,6 +52,7 @@ class MReaderController extends Controller
         $user = User::findOrFail($userId);
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
         $dateSubmit = DB::table('meter_readings')
+            ->where('user_id', $user->id)
             ->whereYear('date', $carbon->year)
             ->whereMonth('date', $carbon->month)
             ->exists();
@@ -99,6 +101,37 @@ class MReaderController extends Controller
         }
     }
 
+    public function customerList(UsersDataTable $dataTable)
+    {
+        // $data = User::select('*');
+        // return DataTables::of($data)
+        //     ->addColumnIndex()
+        //     ->addColumn('action', function ($data) {
+        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+        //         return $btn;
+        //     })
+        //     ->rawColumns(['action'])
+        //     ->make(true);
+        // return view('mreader.customers-list');
+
+        return $dataTable->render('mreader.customers-list');
+    }
+
+    public function mReadings(MeterReadingsDataTable $dataTable)
+    {
+        // $mReadings = DB::table('meter_readings')
+        //     ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
+        //     ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+
+        // if (isset($user_id)) {
+        //     $mReadings->where('user_id', $user_id);
+        // }
+        // $mReadings = $mReadings->orderBy('users.address')->get();
+        // return view('mreader.mreading-list', compact('mReadings'));
+        return $dataTable->render('mreader.mreading-list');
+    }
+
+
     /**
      * Update Profile Info
      */
@@ -133,7 +166,32 @@ class MReaderController extends Controller
         return redirect()->back()->with('success', 'Profile details updated successfully.');
     }
 
+    /**
+     * Update Profile Password
+     */
+    public function updateProfilePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'currentPassword' => 'required|string|max:255',
+            'newPassword' => 'required|confirmed|string|min:8|max:255',
+            'confirmPassword' => 'required|string|max:255',
+        ]);
 
+        if (!Hash::check($request->currentPassword, $user->password))
+        {
+            return redirect()->back()->with('error', "Current Password is Invalid");
+        }
+
+        if (strcmp($request->currentPassword, $request->newPassword) == 0)
+        {
+            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
+        }
+
+        $user->password =  Hash::make($request->newPassword);
+        $user->save();
+        return redirect()->back()->with('success', "Password Changed Successfully");
+    }
 
     /**
      * Update Profile Password
@@ -170,37 +228,6 @@ class MReaderController extends Controller
     {
         return view('mreader.home');
     }
-
-
-    // public function customerList($user_id = null)
-    // {
-    //     $users = User::where('role_id', 5);
-    //     if (isset($user_id)) {
-    //         $users = $users->where('id', $user_id);
-    //     }
-    //     $users = $users->get();
-    //     return view('mreader.customers-list', compact('users'));
-    // }
-
-    public function customerList(UsersDataTable $dataTable)
-    {
-        return $dataTable->render('mreader.customers-list');
-    }
-
-
-    public function mReadings($user_id = null)
-    {
-        $mReadings = DB::table('meter_readings')
-            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
-
-        if (isset($user_id)) {
-            $mReadings->where('user_id', $user_id);
-        }
-        $mReadings = $mReadings->orderBy('users.address')->get();
-        return view('mreader.mreading-list', compact('mReadings'));
-    }
-
 
     public function profile()
     {

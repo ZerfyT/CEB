@@ -2,15 +2,17 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\MeterReading;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UsersDataTable extends DataTable
+class MeterReadingsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -20,22 +22,16 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('actions', function ($user) {
-                // return '<button class="btn btn-sm btn-outline-success rounded" data-bs-toggle="modal" data-bs-target="#modelMeterReading" data-user-id="'.$user->id.'">Add Reading</button>';
-                return view('components.tb_action_add_reading', compact('user'));
-
-            });
-        // ->setRowId('id');
+            // ->addColumn('action', 'meterreadings.action')
+            ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
-     * @param User $user User
-     * @return QueryBuilder Query
      */
-    public function query(User $model): QueryBuilder
+    public function query(MeterReading $model): QueryBuilder
     {
-        return $model->newQuery()->where('role_id', 5);
+        return $model->join('users', 'users.id', '=', 'meter_readings.user_id')->newQuery();
     }
 
     /**
@@ -44,7 +40,7 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('users-table')
+            ->setTableId('meterreadings-table')
             ->setTableAttribute([
                 'class' => 'table table-bordered table-hover'
             ])
@@ -71,17 +67,11 @@ class UsersDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('address'),
+            Column::make('user_id'),
             Column::make('account_number'),
-            Column::computed('actions')
-                ->title('Actions')
-                ->exportable(false)
-                ->printable(false)
-                // ->width(300)
-                ->addClass('text-center')
-            // ->view('components.tb_controllers') // Blade view for the actions column
+            Column::make('name'),
+            Column::make('meter_reading'),
+            Column::make('date'),
         ];
     }
 
@@ -90,6 +80,6 @@ class UsersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'MeterReadings_' . date('YmdHis');
     }
 }
