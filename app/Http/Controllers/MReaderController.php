@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
 use App\Models\MeterReading;
 use App\Models\User;
@@ -33,16 +34,6 @@ class MReaderController extends Controller
 
 
     /**
-     * Load Meter Reading Submit Form Modal
-     */
-//    public function createMReadingModal($userId)
-//    {
-//        $user = User::findOrFail($userId);
-//        return view('components.modal_add_reading')->with('user', $user);
-//    }
-
-
-    /**
      * Add new Meter Reading to DB.
      */
     public function saveMReading(Request $request)
@@ -53,6 +44,7 @@ class MReaderController extends Controller
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
 
         $dateSubmit = DB::table('meter_readings')
+            ->where('user_id', $user->id)
             ->whereYear('date', $carbon->year)
             ->whereMonth('date', $carbon->month)
             ->exists();
