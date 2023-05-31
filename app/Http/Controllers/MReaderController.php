@@ -34,23 +34,15 @@ class MReaderController extends Controller
 
 
     /**
-     * Load Meter Reading Submit Form Modal
-     */
-    public function createMReadingModal($userId)
-    {
-        $user = User::findOrFail($userId);
-        return view('components.modal_add_reading')->with('user', $user);
-    }
-
-
-    /**
      * Add new Meter Reading to DB.
      */
-    public function saveMReading(Request $request, $userId)
+    public function saveMReading(Request $request)
     {
         // $user = User::where('account_number', $request->accNo)->first();
-        $user = User::findOrFail($userId);
+        $user = User::findOrFail($request->user_id);
+//        Debugger::info($user);
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
+
         $dateSubmit = DB::table('meter_readings')
             ->where('user_id', $user->id)
             ->whereYear('date', $carbon->year)
@@ -164,33 +156,6 @@ class MReaderController extends Controller
         // $user->save();
 
         return redirect()->back()->with('success', 'Profile details updated successfully.');
-    }
-
-    /**
-     * Update Profile Password
-     */
-    public function updateProfilePassword(Request $request)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'currentPassword' => 'required|string|max:255',
-            'newPassword' => 'required|confirmed|string|min:8|max:255',
-            'confirmPassword' => 'required|string|max:255',
-        ]);
-
-        if (!Hash::check($request->currentPassword, $user->password))
-        {
-            return redirect()->back()->with('error', "Current Password is Invalid");
-        }
-
-        if (strcmp($request->currentPassword, $request->newPassword) == 0)
-        {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-        }
-
-        $user->password =  Hash::make($request->newPassword);
-        $user->save();
-        return redirect()->back()->with('success', "Password Changed Successfully");
     }
 
     /**
