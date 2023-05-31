@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\MReaderController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\GoogleAuthController;
 
 /*
@@ -22,6 +23,9 @@ use App\Http\Controllers\GoogleAuthController;
 
 Auth::routes();
 
+
+Route::get('auth/facebook', [FacebookAuthController::class,'redirect'])->name('facebook-auth');
+Route::get('auth/facebook/callback', [FacebookAuthController::class,'facebookCallback']);
 
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
