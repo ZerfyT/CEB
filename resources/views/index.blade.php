@@ -2,11 +2,14 @@
 
 @section('content')
 <!-- carousel -->
-<div class="container-fluid">
-    <div class="carousel slide" id="carouselID" data-bs-ride="carousel">
+<div class="container-fluid carousel-full">
+    <div class="carousel slide carousel-slide" id="carouselID" data-bs-ride="carousel" data-interval="50">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="{{ asset('img/H-img/3.jpg') }}" alt="" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h6 class="text-dark"><small>Norochcholai Coal Power Plant</small></h6>
+                </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('img/H-img/6.jpg') }}" alt="" class="d-block w-100">
@@ -17,8 +20,6 @@
             <div class="carousel-item">
                 <img src="{{ asset('img/H-img/5.jpg') }}" alt="" class="d-block w-100">
             </div>
-
-
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselID" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -29,7 +30,15 @@
             </button>
         </div>
     </div>
+
+    <div class="carousel-text text-center" style="background-color: rgba(0, 0, 0, 0.9);">
+        <h1 class="text-warning fw-bold">ENRICH LIFE THROUGH POWER</h1>
+        <H3 class="text-light">ILLUMINATING THE MOTHERLAND</H3>
+    </div>
+
 </div>
+
+
 <hr class="hr" />
 <div class="container">
     <div class="ceb-about">
@@ -61,6 +70,9 @@
                         <h1 class="fw-bold lead">ONLINE PAYMENT</h1>
                         <p class="card-text">Settle your bill by credit card through the CEB Quick Payment Mode.
                             Just Enter your CEB Account Number and you are good to Pay ! CEB Quick Payment Mode.</p>
+                        <div class="button">
+                            <a href="" class="btn btn-warning w-25">Go</a>
+                        </div>
                     </div>
                     <div class="img-wrp">
                         <img src="{{ asset('img/back-img/on-pay.jpg') }}" alt="" class="card-img rounded">
@@ -75,6 +87,9 @@
                         <h1 class="lead fw-bold">ONLINE BILL</h1>
                         <p class="card-text">Settle your bill by credit card through the CEB Quick Payment Mode.
                             Just Enter your CEB Account Number and you are good to Pay ! CEB Quick Payment Mode.</p>
+                        <div class="button">
+                            <a href="" class="btn btn-warning w-25">Go</a>
+                        </div>
                     </div>
                     <div class="img-wrp">
                         <img src="{{ asset('img/back-img/on-pay.jpg') }}" alt="" class="card-img rounded">
@@ -102,9 +117,13 @@
                         <img src="{{ asset('img/back-img/person.jpg') }}" alt="" class="card-img rounded">
                     </div>
                     <div class="card-body">
-                        <h5 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
-                                autem quibusdam aliquid dolorum suscipit, rerum perferendis,
-                                spernatur iste adipisci necessitatibus.</small></h5>
+                        <h6 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
+                                autem quibusdam aliquid dolorum suscipit, rerum perferendis
+                                .......</small></h6>
+
+                        <div class="button">
+                            <a href="" class="btn btn-warning">See More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,9 +133,13 @@
                         <img src="{{ asset('img/back-img/person.jpg') }}" alt="" class="card-img rounded">
                     </div>
                     <div class="card-body">
-                        <h5 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
-                                autem quibusdam aliquid dolorum suscipit, rerum perferendis,
-                                spernatur iste adipisci necessitatibus.</small></h5>
+                        <h6 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
+                                autem quibusdam aliquid dolorum suscipit, rerum perferendis 
+                                .......</small></h6>
+
+                        <div class="button">
+                            <a href="" class="btn btn-warning">See More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,9 +149,13 @@
                         <img src="{{ asset('img/back-img/person.jpg') }}" alt="" class="card-img rounded">
                     </div>
                     <div class="card-body">
-                        <h5 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
-                                autem quibusdam aliquid dolorum suscipit, rerum perferendis,
-                                spernatur iste adipisci necessitatibus.</small></h5>
+                        <h6 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
+                                autem quibusdam aliquid dolorum suscipit, rerum perferendis
+                                .......</small></h6>
+
+                        <div class="button">
+                            <a href="" class="btn btn-warning">See More</a>
+                        </div>
                     </div>
                 </div>
             </div>

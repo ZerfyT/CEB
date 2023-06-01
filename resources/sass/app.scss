@@ -107,20 +107,36 @@ a:focus {
         background-color: #cdcfd1;
     }
 }
-.customer-say .card-wrp{
-    border-style:solid;
-    border-color: rgba($color: #e7e2e2, $alpha: 1.0);
+
+.customer-say .card-wrp {
+    border-style: solid;
+    border-color: rgba($color: #e7e2e2, $alpha: 1);
     border-radius: 10px;
-    .card-body{
+    .card-body {
         padding: 10px;
     }
 }
-.features .card-wrp{
-    border-style:solid;
-    border-color: rgba($color: #e7e2e2, $alpha: 1.0);
+.features .card-wrp {
+    border-style: solid;
+    border-color: rgba($color: #e7e2e2, $alpha: 1);
     border-radius: 10px;
-    .card-body{
+    .card-body {
         padding: 10px;
+    }
+}
+.carousel-full {
+    .carousel-slide {
+        .carousel-inner {
+            .carousel-item {
+                img {
+                    height: 550px;
+                }
+            }
+        }
+    }
+    .carousel-text {
+        position: relative;
+        margin-top: -85px;
     }
 }
 
