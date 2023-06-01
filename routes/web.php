@@ -32,7 +32,7 @@ Route::get('auth/facebook/callback', [FacebookAuthController::class,'facebookCal
 Route::get('auth/facebook', [FacebookAuthController::class,'redirect'])->name('facebook-auth');
 Route::get('auth/facebook/callback', [FacebookAuthController::class,'facebookCallback']);
 
-Route::middleware(['auth', 'role:cashier'])->prefix('cashier')->group(function () { 
+Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
     Route::get('/payment', 'cashierPayments')->name('payment-home');
     Route::get('/payment/customer-bill/{user}', 'cashierCustomerBill')->name('customer-bill');
