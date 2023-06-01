@@ -13,7 +13,7 @@
                     <input type="hidden" name="user_id" id="user_id">
                     <div class="mb-3">
                         <label for="accNo" class="col-form-label">Account No:</label>
-                        <input type="number" class="form-control" id="accNo" name="accNo" value="$user->account_number">
+                        <input type="number" class="form-control" id="accNo" name="accNo">
                     </div>
                     <div class="mb-3">
                         <label for="date" class="col-form-label">Date:</label>

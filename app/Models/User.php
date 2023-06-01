@@ -61,10 +61,10 @@ class User extends Authenticatable
         return $this->hasMany(MeterReading::class);
     }
 
-    public static function getUserByAccountNumber($accountNumber)
-    {
-        return User::where('account_number', $accountNumber)->first();
-    }
+    // public static function getUserByAccountNumber($accountNumber)
+    // {
+    //     return User::where('account_number', $accountNumber)->first();
+    // }
 
     public function bills()
     {

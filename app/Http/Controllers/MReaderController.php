@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\EBill;
+use App\Classes\EBillGenerator;
 use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
+use App\Jobs\SendBillAfterMReading;
+use App\Models\Bill;
 use App\Models\MeterReading;
 use App\Models\User;
+use App\Queries\SharedQuery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +45,7 @@ class MReaderController extends Controller
     {
         // $user = User::where('account_number', $request->accNo)->first();
         $user = User::findOrFail($request->user_id);
-//        Debugger::info($user);
+        //        Debugger::info($user);
         $carbon = Carbon::createFromFormat('Y-m-d', $request->date);
 
         $dateSubmit = DB::table('meter_readings')
@@ -51,12 +56,18 @@ class MReaderController extends Controller
 
         if ($user) {
             if (!$dateSubmit) {
+                // Save New Reading
                 $mReading = MeterReading::create([
                     'user_id' => $user->id,
                     'meter_reading' => $request->reading,
                     'date' => $request->date,
                 ]);
                 $mReading->save();
+
+                // Add to Queue - Generate Ebill to send Email
+                SendBillAfterMReading::dispatch($user);
+                // dispatch(new SendBillAfterMReading($user));
+
                 return redirect()->back()->with('success', 'Meter Reading added successfully.');
             } else {
                 return redirect()->back()->with('error', 'Already added.');
@@ -170,17 +181,15 @@ class MReaderController extends Controller
             'confirmPassword' => 'required|string|max:255',
         ]);
 
-        if (!Hash::check($request->currentPassword, $user->password))
-        {
+        if (!Hash::check($request->currentPassword, $user->password)) {
             return redirect()->back()->with('error', "Current Password is Invalid");
         }
 
-        if (strcmp($request->currentPassword, $request->newPassword) == 0)
-        {
+        if (strcmp($request->currentPassword, $request->newPassword) == 0) {
             return redirect()->back()->with("error", "New Password cannot be same as your current password.");
         }
 
-        $user->password =  Hash::make($request->newPassword);
+        $user->password = Hash::make($request->newPassword);
         $user->save();
         return redirect()->back()->with('success', "Password Changed Successfully");
     }
