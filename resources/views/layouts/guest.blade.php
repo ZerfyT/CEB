@@ -25,9 +25,9 @@
 
         <div class="main-content w-100">
 
-            @include('layouts.header')
+            @include('layouts.navbar')
 
-            <main class="py-4 px-2">
+            <main class="py-0 px-0">
                 @yield('content')
             </main>
 
