@@ -57,7 +57,7 @@
             {{-- Bill --}}
 
                 <div class="container py-3 d-flex justify-content-center">
-                    <h3>2023 November</h3>
+                    <h3>{{ $ebill->previousMeterReadingDate }}</h3>
                 </div>
 
                 <div class="container px-5">
@@ -70,40 +70,40 @@
                             </tr>
                             <tr>
                                 <td colspan="4">Last Meter Reading</td>
-                                <td colspan="4">2023/11/1</td>
-                                <td colspan="2">1100</td>
+                                <td colspan="4">{{ $ebill->lastMeterReadingDate }}</td>
+                                <td colspan="2">{{ $ebill->lastMeterReading }}</td>
                             </tr>
                             <tr>
                                 <td colspan="4">Previous Meter Reading</td>
-                                <td colspan="4">2023/10/1</td>
-                                <td colspan="3">1000</td>
+                                <td colspan="4">{{ $ebill->previousMeterReadingDate }}</td>
+                                <td colspan="3">{{ $ebill->previousMeterReading }}</td>
                             </tr>
                             <tr>
                                 <th colspan="8">Units</th>
-                                <th colspan="2">100</th>
+                                <th colspan="2">{{ $ebill->units }}</th>
                             </tr>
                             <tr>
                                 <td colspan="10"></td>
                             </tr>
                             <tr>
                                 <td colspan="8">Fixed Charge(Rs.)</td>
-                                <td colspan="2">1500.00</td>
+                                <td colspan="2">{{ $ebill->getFixedCharges() }}</td>
                             </tr>
                             <tr>
                                 <td colspan="8">Total Charge For Units(Rs.)</td>
-                                <td colspan="2">3000.00</td>
+                                <td colspan="2">{{ $ebill->getTotalPriceForUnits() }}</td>
                             </tr>
                             <tr>
                                 <td colspan="8">Total Charge For Month(Rs.)</td>
-                                <td colspan="2">4500.00</td>
+                                <td colspan="2">{{ $ebill->getTotalPriceForMonth() }}</td>
                             </tr>
                             <tr>
                                 <td colspan="8">Brought Forwared Balance(Rs.)</td>
-                                <td colspan="2">60.00</td>
+                                <td colspan="2">{{ $ebill->forwardBalance }}</td>
                             </tr>
                             <tr>
                                 <th colspan="8">Total Amount</th>
-                                <th colspan="2"><span class="border-bottom border-danger">4560.00</span></th>
+                                <th colspan="2"><span class="border-bottom border-danger">{{ $ebill->getTotalPrice() }}</span></th>
                             </tr>
                         </tbody>
                     </table>

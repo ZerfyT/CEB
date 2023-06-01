@@ -6,7 +6,7 @@
 
 @section('content')
     <label class="form-control" for="floatingInput">Payment</label> <br>
-    <h2 class="fw-bold">Payment</h2>
+    <h2 class="fw-bold">Customer Bills</h2>
 
     {{-- Table --}}
     <div class="container py-4">
