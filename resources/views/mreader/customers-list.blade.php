@@ -23,7 +23,7 @@
             {{-- Register New Customer --}}
             <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
-                    data-bs-target="#modelNewCustomer">
+                        data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
@@ -32,7 +32,7 @@
         {{-- Table --}}
         <div class="container py-4">
             {{ $dataTable->table() }}
-            {{-- <table class="table table-bordered table-hover">
+            {{-- <table id="users-table" class="table table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col-1">ID</th>
@@ -41,7 +41,9 @@
                         <th class="col-2">Acc. Type</th>
                         <th class="col-3">Address</th>
                         <th class="col-3">Mobile Number</th>
+                        <th class="col-3">Mobile Number</th>
                         <th class="col-1">Status</th>
+                        <th class="col-3">Actions</th>
                         <th class="col-3">Actions</th>
                     </tr>
                 </thead>
@@ -54,6 +56,10 @@
                             <td>{{ $user->account_number }}</td>
                             <td>{{ $user->account_type }}</td>
                             <td>{{ $user->address }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
+                            </td>
                             <td>{{ $user->phone }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
@@ -76,6 +82,9 @@
         @push('scripts')
             {{ $dataTable->scripts() }}
         @endpush
+
+        {{-- Model - Register New Customer --}}
+        @include('components.modal_register_new_customer')
 
         {{-- Model - Add Meter Reading --}}
         @include('components.modal_add_reading')
