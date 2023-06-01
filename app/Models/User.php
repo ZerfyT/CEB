@@ -23,6 +23,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'address',
+        'phone',
+        'nic'
     ];
 
     /**
@@ -44,8 +47,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $attributes = [
+        'role_id' => 5,
+    ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function meterReadings()
+    {
+        return $this->hasMany(MeterReading::class);
+    }
+
+    public static function getUserByAccountNumber($accountNumber)
+    {
+        return User::where('account_number', $accountNumber)->first();
+    }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class, 'user_id');
     }
 }

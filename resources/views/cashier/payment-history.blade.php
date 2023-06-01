@@ -22,38 +22,28 @@
     
     {{-- Table --}}
     <div class="container py-4">
-        <table class="table table-sm table-bordered table-hover">
+        <table class="table table-sm table-bordered table-hover" id="paymentTable">
             <thead class="bg-secondary">
               <tr class="">
-                <th class="col-1">ID</th>
-                <th class="col-3">Account No</th>
-                <th class="col-3">Date</th>
-                <th class="col-3">Address</th>
-                <th class="col-2">Status</th>
+                <th class="col-2">Payment Id</th>
+                <th class="col-2">Bill Id</th>
+                <th class="col-2">Date</th>
+                <th class="col-2">Amount</th>
+                <th class="col-2">Paid Amount</th>
+                <th class="col-2">Balance</th>
               </tr>
             </thead>
             <tbody class="table-light">
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Paid</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Paid</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-                <td>Paid</td>
-              </tr>
+              @foreach ($payments as $payment)
+                  <tr>
+                      <th scope="row">{{ $payment->id }}</th>
+                      <td>{{ $payment->bill_id }}</td>
+                      <td>{{ $payment->date }}</td>
+                      <td>{{ $payment->amount }}</td>
+                      <td>{{ $payment->paid_amount }}</td>
+                      <td>{{ $payment->balance }}</td>
+                  </tr>
+                   @endforeach
             </tbody>
           </table>
     </div>

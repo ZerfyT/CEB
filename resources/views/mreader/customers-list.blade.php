@@ -20,19 +20,10 @@
 
 
         <div class="container d-flex justify-content-between align-items-end">
-            {{-- Search Button --}}
-            <div class="search">
-                <label for="AccountNo" class="rounded mb-1">Account No</label>
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-success">Search</button>
-                </div>
-            </div>
-
-            {{-- Add Meter Reading (Manual) --}}
+            {{-- Register New Customer --}}
             <div class="add-customer">
-                <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal" data-bs-target="#modelNewCustomer">
+                <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
+                    data-bs-target="#modelNewCustomer">
                     <i class="bi bi-plus-lg mx-1"></i>New Customer
                 </button>
             </div>
@@ -40,79 +31,62 @@
 
         {{-- Table --}}
         <div class="container py-4">
-            <table class="table table-bordered table-hover">
+            {{ $dataTable->table() }}
+            {{-- <table id="users-table" class="table table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col-1">ID</th>
-                        <th class="col-3">Account No</th>
-                        <th class="col-3">Acc. Type</th>
                         <th class="col-3">Name</th>
+                        <th class="col-2">Account No</th>
+                        <th class="col-2">Acc. Type</th>
                         <th class="col-3">Address</th>
-                        <th class="col-2">Status</th>
+                        <th class="col-3">Mobile Number</th>
+                        <th class="col-3">Mobile Number</th>
+                        <th class="col-1">Status</th>
+                        <th class="col-3">Actions</th>
+                        <th class="col-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">1</th>
-                        <td>456222467</td>
-                        <td>Domestic</td>
-                        <td>Larry the Bird</td>
-                        <td>Galle</td>
-                        <td>Deactive</td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">2</th>
-                        <td>456222467</td>
-                        <td>Thornton</td>
-                        <td>Domestic</td>
-                        <td>Baddegama</td>
-                        <td>Active</td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">3</th>
-                        <td>456222467</td>
-                        <td>Domestic</td>
-                        <td>Thomas</td>
-                        <td>Galle</td>
-                        <td>Active</td>
-                    </tr>
+
+                    @foreach ($users as $user)
+                        <tr onclick="window.location.href=''">
+                            <th scope="row">{{ $user->id }}</th>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->account_number }}</td>
+                            <td>{{ $user->account_type }}</td>
+                            <td>{{ $user->address }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
+                            </td>
+                            <td>{{ $user->phone }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="tooltip">Add Readings</button>
+                            </td>
+                            <td class="text-center">
+                                @if ($user->is_active)
+                                    <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                                @else
+                                    <i class="bi bi-x-circle-fill text-danger fs-5">
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
+
                 </tbody>
-            </table>
+            </table> --}}
         </div>
 
+        @push('scripts')
+            {{ $dataTable->scripts() }}
+        @endpush
+
+        {{-- Model - Register New Customer --}}
+        @include('components.modal_register_new_customer')
+
         {{-- Model - Add Meter Reading --}}
-        <div class="modal fade" id="modelNewCustomer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="NewCustomerLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="NewCustomerLabel">Register New Customer</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="fname" class="col-form-label">Full Name:</label>
-                                <input type="text" class="form-control" id="fname">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="col-form-label">Email:</label>
-                                <input type="email" class="form-control" id="email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="col-form-label">Address:</label>
-                                <input type="text" class="form-control" id="address">
-                            </div>
-                            <div class="mb-3">
-                                <label for="pNumber" class="col-form-label">Phone Number:</label>
-                                <input type="number" class="form-control" id="pNumber">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-success">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('components.modal_add_reading')
+
     @endsection

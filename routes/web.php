@@ -21,16 +21,17 @@ use App\Http\Controllers\CustomerController;
 
 Auth::routes();
 
+
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
     Route::get('/payment', 'cashierPayments')->name('payment-home');
-    Route::get('/payment/customer-bill', 'cashierCustomerBill')->name('customer-bill');
-    Route::get('/payment/genarate-bill', 'cashierGenarateBill')->name('genarate-bill');
+    Route::get('/payment/customer-bill/{user}', 'cashierCustomerBill')->name('customer-bill');
+    Route::get('/payment/genarate-bill/{billId}', 'cashierGenarateBill')->name('genarate-bill');
     Route::get('/payment/paybill', 'cashierPay')->name('paybill');
     Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
-    Route::get('profile', 'cashierProfile')->name('profile');
+    Route::get('/profile', 'cashierProfile')->name('profile');
     Route::get('/payment-history', 'cashierPaymentHistory')->name('payment-history');
-    Route::get('email-history', 'cashierEmail')->name('email-history');
+    Route::get('/email-history', 'cashierEmail')->name('email-history');
     Route::get('/user', 'getUser')->name('user');
 });
 
@@ -39,32 +40,18 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::get('/customers', 'customerList')->name('mreader.customers');
     Route::get('/readings', 'mReadings')->name('mreader.readings');
     Route::get('/profile', 'profile')->name('mreader.profile');
+    Route::post('/registerCustomer', 'registerCustomer')->name('mreader.registerCustomer');
+    Route::get('/readings/add-reading/{userId}', 'createMReadingModal')->name('mreader.createMReadingModal');
+    Route::post('/readings/add-reading', 'saveMReading')->name('mreader.saveMReading');
+    Route::get('/search/{page}', 'searchAccounts')->name('mreader.search');
+    Route::post('/profile/update-info', 'updateProfileInfo')->name('mreader.updateProfileInfo');
+    Route::post('/profile/update-passwd', 'updateProfilePassword')->name('mreader.updateProfilePassword');
 });
 
 
-// Route::group(['middleware' => 'auth'], function () {
-
-//     Route::middleware(['role:cashier'])->controller(CashierController::class)->group(function () {
-//         Route::get('/', 'cashierHomepage')->name('home');
-//         Route::get('/payment', 'cashierPayments')->name('payment-home');
-//         Route::get('/payment/customer-bill', 'cashierCustomerBill')->name('customer-bill');
-//         Route::get('/payment/genarate-bill', 'cashierGenarateBill')->name('genarate-bill');
-//         Route::get('/payment/paybill', 'cashierPay')->name('paybill');
-//         Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
-//         Route::get('profile', 'cashierProfile')->name('profile');
-//         Route::get('/payment-history', 'cashierPaymentHistory')->name('payment-history');
-//         Route::get('email-history', 'cashierEmail')->name('email-history');
-//         Route::get('/user', 'getUser')->name('user');
-//     });
 
 
-//     Route::middleware(['role:meter-reader'])->controller(MReaderController::class)->group(function () {
-//         Route::get('/', 'index')->name('mreader.home');
-//         Route::get('/customers', 'customerList')->name('mreader.customers');
-//         Route::get('/readings', 'mReadings')->name('mreader.readings');
-//         Route::get('/profile', 'profile')->name('mreader.profile');
-//     });
-// });
+
 
 Route::get('/error', function () {
     return view('error');

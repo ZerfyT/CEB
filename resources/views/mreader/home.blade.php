@@ -68,7 +68,7 @@
                     <div class="col-xxl-4 col-xl-12">
                         <div class="card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">Readings <span>| Total</span></h5>
+                                <h5 class="card-title fw-bold">Readings <span>| Total</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-pencil-square"></i>

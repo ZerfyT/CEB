@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -32,6 +32,7 @@
 
             <main class="py-4 px-2">
                 @yield('content')
+
             </main>
 
             @include('layouts.footer')
@@ -39,6 +40,20 @@
         </div>
 
     </div>
+
+    @if ($errors->any())
+        @include('components.alert_error', ['message' => $errors->first()])
+    @endif
+
+    @if (session('error'))
+        @include('components.alert_error', ['message' => session('error')])
+    @endif
+
+    @if (session('success'))
+        @include('components.alert_success', ['message' => session('success')])
+    @endif
+
+    @stack('scripts')
 
 </body>
 

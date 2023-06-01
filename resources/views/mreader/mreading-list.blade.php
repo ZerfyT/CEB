@@ -19,61 +19,43 @@
         <h2 class="fw-bold">Meter Readings</h2>
 
 
-        <div class="container d-flex justify-content-between align-items-end">
-            {{-- Search Button --}}
-            <div class="search">
-                <label for="AccountNo" class="rounded mb-1">Account No</label>
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-success">Search</button>
-                </div>
-            </div>
+        {{-- <div class="container d-flex justify-content-between align-items-end"> --}}
 
             {{-- Add Meter Reading (Manual) --}}
-            <div class="add-customer">
+            {{-- <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
                     data-bs-target="#modelMeterReading">
                     <i class="bi bi-plus-lg mx-1"></i>New Reading
                 </button>
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
 
         {{-- Table --}}
         <div class="container py-4">
-            <table class="table table-sm table-bordered table-hover">
+            {{ $dataTable->table( )}}
+            {{-- <table class="table table-sm table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
-                        <th class="col-1">ID</th>
-                        <th class="col-3">Account No</th>
-                        <th class="col-3">Date</th>
-                        <th class="col-3">Meter Reading</th>
-                        <th class="col-2">Status</th>
+                        <th class="col">ID</th>
+                        <th class="col">Address</th>
+                        <th class="col">Name</th>
+                        <th class="col">Account No</th>
+                        <th class="col">Meter Reading</th>
+                        <th class="col">Date</th>
                     </tr>
                 </thead>
                 <tbody class="table-light">
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">1</th>
-                        <td>456222467</td>
-                        <td>2023 / 2 / 10</td>
-                        <td>23566</td>
-                        <td class="text-center"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">2</th>
-                        <td>456222468</td>
-                        <td>2023 / 2 / 10</td>
-                        <td>23566</td>
-                        <td class="text-center"><i class="bi bi-check-circle-fill text-success fs-5"></i></td>
-                    </tr>
-                    <tr onclick="window.location.href=''">
-                        <th scope="row">3</th>
-                        <td>456222469</td>
-                        <td>2023 / 2 / 10</td>
-                        <td>23566</td>
-                        <td class="text-center"><i class="bi bi-x-circle-fill text-danger fs-5"></i></td>
-                    </tr>
-                </tbody>
+                    @foreach ($mReadings as $mReading)
+                        <tr onclick="window.location.href=''">
+                            <th scope="row">{{ $mReading->id }}</th>
+                            <td>{{ $mReading->address }}</td>
+                            <td>{{ $mReading->name }}</td>
+                            <td>{{ $mReading->account_number }}</td>
+                            <td>{{ $mReading->meter_reading }}</td>
+                            <td>{{ $mReading->date }}</td>
+                        </tr>
+                    @endforeach
+                </tbody> --}}
             </table>
         </div>
 
@@ -87,25 +69,31 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="POST" action="{{ route('mreader.saveMReading') }}">
+                            @csrf
                             <div class="mb-3">
                                 <label for="accNo" class="col-form-label">Account No:</label>
-                                <input type="number" class="form-control" id="accNo">
+                                <input type="number" class="form-control" id="accNo" name="accNo">
                             </div>
                             <div class="mb-3">
                                 <label for="date" class="col-form-label">Date:</label>
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" id="date" name="date">
                             </div>
                             <div class="mb-3">
                                 <label for="reading" class="col-form-label">Reading:</label>
-                                <input type="number" class="form-control" id="reading">
+                                <input type="number" class="form-control" id="reading" name="reading">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-success">Save</button>
+                                <button type="submit" class="btn btn-outline-success" name="submit">Save</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        @push('scripts')
+            {{ $dataTable->scripts() }}
+        @endpush
+
     @endsection
