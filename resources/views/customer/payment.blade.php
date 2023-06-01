@@ -15,15 +15,12 @@
             <div class="vr"></div>
             <a href="" class="btn btn-primary-link btn floating"><small>Payment History</small></a>
         </div>
-        <div class="head-1 mt-2">
-            <p class="h5">Payment History</p>
-            <p class="h6">Welcome to your E-bill online portal</p>
-        </div>
-        <div class="container con">
+        
+        <div class="container">
+            <div class="head-1 mt-2">
+                <p class="h5">Payment History</p>
+            </div>
             <div class="head-2 d-flex justify-content-between">
-                <div class="state">
-                    <p class="h5">Electricity Account Statement</p>
-                </div>
                 <div class="cus_add">
                     <div class="h6">K James Edward</div>
                     <div class="h6">No 18, Main road</div>
