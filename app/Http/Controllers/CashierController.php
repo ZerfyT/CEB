@@ -43,19 +43,20 @@ class CashierController extends Controller
     }
 
 
-    public function cashierCustomerBill(User $user, BillsDataTable $dataTable)
+    public function cashierCustomerBill($userId, BillsDataTable $dataTable)
     {
         // $bills = $user->bills();
-        $dataTable->setUser($user);
+        $dataTable->setUserId($userId);
         return $dataTable->render('cashier.payments.customer-bill');
     }
 
 
-    public function cashierGenarateBill($bill_id)
+    public function cashierGenarateBill($billId)
     {
 
-        $bill = Bill::findOrFail($bill_id);
-        $customer = $bill->user();
+        $bill = Bill::findOrFail($billId);
+        // $customer = $bill->user();
+        $customer = User::findOrFail($billId);
       // Pass the retrieved data to the view
         return view('cashier.payments.genarate-bill', compact('bill','customer'));
     }

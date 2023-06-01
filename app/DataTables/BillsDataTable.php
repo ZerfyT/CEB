@@ -15,11 +15,11 @@ use Yajra\DataTables\Services\DataTable;
 class BillsDataTable extends DataTable
 {
 
-    private $user;
+    private $userId;
 
-    public function setUser($user)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
@@ -31,8 +31,8 @@ class BillsDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($bill_id) {
-                return view('components.tb_bill_buttons', ['bill_id' => $bill_id]);
+            ->addColumn('action', function ($bill) {
+                return view('components.tb_bill_buttons', compact('bill'));
                 // ->setRowId('id');
             });
     }
@@ -42,7 +42,7 @@ class BillsDataTable extends DataTable
      */
     public function query(Bill $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', $this->user->id);
+        return $model->newQuery()->where('user_id', $this->userId);
         // return $model->newQuery()->with('user')->whereHas('user', function ($query) {
         //     $query->where('role_id', 5);
         // });
