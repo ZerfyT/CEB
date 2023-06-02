@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Classes\EBill;
-use App\Classes\EBillGenerator;
 use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
 use App\Jobs\SendBillAfterMReading;
-use App\Models\Bill;
 use App\Models\MeterReading;
 use App\Models\User;
-use App\Queries\SharedQuery;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +17,6 @@ use Illuminate\Support\Facades\Hash;
 
 class MReaderController extends Controller
 {
-
     /**
      * Register a new Customer
      */
@@ -34,9 +31,9 @@ class MReaderController extends Controller
             'role_id' => '5',
         ]);
         $user->save();
+
         return redirect()->route('mreader.customers');
     }
-
 
     /**
      * Add new Meter Reading to DB.
@@ -55,7 +52,7 @@ class MReaderController extends Controller
             ->exists();
 
         if ($user) {
-            if (!$dateSubmit) {
+            if (! $dateSubmit) {
                 // Save New Reading
                 $mReading = MeterReading::create([
                     'user_id' => $user->id,
@@ -68,6 +65,10 @@ class MReaderController extends Controller
                 SendBillAfterMReading::dispatch($user);
                 // dispatch(new SendBillAfterMReading($user));
 
+                // $pdf = Pdf::loadFile(public_path('ebill2pdf.html'))
+                //     ->save(public_path('mybill.pdf'));
+                // $pdf->download();
+
                 return redirect()->back()->with('success', 'Meter Reading added successfully.');
             } else {
                 return redirect()->back()->with('error', 'Already added.');
@@ -77,7 +78,6 @@ class MReaderController extends Controller
         }
     }
 
-
     /**
      * Search User by Account Number
      */
@@ -85,7 +85,7 @@ class MReaderController extends Controller
     {
         // $user = User::getUserByAccountNumber($request->searchKey);
         $user = User::where('account_number', $request->searchKey)->first();
-        if (!$user) {
+        if (! $user) {
             return redirect()->back()->with('error', 'User Not Found');
         }
 
@@ -93,11 +93,12 @@ class MReaderController extends Controller
             // $users = $user;
             // return redirect()->route('mreader.customers', compact('users'));
             return $this->customerList($user->id);
-        } else if ($page == 'mReadings') {
+        } elseif ($page == 'mReadings') {
             $mReadings = MeterReading::where('user_id', $user->id)->get();
-            if (!$mReadings) {
+            if (! $mReadings) {
                 return redirect()->back()->with('error', 'No Readings found.');
             }
+
             return $this->mReadings($user->id);
 
             // return redirect()->route('mreader.readings', ['user_id' => $user->id]);
@@ -134,7 +135,6 @@ class MReaderController extends Controller
         return $dataTable->render('mreader.mreading-list');
     }
 
-
     /**
      * Update Profile Info
      */
@@ -145,9 +145,9 @@ class MReaderController extends Controller
         $data = $request->validate([
             'fname' => 'string|max:255',
             'nic' => 'max:12',
-            'email' => 'email|unique:users,email,' . $user->id,
+            'email' => 'email|unique:users,email,'.$user->id,
             'address' => 'max:255',
-            'pNumber' => 'max:10'
+            'pNumber' => 'max:10',
         ]);
 
         $user->update([
@@ -156,7 +156,7 @@ class MReaderController extends Controller
             'email' => $data['email'] ?? $user->email,
             'address' => $data['address'] ?? $user->address,
             'phone' => $data['pNumber'] ?? $user->phone,
-            'update_at' => now()
+            'update_at' => now(),
         ]);
 
         // $user->name = $request->fname;
@@ -181,23 +181,23 @@ class MReaderController extends Controller
             'confirmPassword' => 'required|string|max:255',
         ]);
 
-        if (!Hash::check($request->currentPassword, $user->password)) {
-            return redirect()->back()->with('error', "Current Password is Invalid");
+        if (! Hash::check($request->currentPassword, $user->password)) {
+            return redirect()->back()->with('error', 'Current Password is Invalid');
         }
 
         if (strcmp($request->currentPassword, $request->newPassword) == 0) {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
+            return redirect()->back()->with('error', 'New Password cannot be same as your current password.');
         }
 
         $user->password = Hash::make($request->newPassword);
         $user->save();
-        return redirect()->back()->with('success', "Password Changed Successfully");
+
+        return redirect()->back()->with('success', 'Password Changed Successfully');
     }
 
     /**
      * Routes for Meter Reader
      */
-
     public function index()
     {
         return view('mreader.home');

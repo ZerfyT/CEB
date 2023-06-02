@@ -3,15 +3,16 @@
 namespace App\Classes;
 
 use App\Models\User;
-use \Illuminate\Support\Collection;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Dompdf;
 use function Psy\debug;
 
 class EBillGenerator
 {
-
     private $meterReadings;
+
     private $payments;
+
     private User $user;
 
     public function __construct($meterReadings, User $user, $payments = null)
@@ -20,7 +21,6 @@ class EBillGenerator
         $this->user = $user;
         $this->payments = $payments;
     }
-
 
     public function createEbill()
     {
@@ -53,6 +53,7 @@ class EBillGenerator
                 $readingOld->date,
                 $lastPayment
             );
+
             return $ebill;
         } elseif ($count == 1) {
             $readingNew = $this->meterReadings->first();
@@ -64,10 +65,32 @@ class EBillGenerator
                 '',
                 $lastPayment
             );
+
             return $ebill;
-        }
-        else{
+        } else {
             return null;
         }
+    }
+
+    /**
+     * Create PDF File
+     */
+    public static function generatePdf()
+    {
+        // $domPDF = new Dompdf();
+        // $domPDF->loadHtml(storage_path('app\public\ebill2pdf.html'));
+        // $domPDF->setPaper('A4', 'portrait');
+        // $domPDF->render();
+        // $pdfContent = $domPDF->output();
+        // $pdfPath = storage_path('app\public\mybill.pdf');
+        // file_put_contents($pdfPath, $pdfContent);
+
+        // return $pdfPath;
+
+        $pdfPath = storage_path('app\public\mybill.pdf');
+        $pdf = Pdf::loadView('layouts.ebill2pdf')
+            ->save($pdfPath);
+        // $pdf->download();
+        return $pdfPath;
     }
 }

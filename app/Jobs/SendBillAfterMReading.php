@@ -3,21 +3,23 @@
 namespace App\Jobs;
 
 use App\Classes\EBillGenerator;
+use App\Mail\SendPDFEmail;
 use App\Models\Bill;
 use App\Models\User;
 use App\Queries\SharedQuery;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class SendBillAfterMReading implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $tries = 3;
+
     // public $backoff = 1;
     private User $user;
 
@@ -41,9 +43,13 @@ class SendBillAfterMReading implements ShouldQueue
             'user_id' => $this->user->id,
             'status' => '1',
             'amount' => $eBillGen->createEbill()->getTotalPriceForMonth(),
-            'date' => now()
+            'date' => now(),
         ]);
         $bill->save();
+
+        $pdfPath = EBillGenerator::generatePdf();
+
+        Mail::to('abc@email.com')->send(new SendPDFEmail($pdfPath, 'Generated PDF'));
     }
 
     // public function retryUntil()
