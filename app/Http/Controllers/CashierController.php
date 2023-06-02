@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Classes\EBillGenerator;
+use App\DataTables\BillsDataTable;
+use App\DataTables\CustomersDataTable;
 use App\Models\Bill;
 use App\Models\Payment;
-use App\DataTables\CustomersDataTable;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use App\DataTables\UsersDataTable;
-use App\DataTables\BillsDataTable;
-use App\Models\MeterReading;
-use App\Classes\EBill;
-use App\Classes\EBillGenerator;
+use App\Models\User;
 use App\Queries\SharedQuery;
-use Illuminate\Support\Facades\DB;
 
 class CashierController extends Controller
 {
@@ -25,13 +18,11 @@ class CashierController extends Controller
         return view('cashier.email-history');
     }
 
-
     // Display cashier homepage.
     public function cashierHomepage()
     {
         return view('cashier.home');
     }
-
 
     // Display customers in cashier payments page.
     public function cashierPayments(CustomersDataTable $dataTable)
@@ -39,20 +30,18 @@ class CashierController extends Controller
         return $dataTable->render('cashier.payments.payment-home');
     }
 
-
     public function cashierPay()
     {
         return view('cashier.payments.paybill');
     }
 
-
     public function cashierCustomerBill($userId, BillsDataTable $dataTable)
     {
         // $bills = $user->bills();
         $dataTable->setUserId($userId);
+
         return $dataTable->render('cashier.payments.customer-bill');
     }
-
 
     public function cashierGenarateBill($billId)
     {
@@ -68,6 +57,7 @@ class CashierController extends Controller
         if ($eBill != null) {
             return view('cashier.payments.genarate-bill', compact('bill', 'customer', 'ebill'));
         }
+
         return redirect()->back()->with('error', 'No Data');
     }
 
@@ -75,6 +65,7 @@ class CashierController extends Controller
     public function cashierPaymentHistory()
     {
         $payments = Payment::all();
+
         return view('cashier.payment-history', compact('payments'));
     }
 

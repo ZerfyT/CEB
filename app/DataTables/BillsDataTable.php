@@ -8,13 +8,10 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class BillsDataTable extends DataTable
 {
-
     private $userId;
 
     public function setUserId($userId)
@@ -23,10 +20,11 @@ class BillsDataTable extends DataTable
 
         return $this;
     }
+
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param  QueryBuilder  $query Results from query() method.
      */
     public function dataTable($query): EloquentDataTable
     {
@@ -47,6 +45,7 @@ class BillsDataTable extends DataTable
         //     $query->where('role_id', 5);
         // });
     }
+
     /**
      * Optional method if you want to use the html builder.
      */
@@ -65,7 +64,7 @@ class BillsDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -93,6 +92,6 @@ class BillsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Bills_' . date('YmdHis');
+        return 'Bills_'.date('YmdHis');
     }
 }

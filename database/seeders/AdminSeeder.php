@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
@@ -18,7 +17,7 @@ class AdminSeeder extends Seeder
             'role_id' => 1,
             'name' => 'Super-Admin Test',
             'email' => 'superadmin@gmail.com',
-            'password' => bcrypt('11111111')
+            'password' => bcrypt('11111111'),
         ]);
         $superAdmin->assignRole('super-admin');
 
@@ -27,7 +26,7 @@ class AdminSeeder extends Seeder
             'role_id' => 2,
             'name' => 'Admin Test',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('11111111')
+            'password' => bcrypt('11111111'),
         ]);
         $admin->assignRole('admin');
 
@@ -36,7 +35,7 @@ class AdminSeeder extends Seeder
             'role_id' => 3,
             'name' => 'Cashier Test',
             'email' => 'cashier@gmail.com',
-            'password' => bcrypt('11111111')
+            'password' => bcrypt('11111111'),
         ]);
         $cashier->assignRole('cashier');
 
@@ -45,7 +44,7 @@ class AdminSeeder extends Seeder
             'role_id' => 4,
             'name' => 'Meter-Reader Test',
             'email' => 'mreader@gmail.com',
-            'password' => bcrypt('11111111')
+            'password' => bcrypt('11111111'),
         ]);
         $mReader->assignRole('meter-reader');
 
@@ -54,7 +53,7 @@ class AdminSeeder extends Seeder
             'role_id' => 5,
             'name' => 'User Test',
             'email' => 'user@gmail.com',
-            'password' => bcrypt('11111111')
+            'password' => bcrypt('11111111'),
         ]);
         $user->assignRole('user');
     }

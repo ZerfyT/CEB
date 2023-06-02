@@ -5,20 +5,33 @@ namespace App\Classes;
 class EBill
 {
     public string $accountNumber;
+
     public int $lastMeterReading;
+
     public int $previousMeterReading;
+
     public string $lastMeterReadingDate;
+
     public string $previousMeterReadingDate;
+
     public float $forwardBalance;
+
     public float $totalFirstRange = 0.0;
+
     public float $totalSecondRange = 0.0;
+
     public float $totalThirdRange = 0.0;
 
     private const FIXED_CHARGES_FIRST = 500.0;
+
     private const FIXED_CHARGES_SECOND = 1000.0;
+
     private const FIXED_CHARGES_THIRD = 1500.0;
+
     private const PRICE_FIRST_RANGE = 20.0;
+
     private const PRICE_SECOND_RANGE = 35.0;
+
     private const PRICE_THIRD_RANGE = 40.0;
 
     public $units;
@@ -41,17 +54,17 @@ class EBill
         $this->calculateBill();
     }
 
-    function getTotalPriceForUnits()
+    public function getTotalPriceForUnits()
     {
         return $this->totalFirstRange + $this->totalSecondRange + $this->totalThirdRange;
     }
 
-    function getTotalPriceForMonth()
+    public function getTotalPriceForMonth()
     {
         return $this->getTotalPriceForUnits() + $this->getFixedCharges();
     }
 
-    function getFixedCharges()
+    public function getFixedCharges()
     {
         if ($this->units < 30) {
             return self::FIXED_CHARGES_FIRST;
@@ -62,7 +75,7 @@ class EBill
         }
     }
 
-    function getTotalPrice()
+    public function getTotalPrice()
     {
         return $this->getTotalPriceForMonth() - $this->forwardBalance;
     }

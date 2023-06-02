@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CustomersDataTable extends DataTable
@@ -17,16 +15,16 @@ class CustomersDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param  QueryBuilder  $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-        ->addColumn('action', function ($user) {
-            return view('components.tb_buttons', ['user' => $user]);
-            // return '<a href="' . route('customer-bill', $user->id) . '">View Payments</a>';
-        });
-         // ->setRowId('id');
+            ->addColumn('action', function ($user) {
+                return view('components.tb_buttons', ['user' => $user]);
+                // return '<a href="' . route('customer-bill', $user->id) . '">View Payments</a>';
+            });
+        // ->setRowId('id');
     }
 
     /**
@@ -36,7 +34,7 @@ class CustomersDataTable extends DataTable
     {
         return $model->newQuery()
             ->where('role_id', 5);
-            // ->select('id', 'account_number', 'name', 'email', 'address');
+        // ->select('id', 'account_number', 'name', 'email', 'address');
     }
 
     /**
@@ -47,7 +45,7 @@ class CustomersDataTable extends DataTable
         return $this->builder()
             // ->setTableId('customers-table')
             ->setTableAttributes([
-                'class' => 'table table-md table-bordered table-hover'
+                'class' => 'table table-md table-bordered table-hover',
             ])
             ->setTableHeadClass('bg-secondary')
             ->columns($this->getColumns())
@@ -61,7 +59,7 @@ class CustomersDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -82,17 +80,18 @@ class CustomersDataTable extends DataTable
                 ->orderable(false)
                 ->searchable(false)
                 // ->width(60)
-                ->addClass('text-center')
-                // ->render(function ($row) {
-                    // return '<button class="btn btn-sm btn-primary" onclick="viewCustomer(' . $row->id . ')">View</button>';
-                // }),
+                ->addClass('text-center'),
+            // ->render(function ($row) {
+            // return '<button class="btn btn-sm btn-primary" onclick="viewCustomer(' . $row->id . ')">View</button>';
+            // }),
         ];
     }
+
     /**
      * Get the filename for export.
      */
     protected function filename(): string
     {
-        return 'Customers_' . date('YmdHis');
+        return 'Customers_'.date('YmdHis');
     }
 }

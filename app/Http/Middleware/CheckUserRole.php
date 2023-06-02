@@ -16,11 +16,12 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if(Auth::check()) {
-            if(Auth::user()->hasAnyRole($roles)) {
+        if (Auth::check()) {
+            if (Auth::user()->hasAnyRole($roles)) {
                 return $next($request);
             }
         }
+
         return redirect()->route('error')->with('error', 'Unauthorized access.');
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CashierController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MReaderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CashierController;
-use App\Http\Controllers\MReaderController;
-use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +17,7 @@ use App\Http\Controllers\CustomerController;
 |
 */
 
-
 Auth::routes();
-
 
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
@@ -47,11 +44,6 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::post('/profile/update-info', 'updateProfileInfo')->name('mreader.updateProfileInfo');
     Route::post('/profile/update-passwd', 'updateProfilePassword')->name('mreader.updateProfilePassword');
 });
-
-
-
-
-
 
 Route::get('/error', function () {
     return view('error');

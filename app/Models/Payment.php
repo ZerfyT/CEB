@@ -16,7 +16,7 @@ class Payment extends Model
         'amount',
         'paid_amount',
         'balance',
-        'date'
+        'date',
     ];
 
     public function bills()

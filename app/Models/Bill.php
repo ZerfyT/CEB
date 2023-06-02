@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Bill extends Model
 {
     use HasFactory;
@@ -15,13 +14,11 @@ class Bill extends Model
         'user_id',
         'status',
         'amount',
-        'date'
+        'date',
     ];
 
     public function user()
-{
-    return $this->belongsTo(User::class, 'id');
-}
-
-
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

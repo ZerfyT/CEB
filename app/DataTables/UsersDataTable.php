@@ -15,7 +15,7 @@ class UsersDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param  QueryBuilder  $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -30,7 +30,8 @@ class UsersDataTable extends DataTable
 
     /**
      * Get the query source of dataTable.
-     * @param User $user User
+     *
+     * @param  User  $user User
      * @return QueryBuilder Query
      */
     public function query(User $model): QueryBuilder
@@ -46,7 +47,7 @@ class UsersDataTable extends DataTable
         return $this->builder()
             ->setTableId('users-table')
             ->setTableAttribute([
-                'class' => 'table table-bordered table-hover'
+                'class' => 'table table-bordered table-hover',
             ])
             ->setTableHeadClass('table-secondary')
             ->columns($this->getColumns())
@@ -60,7 +61,7 @@ class UsersDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -80,7 +81,7 @@ class UsersDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false)
                 // ->width(300)
-                ->addClass('text-center')
+                ->addClass('text-center'),
             // ->view('components.tb_controllers') // Blade view for the actions column
         ];
     }
@@ -90,6 +91,6 @@ class UsersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'Users_'.date('YmdHis');
     }
 }
