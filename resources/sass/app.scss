@@ -84,7 +84,7 @@ a:focus {
 }
 .register {
     .card {
-        background-color: #dfe5f0;
+        background-color: #ffffff;
         .form {
             .form-control {
                 border-style: #012970;
@@ -95,16 +95,18 @@ a:focus {
 
 .login-wrap {
     .card {
-        background-color: #dfe5f0;
+        background-color: #ffffff;
     }
 }
 
 .con {
-    background-color: #e5e7eb;
+    background-color: #dddff3;
     padding: 15px;
     border-radius: 10px;
     .card {
-        background-color: #cdcfd1;
+        border-style: solid;
+        border-color: rgba($color: #c0bcbc, $alpha: 1);
+        border-radius: 10px;
     }
 }
 
@@ -128,8 +130,12 @@ a:focus {
     .carousel-slide {
         .carousel-inner {
             .carousel-item {
+                transition: 3s;
                 img {
-                    height: 550px;
+                    height: 520px;
+                }
+                .card{
+                    padding: 0px;
                 }
             }
         }
@@ -137,8 +143,17 @@ a:focus {
     .carousel-text {
         position: relative;
         margin-top: -85px;
+        background-color: #830303;
     }
 }
+
+.navigation{
+    ul li a{
+        color: #f8d303;
+        
+    }
+}
+
 
 @mixin card-icon-color($color, $background) {
     .card-icon {

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('sidebar')
-    @include('customer.sidebar')
+@include('customer.sidebar')
 @endsection
 
 @section('content')
@@ -70,15 +70,17 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control mb-3" id="p_num">
+                        <div class="button text-center">
+                            <button type="submit" class="btn btn-primary w-25">SAVE</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="button text-center">
+                            <button type="submit" class="btn btn-primary w-50">CHANGE PASSWORD</button>
                         </div>
                     </div>
                 </div>
-                <div class="button text-center">
-                    <button type="submit" class="btn btn-primary w-25">SAVE</button>
-                </div>
+
             </form>
         </div>
     </div>

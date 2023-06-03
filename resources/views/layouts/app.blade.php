@@ -32,6 +32,7 @@
 
             <main class="py-4 px-2">
                 @yield('content')
+
             </main>
 
             @include('layouts.footer')

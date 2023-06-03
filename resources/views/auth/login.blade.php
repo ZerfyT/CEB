@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header h2">{{ __('Login') }}</div>
+                <div class="card-header h2 text-center fw-bold ">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="row mb-4 mt-3">
+                        <div class="row mb-2 mt-3">
                             <div class="d-flex justify-content-between">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} />
@@ -57,9 +57,9 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
+                        <div class="row">
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary w-100">
+                                <button type="submit" class="btn btn-success w-100 rounded-pill">
                                     {{ __('Login') }}
                                 </button>
                             </div>
@@ -70,6 +70,9 @@
                             {{-- <a href="" class="btn btn-outline-primary btn-floating me-3"><i class="bi bi-apple"></i></i></a> --}}
                         </div>
                     </form>
+                </div>
+                <div class="text-center">
+                    <small>You are not register?..</small><a href="{{ route('register')}}"><small>Click</small></a>
                 </div>
             </div>
         </div>

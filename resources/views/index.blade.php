@@ -2,23 +2,52 @@
 
 @section('content')
 <!-- carousel -->
-<div class="container-fluid carousel-full">
-    <div class="carousel slide carousel-slide" id="carouselID" data-bs-ride="carousel" data-interval="50">
+<div class="container-fluid px-0 carousel-full">
+    <div class="carousel slide carousel-slide" id="carouselID" data-bs-ride="carousel" data-interval="1000">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{{ asset('img/H-img/3.jpg') }}" alt="" class="d-block w-100">
-                <div class="carousel-caption">
-                    <h6 class="text-dark"><small>Norochcholai Coal Power Plant</small></h6>
+                <div class="card">
+                    <img src="{{ asset('img/H-img/3.jpg') }}" alt="" class="d-block w-100">
+                    <div class="card-body">
+                        <div class="card-img-overlay" style="background-color:rgba(0,0,0,0.5);">
+                            <div class="text text-center mt-5">
+                                <h1 class="text-light fw-bold ">WELLCOME</h1>
+                                <a href="{{ route('login')}}" class="btn btn-warning">GET START</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <img src="{{ asset('img/H-img/6.jpg') }}" alt="" class="d-block w-100">
+                    <div class="card-body">
+                        <div class="card-img-overlay" style="background-color:rgba(0,0,0,0.5);">
+                            <h6 class="text-light"><small>Randenigala power plant</small></h6>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('img/H-img/6.jpg') }}" alt="" class="d-block w-100">
+                <div class="card">
+                    <img src="{{ asset('img/H-img/4.jpg') }}" alt="" class="d-block w-100">
+                    <div class="card-body">
+                        <div class="card-img-overlay" style="background-color:rgba(0,0,0,0.5);">
+                            <h6 class="text-light"><small>Mannar wind power project</small></h6>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('img/H-img/4.jpg') }}" alt="" class="d-block w-100">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('img/H-img/5.jpg') }}" alt="" class="d-block w-100">
+                <div class="card">
+                    <img src="{{ asset('img/H-img/5.jpg') }}" alt="" class="d-block w-100">
+                    <div class="card-body">
+                        <div class="card-img-overlay" style="background-color:rgba(0,0,0,0.5);">
+                            <h6 class="text-light"><small>Yugadanavi LNG Power Station</small></h6>
+                        </div>
+                    </div>
+                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselID" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -31,9 +60,9 @@
         </div>
     </div>
 
-    <div class="carousel-text text-center" style="background-color: rgba(0, 0, 0, 0.9);">
+    <div class="carousel-text text-center">
         <h1 class="text-warning fw-bold">ENRICH LIFE THROUGH POWER</h1>
-        <H3 class="text-light">ILLUMINATING THE MOTHERLAND</H3>
+        <H3 class="text-light fw-bold">ILLUMINATING THE MOTHERLAND</H3>
     </div>
 
 </div>
@@ -134,7 +163,7 @@
                     </div>
                     <div class="card-body">
                         <h6 class="lead card-text"><small>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi similique rem libero voluptate
-                                autem quibusdam aliquid dolorum suscipit, rerum perferendis 
+                                autem quibusdam aliquid dolorum suscipit, rerum perferendis
                                 .......</small></h6>
 
                         <div class="button">
