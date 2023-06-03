@@ -1,5 +1,5 @@
 <!-- Modal -->
-@if(isset($user))
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="billModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -28,7 +28,7 @@
                                         <div class="col-xl-8">
                                             <ul class="list-unstyled">
                                                 <li class="text-muted">To: <span
-                                                        style="color:#5d9fc5 ;">{{ $user->name }}</span></li>
+                                                        style="color:#5d9fc5 ;">{{ $logedUser->name }}</span></li>
                                                 <li class="text-muted">Street, City</li>
                                                 <li class="text-muted">State, Country</li>
                                                 <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
@@ -103,4 +103,3 @@
         </div>
     </div>
 </div>
-@endif

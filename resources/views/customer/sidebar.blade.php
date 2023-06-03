@@ -14,7 +14,7 @@
             <a href="{{route('customer.payment')}}">Payments</a>
         </li>
         <li>
-            <a href="{{route('customer.details')}}">Bill Deatails</a>
+            <a href="{{route('customer.details')}}">Bill Details</a>
         </li>
         <li>
             <a href="{{route('customer.profile')}}">My Profile</a>

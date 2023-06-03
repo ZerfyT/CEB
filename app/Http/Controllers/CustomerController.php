@@ -35,7 +35,7 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $userId = $user->id;
-        $logedUser = User::with('bills', 'mreader')->find($userId);
+        $logedUser = User::with('bills', 'meter_readings')->find($userId);
 
         return view('components.bill_modal', ['logedUser' => $logedUser]);
     }
