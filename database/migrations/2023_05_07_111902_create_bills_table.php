@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('new_reading');
             $table->date('old_reading_date');
             $table->date('new_reading_date');
-            $table->int('units');
+            $table->integer('units');
             $table->decimal('charge_fixed');
             $table->decimal('charge_for_units');
             $table->decimal('charge_for_month');
