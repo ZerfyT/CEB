@@ -29,7 +29,7 @@ class EBillGenerator
         $count = $this->meterReadings->count();
 
         if ($this->payments != null) {
-            if ($this->payments->count > 0) {
+            if ($this->payments->count() > 0) {
                 $lastPayment = $this->payments->first();
             }
         }
@@ -43,8 +43,8 @@ class EBillGenerator
         // debug([$count], 'Reading count');
 
         if ($count == 2) {
-            $readingOld = $this->meterReadings->first();
-            $readingNew = $this->meterReadings->skip(1)->take(1)->first();
+            $readingNew = $this->meterReadings->first();
+            $readingOld = $this->meterReadings->skip(1)->take(1)->first();
             $ebill = new EBill(
                 $this->user->account_number,
                 $readingNew->meter_reading,

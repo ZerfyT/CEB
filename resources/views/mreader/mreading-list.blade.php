@@ -21,8 +21,8 @@
 
         {{-- <div class="container d-flex justify-content-between align-items-end"> --}}
 
-            {{-- Add Meter Reading (Manual) --}}
-            {{-- <div class="add-customer">
+        {{-- Add Meter Reading (Manual) --}}
+        {{-- <div class="add-customer">
                 <button class="btn btn-outline-success rounded" type="button" data-bs-toggle="modal"
                     data-bs-target="#modelMeterReading">
                     <i class="bi bi-plus-lg mx-1"></i>New Reading
@@ -31,9 +31,10 @@
         {{-- </div> --}}
 
         {{-- Table --}}
-        <div class="container py-4">
-            {{ $dataTable->table( )}}
-            {{-- <table class="table table-sm table-bordered table-hover">
+        <div class="py-4">
+            <div class="table-responsive">
+                {{ $dataTable->table() }}
+                {{-- <table class="table table-sm table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col">ID</th>
@@ -56,7 +57,8 @@
                         </tr>
                     @endforeach
                 </tbody> --}}
-            </table>
+                </table>
+            </div>
         </div>
 
         {{-- Model - Add Meter Reading --}}
@@ -95,5 +97,4 @@
         @push('scripts')
             {{ $dataTable->scripts() }}
         @endpush
-
     @endsection

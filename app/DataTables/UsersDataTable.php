@@ -12,6 +12,13 @@ use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
 {
+    private $tbActionComponent;
+
+    public function __construct($tbActionComponent)
+    {
+        $this->tbActionComponent = $tbActionComponent;
+    }
+
     /**
      * Build the DataTable class.
      *
@@ -21,8 +28,7 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('actions', function ($user) {
-                // return '<button class="btn btn-sm btn-outline-success rounded" data-bs-toggle="modal" data-bs-target="#modelMeterReading" data-user-id="'.$user->id.'">Add Reading</button>';
-                return view('components.tb_action_add_reading', compact('user'));
+                return view($this->tbActionComponent, compact('user'));
 
             });
         // ->setRowId('id');
@@ -80,6 +86,8 @@ class UsersDataTable extends DataTable
                 ->title('Actions')
                 ->exportable(false)
                 ->printable(false)
+                ->orderable(false)
+                ->searchable(false)
                 // ->width(300)
                 ->addClass('text-center'),
             // ->view('components.tb_controllers') // Blade view for the actions column

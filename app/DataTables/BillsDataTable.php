@@ -30,7 +30,7 @@ class BillsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($bill) {
-                return view('components.tb_bill_buttons', compact('bill'));
+                return view('components.tb_action_view_bill', compact('bill'));
                 // ->setRowId('id');
             });
     }
@@ -52,7 +52,11 @@ class BillsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            // ->setTableId('bills-table')
+            ->setTableId('user-bills-table')
+            ->setTableAttribute([
+                'class' => 'table table-bordered table-hover',
+            ])
+            ->setTableHeadClass('table-secondary')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')

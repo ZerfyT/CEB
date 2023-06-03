@@ -53,7 +53,7 @@
 
         {{-- Pay Button --}}
         <div class="container d-flex justify-content-center">
-            <button class="btn btn-danger" onclick="window.location.href=" >Send Via Email</button>
+            <button class="btn btn-danger" onclick="window.location.href=">Send Via Email</button>
         </div>
     </div>
 @endsection

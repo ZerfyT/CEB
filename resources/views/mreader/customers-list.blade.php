@@ -30,9 +30,10 @@
         </div>
 
         {{-- Table --}}
-        <div class="container py-4">
-            {{ $dataTable->table() }}
-            {{-- <table id="users-table" class="table table-bordered table-hover">
+        <div class="py-4">
+            <div class="table-responsive">
+                {{ $dataTable->table() }}
+                {{-- <table id="users-table" class="table table-bordered table-hover">
                 <thead class="bg-secondary">
                     <tr class="">
                         <th class="col-1">ID</th>
@@ -77,6 +78,7 @@
 
                 </tbody>
             </table> --}}
+            </div>
         </div>
 
         @push('scripts')
@@ -88,5 +90,4 @@
 
         {{-- Model - Add Meter Reading --}}
         @include('components.modal_add_reading')
-
     @endsection

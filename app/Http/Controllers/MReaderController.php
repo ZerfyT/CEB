@@ -63,7 +63,6 @@ class MReaderController extends Controller
 
                 // Add to Queue - Generate Ebill to send Email
                 SendBillAfterMReading::dispatch($user);
-                // dispatch(new SendBillAfterMReading($user));
 
                 // $pdf = Pdf::loadFile(public_path('ebill2pdf.html'))
                 //     ->save(public_path('mybill.pdf'));
@@ -105,18 +104,9 @@ class MReaderController extends Controller
         }
     }
 
-    public function customerList(UsersDataTable $dataTable)
+    public function customerList()
     {
-        // $data = User::select('*');
-        // return DataTables::of($data)
-        //     ->addColumnIndex()
-        //     ->addColumn('action', function ($data) {
-        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-        //         return $btn;
-        //     })
-        //     ->rawColumns(['action'])
-        //     ->make(true);
-        // return view('mreader.customers-list');
+        $dataTable = new UsersDataTable('components.tb_action_add_reading');
 
         return $dataTable->render('mreader.customers-list');
     }

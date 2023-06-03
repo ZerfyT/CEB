@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\EBillGenerator;
 use App\DataTables\BillsDataTable;
-use App\DataTables\CustomersDataTable;
+use App\DataTables\UsersDataTable;
 use App\Models\Bill;
 use App\Models\Payment;
 use App\Models\User;
@@ -25,8 +25,10 @@ class CashierController extends Controller
     }
 
     // Display customers in cashier payments page.
-    public function cashierPayments(CustomersDataTable $dataTable)
+    public function cashierPayments()
     {
+        $dataTable = new UsersDataTable('components.tb_action_view_cus_bills');
+
         return $dataTable->render('cashier.payments.payment-home');
     }
 
@@ -39,8 +41,9 @@ class CashierController extends Controller
     {
         // $bills = $user->bills();
         $dataTable->setUserId($userId);
+        $user = User::findOrFail($userId);
 
-        return $dataTable->render('cashier.payments.customer-bill');
+        return $dataTable->render('cashier.payments.customer-bill', compact('user'));
     }
 
     public function cashierGenarateBill($billId)
@@ -55,7 +58,7 @@ class CashierController extends Controller
 
         // Pass the retrieved data to the view
         if ($eBill != null) {
-            return view('cashier.payments.genarate-bill', compact('bill', 'customer', 'ebill'));
+            return view('cashier.payments.genarate-bill', compact('bill', 'customer', 'eBill'));
         }
 
         return redirect()->back()->with('error', 'No Data');

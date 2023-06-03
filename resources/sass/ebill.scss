@@ -1,0 +1,22 @@
+.bill-container {
+  background-color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--bs-green);
+    text-rendering: geometricPrecision;
+    span {
+      color: var(--bs-gray-dark);
+      font-weight: normal;
+      font-size: 0.9rem;
+    }
+  }
+
+  h4 {
+    text-decoration: underline;
+    color: var(--bs-gray-700);
+  }
+}

@@ -5,14 +5,25 @@
 @endsection
 
 @section('content')
-    <label class="form-control" for="floatingInput">Payment</label> <br>
-    <h2 class="fw-bold">Customers</h2>
+    <div class="container py-3">
+
+        {{-- Breadcrumbs --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('cashier.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Customers</li>
+            </ol>
+        </nav>
+
+        {{-- Heading --}}
+        <h2 class="fw-bold">Customers</h2>
 
 
-    {{-- Table --}}
-    <div class="container py-4">
-        {{ $dataTable->table() }}
-        {{-- <table class="table table-sm table-bordered table-hover">
+        {{-- Table --}}
+        <div class="py-4">
+            <div class="table-responsive">
+                {{ $dataTable->table() }}
+                {{-- <table class="table table-sm table-bordered table-hover">
             <thead class="bg-secondary">
                 <tr class="">
                     <th class="col-1">ID</th>
@@ -32,6 +43,8 @@
                     </tr>
             </tbody>
         </table> --}}
+            </div>
+        </div>
         @push('scripts')
             {{ $dataTable->scripts() }}
         @endpush
