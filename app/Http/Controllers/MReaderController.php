@@ -106,31 +106,21 @@ class MReaderController extends Controller
         //     ->make(true);
         // return view('mreader.customers-list');
 
-        $data = $request->validate([
-            'fname' => 'string|max:255',
-            'nic' => 'max:12',
-            'email' => 'email|unique:users,email,' . $user->id,
-            'address' => 'max:255',
-            'pNumber' => 'max:10'
-        ]);
+        return $dataTable->render('mreader.customers-list');
+    }
 
-        $user->update([
-            'name' => $data['fname'] ?? $user->name,
-            'nic' => $data['nic'] ?? $user->nic,
-            'email' => $data['email'] ?? $user->email,
-            'address' => $data['address'] ?? $user->address,
-            'phone' => $data['pNumber'] ?? $user->phone,
-            'update_at' => now()
-        ]);
+    public function mReadings(MeterReadingsDataTable $dataTable)
+    {
+        // $mReadings = DB::table('meter_readings')
+        //     ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
+        //     ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
 
-        // $user->name = $request->fname;
-        // // $user->nic = $request->nic ?? '';
-        // $user->email = $request->email;
-        // // $user->address = $request->address ?? ' ';
-        // $user->phone = $request->pNumber ?? ' ';
-        // $user->save();
-
-        return redirect()->back()->with('success', 'Profile details updated successfully.');
+        // if (isset($user_id)) {
+        //     $mReadings->where('user_id', $user_id);
+        // }
+        // $mReadings = $mReadings->orderBy('users.address')->get();
+        // return view('mreader.mreading-list', compact('mReadings'));
+        return $dataTable->render('mreader.mreading-list');
     }
 
 
@@ -139,16 +129,7 @@ class MReaderController extends Controller
      */
     public function updateProfileInfo(Request $request)
     {
-        // $data = User::select('*');
-        // return DataTables::of($data)
-        //     ->addColumnIndex()
-        //     ->addColumn('action', function ($data) {
-        //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-        //         return $btn;
-        //     })
-        //     ->rawColumns(['action'])
-        //     ->make(true);
-        // return view('mreader.customers-list');
+        $user = Auth::user();
 
         $data = $request->validate([
             'fname' => 'string|max:255',
@@ -175,60 +156,6 @@ class MReaderController extends Controller
         // $user->save();
 
         return redirect()->back()->with('success', 'Profile details updated successfully.');
-    }
-
-    /**
-     * Update Profile Password
-     */
-    public function updateProfilePassword(Request $request)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'currentPassword' => 'required|string|max:255',
-            'newPassword' => 'required|confirmed|string|min:8|max:255',
-            'confirmPassword' => 'required|string|max:255',
-        ]);
-
-        if (!Hash::check($request->currentPassword, $user->password))
-        {
-            return redirect()->back()->with('error', "Current Password is Invalid");
-        }
-
-        if (strcmp($request->currentPassword, $request->newPassword) == 0)
-        {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-        }
-
-        $user->password =  Hash::make($request->newPassword);
-        $user->save();
-        return redirect()->back()->with('success', "Password Changed Successfully");
-    }
-
-    /**
-     * Update Profile Password
-     */
-    public function updateProfilePassword(Request $request)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'currentPassword' => 'required|string|max:255',
-            'newPassword' => 'required|confirmed|string|min:8|max:255',
-            'confirmPassword' => 'required|string|max:255',
-        ]);
-
-        if (!Hash::check($request->currentPassword, $user->password))
-        {
-            return redirect()->back()->with('error', "Current Password is Invalid");
-        }
-
-        if (strcmp($request->currentPassword, $request->newPassword) == 0)
-        {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-        }
-
-        $user->password =  Hash::make($request->newPassword);
-        $user->save();
-        return redirect()->back()->with('success', "Password Changed Successfully");
     }
 
     /**
@@ -264,15 +191,7 @@ class MReaderController extends Controller
 
     public function index()
     {
-        $mReadings = DB::table('meter_readings')
-            ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-            ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
-
-        if (isset($user_id)) {
-            $mReadings->where('user_id', $user_id);
-        }
-        $mReadings = $mReadings->orderBy('users.address')->get();
-        return view('mreader.mreading-list', compact('mReadings'));
+        return view('mreader.home');
     }
 
     public function profile()
