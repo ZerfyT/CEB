@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\DataTables\PaymentsDataTable;
+use App\DataTables\CustomerBillsDataTable;
+use Illuminate\Support\Facades\DB;
 use App\Models\Bill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,27 +18,45 @@ class CustomerController extends Controller
     {
         return view('customer.home');
     }
-    public function customerAccount()
+    public function customerDetails(CustomerBillsDataTable $dataTable)
     {
-        return view('customer.account');
+        $user = Auth::user();
+        $userId = $user->id;
+        $dataTable->setUserId($userId);
+        return $dataTable->render('customer.details');
     }
+
+    public function customerBill()
+    {
+        return view('customer.bill');
+    }
+
+    public function genarateBill($userId)
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+        $logedUser = User::with('bills', 'mreader')->find($userId);
+
+        return view('components.bill_modal', ['logedUser' => $logedUser]);
+    }
+
     public function customerPayment(PaymentsDataTable $dataTable)
     {
         $user = Auth::user();
-        if (!$user) {
-            abort(401);
-        }
-        $payments = Payment::whereHas('bill.user', function ($query) use ($user) {
-            $query->where('id', $user->id);
-        })->get();
-        $dataTable->setBillId($payments);
+        $userId = $user->id;
+        $billId = DB::table('bills')
+            ->select('id')
+            ->where('user_id', '=', $userId);
+
+        // $payments = DB::table('payments')
+        //     ->select('*')
+        //     ->where('bill_id', '=', $billId)
+        //     ->orderBy('date', 'DESC')
+        //     ->limit(1);
+        $dataTable->setBillId($billId);
         return $dataTable->render('customer.payment');
     }
 
-    public function customerDetails()
-    {
-        return view('customer.details');
-    }
 
     public function customerProfile()
     {
@@ -68,7 +89,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('success', 'Profile Details Updated Successfully.');
     }
 
-// Password Update Function
+    // Password Update Function
 
     public function updateProfilePassword(Request $request)
     {
@@ -79,13 +100,11 @@ class CustomerController extends Controller
             'confirmPassword' => 'required|string|max:255',
         ]);
 
-        if (!Hash::check($request->currentPassword, $user->password))
-        {
+        if (!Hash::check($request->currentPassword, $user->password)) {
             return redirect()->back()->with('error', "Current Password is Invalid");
         }
 
-        if (strcmp($request->currentPassword, $request->newPassword) == 0)
-        {
+        if (strcmp($request->currentPassword, $request->newPassword) == 0) {
             return redirect()->back()->with("error", "New Password cannot be same as your current password.");
         }
 
@@ -93,8 +112,4 @@ class CustomerController extends Controller
         $user->save();
         return redirect()->back()->with('success', "Password Changed Successfully");
     }
-
-
 }
-
-

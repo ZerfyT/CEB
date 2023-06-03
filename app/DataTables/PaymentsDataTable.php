@@ -14,11 +14,11 @@ use Yajra\DataTables\Services\DataTable;
 
 class PaymentsDataTable extends DataTable
 {
-    private $payments;
+    private $billId;
 
-    public function setBillId($payments)
+    public function setBillId($billId)
     {
-        $this->payments = $payments;
+        $this->billId = $billId;
 
         return $this;
     }
@@ -41,7 +41,7 @@ class PaymentsDataTable extends DataTable
      */
     public function query(Payment $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->where('bill_id', $this->billId);
     }
 
     /**
