@@ -106,21 +106,31 @@ class MReaderController extends Controller
         //     ->make(true);
         // return view('mreader.customers-list');
 
-        return $dataTable->render('mreader.customers-list');
-    }
+        $data = $request->validate([
+            'fname' => 'string|max:255',
+            'nic' => 'max:12',
+            'email' => 'email|unique:users,email,' . $user->id,
+            'address' => 'max:255',
+            'pNumber' => 'max:10'
+        ]);
 
-    public function mReadings(MeterReadingsDataTable $dataTable)
-    {
-        // $mReadings = DB::table('meter_readings')
-        //     ->crossJoin('users', 'users.id', '=', 'meter_readings.user_id')
-        //     ->select('meter_readings.*', 'users.name', 'users.address', 'users.account_number');
+        $user->update([
+            'name' => $data['fname'] ?? $user->name,
+            'nic' => $data['nic'] ?? $user->nic,
+            'email' => $data['email'] ?? $user->email,
+            'address' => $data['address'] ?? $user->address,
+            'phone' => $data['pNumber'] ?? $user->phone,
+            'update_at' => now()
+        ]);
 
-        // if (isset($user_id)) {
-        //     $mReadings->where('user_id', $user_id);
-        // }
-        // $mReadings = $mReadings->orderBy('users.address')->get();
-        // return view('mreader.mreading-list', compact('mReadings'));
-        return $dataTable->render('mreader.mreading-list');
+        // $user->name = $request->fname;
+        // // $user->nic = $request->nic ?? '';
+        // $user->email = $request->email;
+        // // $user->address = $request->address ?? ' ';
+        // $user->phone = $request->pNumber ?? ' ';
+        // $user->save();
+
+        return redirect()->back()->with('success', 'Profile details updated successfully.');
     }
 
 
