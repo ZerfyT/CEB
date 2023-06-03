@@ -57,6 +57,15 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
     Route::post('/profile/update-passwd', 'updateProfilePassword')->name('mreader.updateProfilePassword');
 });
 
+Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(CustomerController::class)->group(function () {
+    Route::get('/home', 'customerHome')->name('customer.home');
+    Route::get('/payment', 'customerPayment')->name('customer.payment');
+    Route::get('/profile', 'customerProfile')->name('customer.profile');
+    Route::post('/profile/update-info', 'updateProfileInfo')->name('customer.updateProfileInfo');
+    Route::post('/profile/update-password', 'updateProfilePassword')->name('customer.updateProfilePassword');
+    Route::get('/detail', 'customerDetails')->name('customer.details');
+    Route::get('/account', 'customerAccount')->name('customer.account');
+});
 
 
 
@@ -70,13 +79,5 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(CustomerController::class)->group(function () {
-    Route::get('/home', 'customerHome')->name('customer.home');
-    Route::get('/payment', 'customerPayment')->name('customer.payment');
-    Route::get('/profile', 'customerProfile')->name('customer.profile');
-    Route::get('/detail', 'customerDetails')->name('customer.details');
-    Route::get('/account', 'customerAccount')->name('customer.account');
-});
-// Route::fallback(function () {
-//     return view('index');
-// })->name('index');
+
+

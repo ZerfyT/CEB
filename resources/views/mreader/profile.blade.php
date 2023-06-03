@@ -9,7 +9,7 @@
         {{-- Breadcrumbs --}}
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('mreader.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('customer.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Profile</li>
             </ol>
         </nav>
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row border rounded shadow-sm">
                 <div class="col-md-6 border border-top-0 border-bottom-0 border-start-0 shadow-sm">
-                    <form class="p-3" method="POST" action="{{ route('mreader.updateProfileInfo') }}">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfileInfo') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="fname">Full Name</label>
@@ -53,7 +53,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form class="p-3" method="POST" action="{{ route('mreader.updateProfilePassword') }}">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfilePassword') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="currentPassword">Current Password</label>
