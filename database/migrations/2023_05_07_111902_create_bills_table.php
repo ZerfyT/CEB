@@ -13,11 +13,19 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('status');
-            $table->decimal('amount');
-            $table->date('date');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->boolean('status');
+            $table->integer('old_reading');
+            $table->integer('new_reading');
+            $table->date('old_reading_date');
+            $table->date('new_reading_date');
+            $table->int('units');
+            $table->decimal('charge_fixed');
+            $table->decimal('charge_for_units');
+            $table->decimal('charge_for_month');
+            $table->decimal('last_payment');
+            $table->decimal('balance_forward');
+            $table->decimal('charge_total');
             $table->timestamps();
         });
     }
