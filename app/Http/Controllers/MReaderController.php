@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Classes\EBill;
 use App\DataTables\MeterReadingsDataTable;
 use App\DataTables\UsersDataTable;
-use App\Jobs\SendBillAfterMReading;
+use App\Jobs\CreateBill;
+use App\Jobs\SendBill;
 use App\Models\MeterReading;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,10 +26,9 @@ class MReaderController extends Controller
         $user = User::create([
             'name' => $request->fname,
             'email' => $request->email,
-            'password' => Hash::make('password'),
+            'password' => Hash::make('11111111'),
             'phone' => $request->pNumber,
             'address' => $request->address,
-            'role_id' => '5',
         ]);
         $user->save();
 
@@ -62,11 +62,10 @@ class MReaderController extends Controller
                 $mReading->save();
 
                 // Add to Queue - Generate Ebill to send Email
-                SendBillAfterMReading::dispatch($user);
-
-                // $pdf = Pdf::loadFile(public_path('ebill2pdf.html'))
-                //     ->save(public_path('mybill.pdf'));
-                // $pdf->download();
+                Bus::chain([
+                    new CreateBill($user),
+                    new SendBill(),
+                ])->dispatch();
 
                 return redirect()->back()->with('success', 'Meter Reading added successfully.');
             } else {

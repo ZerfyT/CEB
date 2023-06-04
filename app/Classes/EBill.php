@@ -16,11 +16,15 @@ class EBill
 
     public float $forwardBalance;
 
+    public float $lastPaymentAmount;
+
     public float $totalFirstRange = 0.0;
 
     public float $totalSecondRange = 0.0;
 
     public float $totalThirdRange = 0.0;
+
+    public $units;
 
     private const FIXED_CHARGES_FIRST = 500.0;
 
@@ -34,15 +38,14 @@ class EBill
 
     private const PRICE_THIRD_RANGE = 40.0;
 
-    public $units;
-
     public function __construct(
         string $accountNumber,
         int $lastMeterReading,
         string $lastMeterReadingDate,
         int $previousMeterReading = 0,
         string $previousMeterReadingDate = '',
-        float $forwardBalance = 0.00
+        float $forwardBalance = 0.00,
+        float $lastPaymentAmount = 0.00
     ) {
         $this->accountNumber = $accountNumber;
         $this->lastMeterReading = $lastMeterReading;
@@ -51,17 +54,18 @@ class EBill
         $this->previousMeterReadingDate = $previousMeterReadingDate;
         $this->units = $lastMeterReading - $previousMeterReading;
         $this->forwardBalance = $forwardBalance;
+        $this->lastPaymentAmount = $lastPaymentAmount;
         $this->calculateBill();
     }
 
-    public function getTotalPriceForUnits()
+    public function getCostForUnits()
     {
         return $this->totalFirstRange + $this->totalSecondRange + $this->totalThirdRange;
     }
 
-    public function getTotalPriceForMonth()
+    public function getCostForMonth()
     {
-        return $this->getTotalPriceForUnits() + $this->getFixedCharges();
+        return $this->getCostForUnits() + $this->getFixedCharges();
     }
 
     public function getFixedCharges()
@@ -75,9 +79,9 @@ class EBill
         }
     }
 
-    public function getTotalPrice()
+    public function getTotalCost()
     {
-        return $this->getTotalPriceForMonth() - $this->forwardBalance;
+        return $this->getCostForMonth() + $this->forwardBalance - $this->lastPaymentAmount;
     }
 
     private function calculateBill()

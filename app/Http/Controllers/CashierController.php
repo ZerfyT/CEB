@@ -50,10 +50,10 @@ class CashierController extends Controller
     {
 
         $bill = Bill::findOrFail($billId);
-        $customer = User::findOrFail($bill->user_id);
-        $payments = SharedQuery::getLastPayment($billId);
-        $meterReadings = SharedQuery::getLastTwoMeterReadings($customer->id);
-        $eBillGen = new EBillGenerator($meterReadings, $customer, $payments);
+        $user = User::findOrFail($bill->user_id);
+        $lastPayment = SharedQuery::getLastPayment($billId);
+        $meterReadings = SharedQuery::getLastTwoMeterReadings($user->id);
+        $eBillGen = new EBillGenerator($meterReadings, $user, $lastPayment);
         $eBill = $eBillGen->createEbill();
 
         // Pass the retrieved data to the view

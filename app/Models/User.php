@@ -19,13 +19,17 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
         'name',
         'email',
+        'email_verified_at',
         'password',
-        'role_id',
-        'address',
         'phone',
+        'address',
         'nic',
+        'account_number',
+        'area',
+        'is_active',
     ];
 
     /**
@@ -61,13 +65,29 @@ class User extends Authenticatable
         return $this->hasMany(MeterReading::class);
     }
 
-    // public static function getUserByAccountNumber($accountNumber)
-    // {
-    //     return User::where('account_number', $accountNumber)->first();
-    // }
-
     public function bills()
     {
-        return $this->hasMany(Bill::class, 'user_id');
+        return $this->hasMany(Bill::class);
+    }
+
+    /**
+     * Boot the model with assigning new account number.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $lastUser = static::where('role_id', 5)->latest()->first();
+            $newAccountNumber = 1000;
+
+            if ($lastUser) {
+                $lastAccountNumber = $lastUser->account_number;
+                $newAccountNumber = $lastAccountNumber + 10;
+            }
+            $user->account_number = $newAccountNumber;
+        });
     }
 }
