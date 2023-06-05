@@ -24,17 +24,40 @@ class CustomerController extends Controller
         $user = Auth::user();
         $userId = $user->id;
         $dataTable->setUserId($userId);
-        return $dataTable->render('customer.details', ['selectedBill' => null]);
+        return $dataTable->render('customer.details');
     }
 
     public function show($id)
     {
+        $user = Auth::user();
         $bill = Bill::findOrFail($id);
+        
 
         return response()->json([
+            // Bill Details
             'id' => $bill->id,
-            'user_id' => $bill->user_id,
             'units' => $bill->units,
+            'old_reading' => $bill->old_reading,
+            'new_reading' => $bill->new_reading,
+            'status' => $bill->status,
+            'new_reading_date' => $bill->new_reading_date,
+            'charge_fixed' => $bill->charge_fixed,
+            'charge_for_units' => $bill->charge_for_units,
+            'charge_for_month' => $bill->charge_for_month,
+            'last_payment' => $bill->last_payment,
+            'balance_forward' => $bill->balance_forward,
+            'charge_total' => $bill->charge_total,
+
+            // User Details
+            'user_id' =>  $user->id,
+            'user_name' => $user->name,
+            'user_email' => $user->email,
+            'user_account_number' => $user->account_number,
+            'user_address' => $user->address,
+            'user_nic' => $user->nic,
+            'user_phone' => $user->phone,
+            'user_account_type' => $user->account_type,
+            'user_area' => $user->area,
         ]);
     }
 

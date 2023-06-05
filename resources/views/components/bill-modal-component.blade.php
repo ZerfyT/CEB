@@ -26,26 +26,27 @@
                                     <div class="row">
                                         <div class="col-xl-8">
                                             <ul class="list-unstyled">
-                                                <li class="text-muted">To: <span style="color:#5d9fc5 ;"
-                                                        id="billId"></span></li>
-                                                <li class="text-muted" id="billUserId"></li>
-                                                <li class="text-muted" id="billUnits"></li>
-                                                <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
+                                                <li class="text-muted"><span class="fw-bold">Account No:</span> <span
+                                                        style="color:#5d9fc5 ;" id="userAccount"></span></li>
+                                                <li class="text-muted"><span class="fw-bold">Full Name:</span> <span
+                                                        style="color:#5d9fc5 ;" id="userName"></span></li>
+                                                <li class="text-muted"><span class="fw-bold">Email:</span> <span
+                                                        style="color:#5d9fc5 ;" id="userEmail"></span></li>
+                                                <li class="text-muted"><span class="fw-bold">Address:</span> <span
+                                                        style="color:#5d9fc5 ;" id="userAddress"></span></li>
                                             </ul>
                                         </div>
                                         <div class="col-xl-4">
                                             <ul class="list-unstyled">
-                                                <li class="text-muted"><i class="fas fa-circle"
-                                                        style="color:#84B0CA ;"></i> <span
-                                                        class="fw-bold">ID:</span>#123-456</li>
-                                                <li class="text-muted"><i class="fas fa-circle"
-                                                        style="color:#84B0CA ;"></i> <span class="fw-bold">Creation
-                                                        Date: </span>Jun 23,2021</li>
+                                                <li class="text-muted"><span class="fw-bold">Bill Id:</span> <span
+                                                        style="color:#5d9fc5 ;" id="billId"></span></li>
+                                                <li class="text-muted"><span class="fw-bold">Date :</span> <span
+                                                        style="color:#5d9fc5 ;" id="billNewReadingDate"></span></li>
                                                 <li class="text-muted"><i class="fas fa-circle"
                                                         style="color:#84B0CA ;"></i> <span
                                                         class="me-1 fw-bold">Status:</span><span
-                                                        class="badge bg-warning text-black fw-bold">
-                                                        Paid</span></li>
+                                                        class="badge bg-warning text-black fw-bold" id="billStatus">
+                                                        </span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -91,9 +92,6 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
                                         <button type="button" class="btn btn-primary">Download</button>
-                                        <p><strong>ID:</strong> <span id="billId"></span></p>
-                                        <p><strong>User ID:</strong> <span id="billUserId"></span></p>
-                                        <p><strong>Amount:</strong> <span id="billAmount"></span></p>
 
                                     </div>
                                 </div>
