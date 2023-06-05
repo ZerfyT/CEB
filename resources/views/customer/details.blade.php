@@ -29,6 +29,5 @@
             <x-bill-modal-component :bill="$bill" />
         @endforeach --}}
         <script src="{{ asset('js/app.js') }}"></script>
-
     </div>
 @endsection

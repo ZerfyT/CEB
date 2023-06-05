@@ -1,4 +1,5 @@
 {
+    
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -17,6 +18,7 @@
         "spatie/laravel-html": "^3.2",
         "spatie/laravel-permission": "^5.10",
         "twbs/bootstrap-icons": "^1.10",
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
         "yajra/laravel-datatables": "^10.0",
         "yajra/laravel-datatables-oracle": "^10.4"
     },
@@ -73,4 +75,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true
+    
 }

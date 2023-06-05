@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use PDF;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use App\DataTables\PaymentsDataTable;
 use App\DataTables\CustomerBillsDataTable;
 use App\DataTables\CustomersDataTable;
@@ -31,7 +35,7 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $bill = Bill::findOrFail($id);
-        
+
 
         return response()->json([
             // Bill Details
@@ -62,17 +66,41 @@ class CustomerController extends Controller
         ]);
     }
 
-    // Generate PDF
-    public function customerBillPdf() {
-        // retreive all records from db
-        // $data = Employee::all();
-        // share data to view
-        // view()->share('employee',$data);
-        $pdf = PDF::loadView('pdf_view',);
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
-      }
+    // Generate PDF/ Assuming you have a Bill model
     
+    public function downloadBillPDF($billId)
+    {
+        // Retrieve the bill based on the provided ID
+        $bill = Bill::find($billId);
+    
+        if (!$bill) {
+            // Handle case when bill is not found
+            return redirect()->back()->with('error', 'Bill not found.');
+        }
+    
+        // Create a new instance of Dompdf
+        $dompdf = new Dompdf();
+    
+        // Set any options you want (optional)
+        $options = new Options();
+        $options->set('defaultFont', 'Arial'); // Set the default font
+        $dompdf->setOptions($options);
+    
+        // Load the HTML view file into Dompdf
+        $html = view('layouts.bill_pdf', compact('bill'))->render();
+        $dompdf->loadHtml($html);
+    
+        // Render the PDF
+        $dompdf->render();
+    
+        // Generate the PDF filename
+        $filename = 'bill_' . $bill->id . '.pdf';
+    
+        // Output the PDF for download
+        return $dompdf->stream($filename);
+    }
+    
+
     public function customerPayment(PaymentsDataTable $dataTable)
     {
         $user = Auth::user();

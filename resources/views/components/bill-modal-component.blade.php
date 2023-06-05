@@ -1,3 +1,4 @@
+
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="billModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -42,11 +43,11 @@
                                                         style="color:#5d9fc5 ;" id="billId"></span></li>
                                                 <li class="text-muted"><span class="fw-bold">Date :</span> <span
                                                         style="color:#5d9fc5 ;" id="billNewReadingDate"></span></li>
-                                                <li class="text-muted"><i class="fas fa-circle"
+                                                {{-- <li class="text-muted"><i class="fas fa-circle"
                                                         style="color:#84B0CA ;"></i> <span
                                                         class="me-1 fw-bold">Status:</span><span
                                                         class="badge bg-warning text-black fw-bold" id="billStatus">
-                                                        </span></li>
+                                                    </span></li> --}}
                                             </ul>
                                         </div>
                                     </div>
@@ -149,18 +150,17 @@
                                                     <td class="text-muted"><span id=""></span></td>
                                                     <td class="text-muted"><span id=""></span></td>
                                                     <td class="text-muted"><span id=""></span></td>
-                                                    <td style="color:#ff3c2e ;"><span id="billChargeTotal"></span></td>
+                                                    <td style="color:#ff3c2e ;"><span id="billChargeTotal"></span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
-
                                         </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                            <a href="{{route('customer.pdf')}}" class="btn btn-primary" >Download</a>
-                                        
-
+                                        <a href="{{ route('customer.downloadBill', ['billId' => $bill->id]) }}"
+                                            class="btn btn-primary">Download</a>
                                     </div>
                                 </div>
                             </div>

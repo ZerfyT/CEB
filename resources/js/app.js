@@ -76,4 +76,17 @@ $(document).ready(function() {
 });
 
 
-
+function openBillModal(billId) {
+    $.ajax({
+        url: '{{ route("customer.details") }}',
+        type: 'GET',
+        data: { billId: billId },
+        success: function (response) {
+            $('#billModal').html(response);
+            $('#billModal').modal('show');
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+}
