@@ -24,6 +24,7 @@ class Bill extends Model
         'charge_for_units',
         'charge_for_month',
         'last_payment',
+        // 'last_month_total_charge',
         'balance_forward',
         'charge_total',
     ];

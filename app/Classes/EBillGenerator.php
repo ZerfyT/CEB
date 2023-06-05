@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\Payment;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class EBillGenerator
@@ -35,7 +36,8 @@ class EBillGenerator
     {
         $count = $this->meterReadings->count();
         $lastPaymentAmount = $this->getLastPaymentAmount();
-        $lastBillAmount = $this->getLastBillAmount();
+        $lastBillForwardAmount = $this->getLastBillForwardAmount();
+        // $lastBillTotalAmount = $this->getLastBillTotalAmount();
 
         if ($count == 2) {
             $readingNew = $this->meterReadings->first();
@@ -46,8 +48,9 @@ class EBillGenerator
                 $readingNew->date,
                 $readingOld->meter_reading,
                 $readingOld->date,
-                $lastBillAmount,
+                $lastBillForwardAmount,
                 $lastPaymentAmount,
+                // $lastBillTotalAmount
             );
 
         // return $ebill;
@@ -58,37 +61,37 @@ class EBillGenerator
                 $readingNew->meter_reading,
                 $readingNew->date,
                 0,
-                '',
-                $lastBillAmount,
-                $lastPaymentAmount
+                Carbon::parse($readingNew->date)->subMonth(),
+                $lastBillForwardAmount,
+                $lastPaymentAmount,
+                // $lastBillTotalAmount
             );
         }
     }
 
     private function getLastPaymentAmount()
     {
-        // $payment = null;
-        // if ($this->lastPayment != null) {
-        //     if ($this->lastPayment->count() > 0) {
-        //         $lastPayment = $this->lastPayment->first();
-        //     }
-        // }
-
-        // if ($lastPayment != null) {
-        //     $lastPayment = $lastPayment->balance;
-        // } else {
-        //     $lastPayment = 0;
-        // }
-
         if (empty($this->lastPayment) || is_null($this->lastPayment)) {
             return 0;
         }
 
-        return $this->lastPayment->paid_amount;
+        if ($this->lastPayment->date < $this->lastBill->new_reading_date) {
+            return 0;
+        }
 
+        return $this->lastPayment->paid_amount;
     }
 
-    private function getLastBillAmount()
+    // private function getLastBillTotalAmount()
+    // {
+    //     if (empty($this->lastBill) || is_null($this->lastBill)) {
+    //         return 0;
+    //     }
+
+    //     return $this->lastBill->charge_total;
+    // }
+
+    private function getLastBillForwardAmount()
     {
         if (empty($this->lastBill) || is_null($this->lastBill)) {
             return 0;
@@ -97,7 +100,7 @@ class EBillGenerator
         return $this->lastBill->charge_total;
     }
 
-    public static function generatePdf()
+    public static function generatePdf($bill, $user)
     {
         // $domPDF = new Dompdf();
         // $domPDF->loadHtml(storage_path('app\public\ebill2pdf.html'));
@@ -115,7 +118,7 @@ class EBillGenerator
 
         // Pdf::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdfPath = storage_path('app\public\mybill.pdf');
-        $pdf = Pdf::loadView('layouts.ebill2pdf')
+        $pdf = Pdf::loadView('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user])
             ->save($pdfPath);
         // $pdf->download();
         return $pdfPath;

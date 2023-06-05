@@ -44,7 +44,7 @@ class SendPDFEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'layouts.ebill2pdf',
+            view: 'layouts.payment_receipt_email_content',
         );
     }
 

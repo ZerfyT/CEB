@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('status')->default(false);
             $table->integer('old_reading');
             $table->integer('new_reading');
-            $table->date('old_reading_date');
+            $table->date('old_reading_date')->nullable();
             $table->date('new_reading_date');
             $table->integer('units');
             $table->decimal('range_one_cost');
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->decimal('charge_for_units');
             $table->decimal('charge_for_month');
             $table->decimal('last_payment');
+            // $table->decimal('last_month_total_charge');
             $table->decimal('balance_forward');
             $table->decimal('charge_total');
             $table->timestamps();

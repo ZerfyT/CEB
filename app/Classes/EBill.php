@@ -18,6 +18,8 @@ class EBill
 
     public float $lastPaymentAmount;
 
+    // public float $lastMonthTotalCharge;
+
     public float $totalFirstRange = 0.0;
 
     public float $totalSecondRange = 0.0;
@@ -42,10 +44,11 @@ class EBill
         string $accountNumber,
         int $lastMeterReading,
         string $lastMeterReadingDate,
-        int $previousMeterReading = 0,
-        string $previousMeterReadingDate = '',
+        int $previousMeterReading,
+        string $previousMeterReadingDate,
         float $forwardBalance = 0.00,
-        float $lastPaymentAmount = 0.00
+        float $lastPaymentAmount = 0.00,
+        // float $lastMonthTotalCharge = 0.00
     ) {
         $this->accountNumber = $accountNumber;
         $this->lastMeterReading = $lastMeterReading;
@@ -55,6 +58,7 @@ class EBill
         $this->units = $lastMeterReading - $previousMeterReading;
         $this->forwardBalance = $forwardBalance;
         $this->lastPaymentAmount = $lastPaymentAmount;
+        // $this->lastMonthTotalCharge = $lastMonthTotalCharge;
         $this->calculateBill();
     }
 

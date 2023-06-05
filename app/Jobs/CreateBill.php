@@ -20,7 +20,7 @@ class CreateBill implements ShouldQueue
 
     private User $user;
 
-    public $tries = 2;
+    public $tries = 1;
 
     public $backoff = 1;
 
@@ -39,6 +39,7 @@ class CreateBill implements ShouldQueue
     {
         $meterReadings = SharedQuery::getLastTwoMeterReadings($this->user->id);
         $lastBill = SharedQuery::getLastBill($this->user->id);
+        // $lastSecondBill = SharedQuery::getLastSecondBill($this->user->id);
         $lastPayment = SharedQuery::getLastPayment($lastBill->id ?? null);
         $eBillGen = new EBillGenerator($meterReadings, $this->user, $lastBill, $lastPayment);
         $eBill = $eBillGen->eBill;
@@ -48,7 +49,7 @@ class CreateBill implements ShouldQueue
             'status' => false,
             'old_reading' => $eBill->previousMeterReading,
             'new_reading' => $eBill->lastMeterReading,
-            'old_reading_date' => ! empty($eBill->previousMeterReadingDate) ? Carbon::parse($eBill->previousMeterReadingDate) : Carbon::createFromDate(0, 0, 0)->toDateString(),
+            'old_reading_date' => Carbon::parse($eBill->previousMeterReadingDate),
             'new_reading_date' => Carbon::parse($eBill->lastMeterReadingDate),
             'units' => $eBill->units,
             'range_one_cost' => $eBill->totalFirstRange,
@@ -59,11 +60,14 @@ class CreateBill implements ShouldQueue
             'charge_for_month' => $eBill->getCostForMonth(),
             'last_payment' => $eBill->lastPaymentAmount,
             'balance_forward' => $eBill->forwardBalance,
+            // 'last_month_total_charge' => $eBill->lastMonthTotalCharge,
             'charge_total' => $eBill->getTotalCost(),
         ]);
         $bill->save();
 
-        $pdfPath = EBillGenerator::generatePdf();
+        $bill = SharedQuery::getLastBill($this->user->id);
+
+        $pdfPath = EBillGenerator::generatePdf($bill, $this->user);
         Session::put('pdfPath', $pdfPath);
     }
 }
