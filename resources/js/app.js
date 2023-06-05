@@ -41,6 +41,7 @@ $(document).ready(function() {
                 $('#billOldMeterReading').text(response.old_reading);
                 $('#billStatus').text(response.status);
                 $('#billNewReadingDate').text(response.new_reading_date);
+                $('#billOldReadingDate').text(response.old_reading_date);
                 $('#billChargeFixed').text(response.charge_fixed);
                 $('#billChargeForUnits').text(response.charge_for_units);
                 $('#billChargeForMonth').text(response.charge_for_month);

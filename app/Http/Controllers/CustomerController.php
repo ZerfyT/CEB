@@ -41,6 +41,7 @@ class CustomerController extends Controller
             'new_reading' => $bill->new_reading,
             'status' => $bill->status,
             'new_reading_date' => $bill->new_reading_date,
+            'old_reading_date' => $bill->old_reading_date,
             'charge_fixed' => $bill->charge_fixed,
             'charge_for_units' => $bill->charge_for_units,
             'charge_for_month' => $bill->charge_for_month,
@@ -61,6 +62,10 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function customerBillPdf()
+    {
+        
+    }
     
     public function customerPayment(PaymentsDataTable $dataTable)
     {

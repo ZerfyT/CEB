@@ -11,7 +11,7 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
-                            <div class="container mb-2 mt-3">
+                            <div class="container mb-0 mt-3">
                                 <div class="row d-flex align-items-baseline">
                                 </div>
 
@@ -19,7 +19,7 @@
                                     <div class="col-md-12">
                                         <div class="text-center">
                                             <i class="fab fa-mdb fa-4x ms-0" style="color:#5d9fc5 ;"></i>
-                                            <p class="pt-0">Ceylon Electricity Board</p>
+                                            <h4 class="p-3">Ceylon Electricity Board</h4>
                                         </div>
                                     </div>
 
@@ -55,34 +55,101 @@
                                         <table class="table table-striped table-borderless">
                                             <thead style="background-color:#84B0CA ;" class="text-white">
                                                 <tr>
-                                                    <th scope="col">#</th>
+                                                    {{-- <th scope="col">#</th> --}}
                                                     <th scope="col">Description</th>
-                                                    <th scope="col">Qty</th>
-                                                    <th scope="col">Unit Price</th>
-                                                    <th scope="col">Amount</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Meter Reading</th>
+                                                    <th scope="col">Monthly Units</th>
+                                                    <th scope="col">Balance</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Pro Package</td>
-                                                    <td>4</td>
-                                                    <td>$200</td>
-                                                    <td>$800</td>
+                                                    {{-- <th scope="row">1</th> --}}
+                                                    <td>Last</td>
+                                                    <td class="text-muted"><span id="billOldReadingDate"></span></td>
+                                                    <td class="text-muted"><span id="billOldMeterReading"></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Web hosting</td>
-                                                    <td>1</td>
-                                                    <td>$10</td>
-                                                    <td>$10</td>
+                                                    {{-- <th scope="row">2</th> --}}
+                                                    <td>Current</td>
+                                                    <td class="text-muted"><span id="billNewReadingDate"></span></td>
+                                                    <td class="text-muted"><span id="billNewMeterReading"></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Consulting</td>
-                                                    <td>1 year</td>
-                                                    <td>$300</td>
-                                                    <td>$300</td>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Units</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billUnits"></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Fixed Charge</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billChargeFixed"></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Charge For Units</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billChargeForUnits"></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Charge For Month</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billChargeForMonth"></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Last Bill Amount</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Last Payment</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billLastPayment"></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td>Balance Forward</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id="billBalanceForward"></span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    {{-- <th scope="row">3</th> --}}
+                                                    <td class="fw-bold" style="color:#ff3c2e ;">Total Charge</td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td class="text-muted"><span id=""></span></td>
+                                                    <td style="color:#ff3c2e ;"><span id="billChargeTotal"></span></td>
                                                 </tr>
                                             </tbody>
 
@@ -91,7 +158,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Download</button>
+                                            <a href="{{route('customer.pdf')}}" class="btn btn-primary" >Download</a>
+                                        
 
                                     </div>
                                 </div>
