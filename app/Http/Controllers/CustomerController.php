@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use PDF;
 use App\DataTables\PaymentsDataTable;
 use App\DataTables\CustomerBillsDataTable;
 use App\DataTables\CustomersDataTable;
@@ -62,10 +62,16 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function customerBillPdf()
-    {
-        
-    }
+    // Generate PDF
+    public function customerBillPdf() {
+        // retreive all records from db
+        // $data = Employee::all();
+        // share data to view
+        // view()->share('employee',$data);
+        $pdf = PDF::loadView('pdf_view',);
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
+      }
     
     public function customerPayment(PaymentsDataTable $dataTable)
     {
