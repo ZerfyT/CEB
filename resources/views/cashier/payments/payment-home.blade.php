@@ -35,7 +35,7 @@
             </thead>
             <tbody class="table-light">
                 @foreach ($customers as $customer)
-                    <tr onclick="window.location.href='{{ route('customer-bill',$customer->id) }}'">
+                    <tr onclick="window.location.href='{{ route('customer-bills',$customer->id) }}'">
                         <th scope="row">{{ $customer->id }}</th>
                         <td>{{ $customer->acount_number }}</td>
                         <td>{{ $customer->name }}</td>

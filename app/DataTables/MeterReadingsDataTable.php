@@ -40,9 +40,9 @@ class MeterReadingsDataTable extends DataTable
         return $this->builder()
             ->setTableId('meterreadings-table')
             ->setTableAttribute([
-                'class' => 'table table-bordered table-hover',
+                'class' => 'table table-light table-bordered table-hover w-100',
             ])
-            ->setTableHeadClass('table-secondary')
+            ->setTableHeadClass('table-success')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -65,7 +65,6 @@ class MeterReadingsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('user_id'),
             Column::make('account_number'),
             Column::make('name'),
             Column::make('meter_reading'),

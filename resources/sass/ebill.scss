@@ -19,4 +19,31 @@
     text-decoration: underline;
     color: var(--bs-gray-700);
   }
+  .customer-info,
+  .bill-info {
+    border-right: 1px solid var(--bs-gray-400);
+    > div {
+      display: flex;
+      > p {
+        &:nth-child(2) {
+          margin-left: auto;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      border: none;
+    }
+  }
+  .lkr {
+    font-size: 0.9rem;
+    font-weight: lighter;
+  }
+  #total-charge,
+  #last-payment > {
+    p:nth-child(2) {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: rgba(48, 39, 34, 0.726);
+    }
+  }
 }

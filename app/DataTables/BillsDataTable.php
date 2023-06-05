@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Bill;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,13 +13,11 @@ use Yajra\DataTables\Services\DataTable;
 
 class BillsDataTable extends DataTable
 {
-    private $userId;
+    private User $user;
 
-    public function setUserId($userId)
+    public function __construct(User $user)
     {
-        $this->userId = $userId;
-
-        return $this;
+        $this->user = $user;
     }
 
     /**
@@ -29,7 +28,7 @@ class BillsDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($bill) {
+            ->addColumn('actions', function ($bill) {
                 return view('components.tb_action_view_bill', compact('bill'));
                 // ->setRowId('id');
             });
@@ -40,7 +39,7 @@ class BillsDataTable extends DataTable
      */
     public function query(Bill $model): QueryBuilder
     {
-        return $model->newQuery()->where('user_id', $this->userId);
+        return $model->newQuery()->where('user_id', $this->user->id);
         // return $model->newQuery()->with('user')->whereHas('user', function ($query) {
         //     $query->where('role_id', 5);
         // });
@@ -54,9 +53,9 @@ class BillsDataTable extends DataTable
         return $this->builder()
             ->setTableId('user-bills-table')
             ->setTableAttribute([
-                'class' => 'table table-bordered table-hover',
+                'class' => 'table table-light table-bordered table-hover w-100',
             ])
-            ->setTableHeadClass('table-secondary')
+            ->setTableHeadClass('table-success')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -78,15 +77,15 @@ class BillsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
-            Column::make('id'),
-            Column::make('date'),
-            Column::make('amount'),
+            Column::make('id')->title('#'),
+            Column::make('new_reading_date')->title('Date')->defaultSort('desc'),
+            Column::make('units'),
+            Column::make('charge_for_month')->title('Monthly Cost'),
+            Column::make('charge_total')->title('Total Cost'),
             Column::make('status'),
-            Column::computed('action')
+            Column::computed('actions')
                 ->exportable(false)
                 ->printable(false)
-                // ->width(60)
                 ->addClass('text-center'),
         ];
     }

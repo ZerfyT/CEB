@@ -97,9 +97,6 @@ class EBillGenerator
         return $this->lastBill->charge_total;
     }
 
-    /**
-     * Create PDF File
-     */
     public static function generatePdf()
     {
         // $domPDF = new Dompdf();
@@ -116,6 +113,7 @@ class EBillGenerator
         //     ->save(public_path('mybill.pdf'));
         // $pdf->download();
 
+        // Pdf::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $pdfPath = storage_path('app\public\mybill.pdf');
         $pdf = Pdf::loadView('layouts.ebill2pdf')
             ->save($pdfPath);

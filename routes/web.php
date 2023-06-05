@@ -22,9 +22,10 @@ Auth::routes();
 Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(CashierController::class)->group(function () {
     Route::get('/home', 'cashierHomepage')->name('cashier.home');
     Route::get('/payment', 'cashierPayments')->name('payment-home');
-    Route::get('/payment/customer-bill/{user}', 'cashierCustomerBill')->name('customer-bill');
+    Route::get('/payment/customer-bills/{user}', 'cashierCustomerBills')->name('customer-bills');
     Route::get('/payment/genarate-bill/{billId}', 'cashierGenarateBill')->name('genarate-bill');
-    Route::get('/payment/paybill', 'cashierPay')->name('paybill');
+    Route::post('/payment/paybill', 'cashierPay')->name('paybill');
+    Route::get('/payment/download/{billId}', 'downloadBill')->name('download-bill');
     Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
     Route::get('/profile', 'cashierProfile')->name('profile');
     Route::get('/payment-history', 'cashierPaymentHistory')->name('payment-history');
@@ -59,6 +60,10 @@ Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(Custome
     Route::get('/profile', 'customerProfile')->name('customer.profile');
     Route::get('/detail', 'customerDetails')->name('customer.details');
     Route::get('/account', 'customerAccount')->name('customer.account');
+});
+
+Route::get('/ebill', function () {
+    return view('layouts.ebill2pdf');
 });
 // Route::fallback(function () {
 //     return view('index');

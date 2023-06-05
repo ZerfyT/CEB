@@ -53,9 +53,9 @@ class UsersDataTable extends DataTable
         return $this->builder()
             ->setTableId('users-table')
             ->setTableAttribute([
-                'class' => 'table table-bordered table-hover',
+                'class' => 'table table-light table-bordered table-hover w-100',
             ])
-            ->setTableHeadClass('table-secondary')
+            ->setTableHeadClass('table-success')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')

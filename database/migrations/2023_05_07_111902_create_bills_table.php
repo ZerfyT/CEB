@@ -20,6 +20,9 @@ return new class extends Migration
             $table->date('old_reading_date');
             $table->date('new_reading_date');
             $table->integer('units');
+            $table->decimal('range_one_cost');
+            $table->decimal('range_two_cost');
+            $table->decimal('range_three_cost');
             $table->decimal('charge_fixed');
             $table->decimal('charge_for_units');
             $table->decimal('charge_for_month');

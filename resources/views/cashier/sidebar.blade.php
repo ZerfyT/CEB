@@ -8,10 +8,10 @@
 
     <ul class="list-unstyled components py-3 px-0">
         <li>
-            <a href="{{route('cashier.home')}}">Home</a>
+            <a href="{{ route('cashier.home') }}">Home</a>
         </li>
         <li>
-            <a href="{{ route('payment-home') }}">Payments</a>
+            <a href="{{ route('payment-home') }}">Customers</a>
         </li>
         <li>
             <a href="{{ route('payment-history') }}">Payments History</a>
@@ -20,7 +20,7 @@
             <a href="{{ route('email-history') }}">Email History</a>
         </li>
         <li>
-            <a href="{{route('profile')}}">My Profile</a>
+            <a href="{{ route('profile') }}">My Profile</a>
         </li>
     </ul>
 </nav>

@@ -186,7 +186,7 @@ return [
          *
          * @var string
          */
-        'default_font' => 'serif',
+        'default_font' => 'sans-serif',
 
         /**
          * Image DPI setting
@@ -221,7 +221,7 @@ return [
          *
          * @var int
          */
-        'dpi' => 96,
+        'dpi' => 150,
 
         /**
          * Enable inline PHP
@@ -235,7 +235,7 @@ return [
          *
          * @var bool
          */
-        'enable_php' => false,
+        'enable_php' => true,
 
         /**
          * Enable inline Javascript

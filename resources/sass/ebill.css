@@ -1,0 +1,48 @@
+.bill-container {
+  background-color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.bill-container p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--bs-green);
+  text-rendering: geometricPrecision;
+}
+.bill-container p span {
+  color: var(--bs-gray-dark);
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+.bill-container h4 {
+  text-decoration: underline;
+  color: var(--bs-gray-700);
+}
+.bill-container .customer-info,
+.bill-container .bill-info {
+  border-right: 1px solid var(--bs-gray-400);
+}
+.bill-container .customer-info > div,
+.bill-container .bill-info > div {
+  display: flex;
+}
+.bill-container .customer-info > div > p:nth-child(2),
+.bill-container .bill-info > div > p:nth-child(2) {
+  margin-left: auto;
+}
+@media (max-width: 768px) {
+  .bill-container .customer-info,
+  .bill-container .bill-info {
+    border: none;
+  }
+}
+.bill-container .lkr {
+  font-size: 0.9rem;
+  font-weight: lighter;
+}
+.bill-container #total-charge p:nth-child(2),
+.bill-container #last-payment > p:nth-child(2) {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: rgba(48, 39, 34, 0.726);
+}/*# sourceMappingURL=ebill.css.map */
