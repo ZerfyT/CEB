@@ -5,31 +5,50 @@ namespace App\Classes;
 class EBill
 {
     public string $accountNumber;
+
     public int $lastMeterReading;
+
     public int $previousMeterReading;
+
     public string $lastMeterReadingDate;
+
     public string $previousMeterReadingDate;
+
     public float $forwardBalance;
+
+    public float $lastPaymentAmount;
+
+    // public float $lastMonthTotalCharge;
+
     public float $totalFirstRange = 0.0;
+
     public float $totalSecondRange = 0.0;
+
     public float $totalThirdRange = 0.0;
 
-    private const FIXED_CHARGES_FIRST = 500.0;
-    private const FIXED_CHARGES_SECOND = 1000.0;
-    private const FIXED_CHARGES_THIRD = 1500.0;
-    private const PRICE_FIRST_RANGE = 20.0;
-    private const PRICE_SECOND_RANGE = 35.0;
-    private const PRICE_THIRD_RANGE = 40.0;
-
     public $units;
+
+    private const FIXED_CHARGES_FIRST = 500.0;
+
+    private const FIXED_CHARGES_SECOND = 1000.0;
+
+    private const FIXED_CHARGES_THIRD = 1500.0;
+
+    private const PRICE_FIRST_RANGE = 20.0;
+
+    private const PRICE_SECOND_RANGE = 35.0;
+
+    private const PRICE_THIRD_RANGE = 40.0;
 
     public function __construct(
         string $accountNumber,
         int $lastMeterReading,
         string $lastMeterReadingDate,
-        int $previousMeterReading = 0,
-        string $previousMeterReadingDate = '',
-        float $forwardBalance = 0.00
+        int $previousMeterReading,
+        string $previousMeterReadingDate,
+        float $forwardBalance = 0.00,
+        float $lastPaymentAmount = 0.00,
+        // float $lastMonthTotalCharge = 0.00
     ) {
         $this->accountNumber = $accountNumber;
         $this->lastMeterReading = $lastMeterReading;
@@ -38,20 +57,22 @@ class EBill
         $this->previousMeterReadingDate = $previousMeterReadingDate;
         $this->units = $lastMeterReading - $previousMeterReading;
         $this->forwardBalance = $forwardBalance;
+        $this->lastPaymentAmount = $lastPaymentAmount;
+        // $this->lastMonthTotalCharge = $lastMonthTotalCharge;
         $this->calculateBill();
     }
 
-    function getTotalPriceForUnits()
+    public function getCostForUnits()
     {
         return $this->totalFirstRange + $this->totalSecondRange + $this->totalThirdRange;
     }
 
-    function getTotalPriceForMonth()
+    public function getCostForMonth()
     {
-        return $this->getTotalPriceForUnits() + $this->getFixedCharges();
+        return $this->getCostForUnits() + $this->getFixedCharges();
     }
 
-    function getFixedCharges()
+    public function getFixedCharges()
     {
         if ($this->units < 30) {
             return self::FIXED_CHARGES_FIRST;
@@ -62,9 +83,9 @@ class EBill
         }
     }
 
-    function getTotalPrice()
+    public function getTotalCost()
     {
-        return $this->getTotalPriceForMonth() - $this->forwardBalance;
+        return $this->getCostForMonth() + $this->forwardBalance - $this->lastPaymentAmount;
     }
 
     private function calculateBill()

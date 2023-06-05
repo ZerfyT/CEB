@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\DataTables\BillsDataTable;
+use App\DataTables\UsersDataTable;
+use App\Jobs\SendPaymentReceipt;
 use App\Models\Bill;
 use App\Models\Payment;
-use App\DataTables\CustomersDataTable;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use App\DataTables\UsersDataTable;
-use App\DataTables\BillsDataTable;
-use App\Models\MeterReading;
-use App\Classes\EBill;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Hash;
+use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class CashierController extends Controller
 {
@@ -23,100 +23,98 @@ class CashierController extends Controller
         return view('cashier.email-history');
     }
 
-
     // Display cashier homepage.
     public function cashierHomepage()
     {
         return view('cashier.home');
     }
 
-
-    // Display customers in cashier payments page.
-    public function cashierPayments(CustomersDataTable $dataTable)
+    // Display customer list.
+    public function cashierPayments()
     {
+        $dataTable = new UsersDataTable('components.tb_action_view_cus_bills');
+
         return $dataTable->render('cashier.payments.payment-home');
     }
 
-
-    public function cashierPay()
+    public function cashierPay(Request $request)
     {
-        return view('cashier.payments.paybill');
+        $bill = Bill::findOrFail($request->billId);
+        if (! $request->payAmount > 0) {
+            return redirect()->back()->with('error', 'Please enter a valid amount.');
+        }
+        $payments = new Payment([
+            'bill_id' => $bill->id,
+            'status' => true,
+            'payment_type' => 'CASH',
+            'amount' => $bill->charge_total,
+            'paid_amount' => $request->payAmount,
+            'balance' => $bill->charge_total - $request->payAmount,
+            'date' => now(),
+        ]);
+        if ($payments->save()) {
+
+            // Send payment receipt to customer via email.
+            Bus::chain([
+                new SendPaymentReceipt($payments),
+            ])->dispatch();
+
+            return redirect()->back()->with('success', 'Payment Successful');
+        }
+
+        return redirect()->back()->with('error', 'Please try again.');
     }
 
-
-    public function cashierCustomerBill($userId, BillsDataTable $dataTable)
+    public function downloadBill($billId)
     {
-        // $bills = $user->bills();
-        $dataTable->setUserId($userId);
-        return $dataTable->render('cashier.payments.customer-bill');
+        $bill = Bill::findOrFail($billId);
+        $user = User::findOrFail($bill->user_id);
+
+        // $view = view('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
+        // $html = $view->render();
+        // $cssToInlineStyles = new CssToInlineStyles();
+        // $cssToInlineStyles->setHTML($html);
+        // $cssToInlineStyles->setUseInlineStylesBlock(true);
+        // $htmlWithInlineStyles = $cssToInlineStyles->convert($html);
+
+        // Find the specific section within the HTML
+        // $startMarker = '<div id="pdf-content" class="container bill-container p-4 my-3">';
+        // $endMarker = '<span style="display: none;"></span>';
+        // $startPosition = strpos($htmlWithInlineStyles, $startMarker);
+        // $endPosition = strpos($htmlWithInlineStyles, $endMarker);
+        // $length = $endPosition - $startPosition + strlen($endMarker);
+        // $sectionHtml = substr($htmlWithInlineStyles, $startPosition, $length);
+
+        // $pdf = Pdf::loadHTML($html);
+
+        $pdf = Pdf::loadView('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
+
+        return $pdf->download('invoice.pdf');
+        // return view('cashier.payments.download-bill', compact('bill'));
     }
 
+    public function cashierCustomerBills($userId)
+    {
+        $user = User::findOrFail($userId);
+        $dataTable = new BillsDataTable($user);
+
+        return $dataTable->render('cashier.payments.customer-bills', compact('user'));
+    }
 
     public function cashierGenarateBill($billId)
     {
 
         $bill = Bill::findOrFail($billId);
-        // $customer = $bill->user();
-        $customer = User::findOrFail($bill->user_id);
-        $payments = DB::table('payments')
-            ->select('*')
-            ->where('bill_id', '=', $billId)
-            ->orderBy('date', 'DESC')
-            ->limit(1)
-            ->get();
-        $meterReadings = DB::table('meter_readings')
-            ->select('*')
-            ->where('meter_reading', '<', function ($query) {
-                $query->from('meter_readings')
-                    ->select(DB::raw('MAX(meter_reading)'));
-            })
-            ->where('user_id', '=', $customer->id)
-            ->orderBy('meter_reading', 'desc')
-            ->limit(2)
-            ->get();
+        $user = User::findOrFail($bill->user_id);
 
-
-        $count = $meterReadings->count();
-        $ebill = null;
-        $lastPayment = null;
-        if ($payments->count() > 0) {
-            $lastPayment = $payments->first();
-        }
-
-        if ($count == 2) {
-            $readingOld = $meterReadings->first();
-            $readingNew = $meterReadings->skip(1)->take(1)->first();
-            $ebill = new EBill(
-                $customer->account_number,
-                $readingNew->meter_reading,
-                $readingNew->date,
-                $readingOld->meter_reading,
-                $readingOld->date,
-                $lastPayment->balance ?? 0.0
-            );
-        }
-        if ($count == 1) {
-            $readingNew = $meterReadings->first();
-            $ebill = new EBill(
-                $customer->account_number,
-                $readingNew->meter_reading,
-                $readingNew->date,
-                0,
-                '',
-                $lastPayment->balance ?? 0.00
-            );
-        }
-        // Pass the retrieved data to the view
-        if ($ebill != null) {
-            return view('cashier.payments.genarate-bill', compact('bill', 'customer', 'ebill'));
-        }
-        return redirect()->back()->with('error', 'No Data');
+        return view('cashier.payments.genarate-bill', compact('bill', 'user'));
     }
 
     // Display payment history of customers.
     public function cashierPaymentHistory()
     {
         $payments = Payment::all();
+
         return view('cashier.payment-history', compact('payments'));
     }
 
@@ -126,8 +124,55 @@ class CashierController extends Controller
         return view('cashier.profile');
     }
 
-    public function cashierReceipt()
+    public function updateProfileInfo(Request $request)
     {
-        return view('cashier.payments.payment-receipt');
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'fname' => 'string|max:255',
+            'nic' => 'max:12',
+            'email' => 'email|unique:users,email,'.$user->id,
+            'address' => 'max:255',
+            'pNumber' => 'max:10',
+        ]);
+
+        $user->update([
+            'name' => $data['fname'] ?? $user->name,
+            'nic' => $data['nic'] ?? $user->nic,
+            'email' => $data['email'] ?? $user->email,
+            'address' => $data['address'] ?? $user->address,
+            'phone' => $data['pNumber'] ?? $user->phone,
+            'update_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Profile details updated successfully.');
     }
+
+    public function updateProfilePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'currentPassword' => 'required|string|max:255',
+            'newPassword' => 'required|confirmed|string|min:8|max:255',
+            'confirmPassword' => 'required|string|max:255',
+        ]);
+
+        if (! Hash::check($request->currentPassword, $user->password)) {
+            return redirect()->back()->with('error', 'Current Password is Invalid');
+        }
+
+        if (strcmp($request->currentPassword, $request->newPassword) != 0) {
+            return redirect()->back()->with('error', 'New Password cannot be same as your current password.');
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password Changed Successfully');
+    }
+
+    // public function cashierReceipt()
+    // {
+    //     return view('cashier.payments.payment-receipt');
+    // }
 }

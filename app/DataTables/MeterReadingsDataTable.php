@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class MeterReadingsDataTable extends DataTable
@@ -17,7 +15,7 @@ class MeterReadingsDataTable extends DataTable
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder $query Results from query() method.
+     * @param  QueryBuilder  $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -42,9 +40,9 @@ class MeterReadingsDataTable extends DataTable
         return $this->builder()
             ->setTableId('meterreadings-table')
             ->setTableAttribute([
-                'class' => 'table table-bordered table-hover'
+                'class' => 'table table-light table-bordered table-hover w-100',
             ])
-            ->setTableHeadClass('table-secondary')
+            ->setTableHeadClass('table-success')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -56,7 +54,7 @@ class MeterReadingsDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -67,7 +65,6 @@ class MeterReadingsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('user_id'),
             Column::make('account_number'),
             Column::make('name'),
             Column::make('meter_reading'),
@@ -80,6 +77,6 @@ class MeterReadingsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'MeterReadings_' . date('YmdHis');
+        return 'MeterReadings_'.date('YmdHis');
     }
 }

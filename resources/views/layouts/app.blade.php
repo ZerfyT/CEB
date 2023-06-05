@@ -30,7 +30,7 @@
 
             @include('layouts.header')
 
-            <main class="py-4 px-2">
+            <main class="container py-4 px-2">
                 @yield('content')
 
             </main>

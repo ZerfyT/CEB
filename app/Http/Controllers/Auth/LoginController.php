@@ -51,7 +51,7 @@ class LoginController extends Controller
             $redirect = '/cashier/home';
         } elseif ($user->hasRole('meter-reader')) {
             $redirect = '/mreader/home';
-        }elseif ($user->hasRole('user')) {
+        } elseif ($user->hasRole('user')) {
             $redirect = '/customer/home';
         }
 
