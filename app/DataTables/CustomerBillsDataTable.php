@@ -23,6 +23,7 @@ class CustomerBillsDataTable extends DataTable
 
         return $this;
     }
+
     /**
      * Build the DataTable class.
      *
@@ -32,7 +33,10 @@ class CustomerBillsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($bill) {
-                return view('components.customer_bill_button', compact('bill'));
+                return view('components.customer_bill_button', [
+                    'bill' => $bill,
+                    'selectedBill' => $this->selectedBill,
+                ]);
                 // ->setRowId('id');
             });
     }
@@ -51,6 +55,10 @@ class CustomerBillsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
+            ->setTableAttribute([
+                'class' => 'table table-light table-bordered table-hover w-100'
+            ])
+            ->setTableHeadClass('table-success')
             ->setTableId('customerbills-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
@@ -74,14 +82,19 @@ class CustomerBillsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('date'),
-            Column::make('amount'),
+            Column::make('new_reading_date'),
+            Column::make('charge_total'),
+            Column::make('units'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 // ->width(60)
                 ->addClass('text-center'),
+            Column::computed('selectedBill')
+                ->data('id')
+                ->name('selectedBill')
+                ->visible(false),
         ];
     }
 

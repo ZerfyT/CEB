@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PaymentsDataTable;
 use App\DataTables\CustomerBillsDataTable;
+use App\DataTables\CustomersDataTable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bill;
 use App\Models\User;
@@ -23,23 +24,21 @@ class CustomerController extends Controller
         $user = Auth::user();
         $userId = $user->id;
         $dataTable->setUserId($userId);
-        return $dataTable->render('customer.details');
+        return $dataTable->render('customer.details', ['selectedBill' => null]);
     }
 
-    public function customerBill()
+    public function show($id)
     {
-        return view('customer.bill');
+        $bill = Bill::findOrFail($id);
+
+        return response()->json([
+            'id' => $bill->id,
+            'user_id' => $bill->user_id,
+            'units' => $bill->units,
+        ]);
     }
 
-    public function genarateBill($userId)
-    {
-        $user = Auth::user();
-        $userId = $user->id;
-        $logedUser = User::with('bills', 'meter_readings')->find($userId);
-
-        return view('components.bill_modal', ['logedUser' => $logedUser]);
-    }
-
+    
     public function customerPayment(PaymentsDataTable $dataTable)
     {
         $user = Auth::user();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bill_id');
             $table->foreign('bill_id')->references('id')->on('bills')->onDelete('cascade');
             $table->string('status');
-            $table->decimal('payment_type');
+            $table->string('payment_type');
             $table->decimal('amount');
             $table->decimal('paid_amount');
             $table->decimal('balance');

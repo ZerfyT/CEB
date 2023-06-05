@@ -1,5 +1,4 @@
 <!-- Modal -->
-
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="billModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -27,15 +26,14 @@
                                     <div class="row">
                                         <div class="col-xl-8">
                                             <ul class="list-unstyled">
-                                                <li class="text-muted">To: <span
-                                                        style="color:#5d9fc5 ;">{{ $logedUser->name }}</span></li>
-                                                <li class="text-muted">Street, City</li>
-                                                <li class="text-muted">State, Country</li>
+                                                <li class="text-muted">To: <span style="color:#5d9fc5 ;"
+                                                        id="billId"></span></li>
+                                                <li class="text-muted" id="billUserId"></li>
+                                                <li class="text-muted" id="billUnits"></li>
                                                 <li class="text-muted"><i class="fas fa-phone"></i> 123-456-789</li>
                                             </ul>
                                         </div>
                                         <div class="col-xl-4">
-                                            {{-- <p class="text-muted">Invoice</p> --}}
                                             <ul class="list-unstyled">
                                                 <li class="text-muted"><i class="fas fa-circle"
                                                         style="color:#84B0CA ;"></i> <span
@@ -93,6 +91,10 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
                                         <button type="button" class="btn btn-primary">Download</button>
+                                        <p><strong>ID:</strong> <span id="billId"></span></p>
+                                        <p><strong>User ID:</strong> <span id="billUserId"></span></p>
+                                        <p><strong>Amount:</strong> <span id="billAmount"></span></p>
+
                                     </div>
                                 </div>
                             </div>

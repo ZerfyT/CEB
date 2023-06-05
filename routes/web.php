@@ -60,9 +60,8 @@ Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(
 Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(CustomerController::class)->group(function () {
     Route::get('/home', 'customerHome')->name('customer.home');
     Route::get('/payment', 'customerPayment')->name('customer.payment');
-    Route::get('/detail', 'customerDetails')->name('customer.details');
-    Route::get('/detail/bill', 'customerBill')->name('customer.bill');
-    Route::get('/detail/bill/{$bill->id}', 'genarateBill')->name('customer.bill_modal');
+    Route::get('/details', 'customerDetails')->name('customer.details');
+    Route::get('/details/bill/{id}', 'show')->name('show.bill');
     Route::get('/profile', 'customerProfile')->name('customer.profile');
     Route::post('/profile/update-info', 'updateProfileInfo')->name('customer.updateProfileInfo');
     Route::post('/profile/update-password', 'updateProfilePassword')->name('customer.updateProfilePassword');
