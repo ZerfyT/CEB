@@ -31,6 +31,8 @@ Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(Cashi
     Route::get('/payment-history', 'cashierPaymentHistory')->name('payment-history');
     Route::get('/email-history', 'cashierEmail')->name('email-history');
     Route::get('/user', 'getUser')->name('user');
+    Route::post('/profile/update-info', 'updateProfileInfo')->name('cashier.updateProfileInfo');
+    Route::post('/profile/update-passwd', 'updateProfilePassword')->name('cashier.updateProfilePassword');
 });
 
 Route::prefix('mreader')->middleware(['auth', 'role:meter-reader'])->controller(MReaderController::class)->group(function () {

@@ -10,7 +10,9 @@ use App\Models\Payment;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Hash;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class CashierController extends Controller
@@ -38,7 +40,7 @@ class CashierController extends Controller
     public function cashierPay(Request $request)
     {
         $bill = Bill::findOrFail($request->billId);
-        if(!$request->payAmount > 0){
+        if (! $request->payAmount > 0) {
             return redirect()->back()->with('error', 'Please enter a valid amount.');
         }
         $payments = new Payment([
@@ -50,19 +52,21 @@ class CashierController extends Controller
             'balance' => $bill->charge_total - $request->payAmount,
             'date' => now(),
         ]);
-        if($payments->save()){
+        if ($payments->save()) {
 
             // Send payment receipt to customer via email.
             Bus::chain([
                 new SendPaymentReceipt($payments),
-                ])->dispatch();
+            ])->dispatch();
 
             return redirect()->back()->with('success', 'Payment Successful');
         }
+
         return redirect()->back()->with('error', 'Please try again.');
     }
 
-    public function downloadBill($billId){
+    public function downloadBill($billId)
+    {
         $bill = Bill::findOrFail($billId);
         $user = User::findOrFail($bill->user_id);
 
@@ -84,6 +88,7 @@ class CashierController extends Controller
         // $pdf = Pdf::loadHTML($html);
 
         $pdf = Pdf::loadView('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
+
         return $pdf->download('invoice.pdf');
         // return view('cashier.payments.download-bill', compact('bill'));
     }
@@ -117,6 +122,53 @@ class CashierController extends Controller
     public function cashierProfile()
     {
         return view('cashier.profile');
+    }
+
+    public function updateProfileInfo(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'fname' => 'string|max:255',
+            'nic' => 'max:12',
+            'email' => 'email|unique:users,email,'.$user->id,
+            'address' => 'max:255',
+            'pNumber' => 'max:10',
+        ]);
+
+        $user->update([
+            'name' => $data['fname'] ?? $user->name,
+            'nic' => $data['nic'] ?? $user->nic,
+            'email' => $data['email'] ?? $user->email,
+            'address' => $data['address'] ?? $user->address,
+            'phone' => $data['pNumber'] ?? $user->phone,
+            'update_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Profile details updated successfully.');
+    }
+
+    public function updateProfilePassword(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'currentPassword' => 'required|string|max:255',
+            'newPassword' => 'required|confirmed|string|min:8|max:255',
+            'confirmPassword' => 'required|string|max:255',
+        ]);
+
+        if (! Hash::check($request->currentPassword, $user->password)) {
+            return redirect()->back()->with('error', 'Current Password is Invalid');
+        }
+
+        if (strcmp($request->currentPassword, $request->newPassword) != 0) {
+            return redirect()->back()->with('error', 'New Password cannot be same as your current password.');
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password Changed Successfully');
     }
 
     // public function cashierReceipt()

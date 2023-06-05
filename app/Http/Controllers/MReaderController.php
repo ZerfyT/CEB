@@ -174,7 +174,7 @@ class MReaderController extends Controller
             return redirect()->back()->with('error', 'Current Password is Invalid');
         }
 
-        if (strcmp($request->currentPassword, $request->newPassword) == 0) {
+        if (strcmp($request->currentPassword, $request->newPassword) != 0) {
             return redirect()->back()->with('error', 'New Password cannot be same as your current password.');
         }
 
