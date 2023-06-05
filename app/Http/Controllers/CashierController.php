@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\DataTables\BillsDataTable;
 use App\DataTables\UsersDataTable;
+use App\Jobs\SendPaymentReceipt;
 use App\Models\Bill;
 use App\Models\Payment;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Bus;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class CashierController extends Controller
@@ -49,6 +51,12 @@ class CashierController extends Controller
             'date' => now(),
         ]);
         if($payments->save()){
+
+            // Send payment receipt to customer via email.
+            Bus::chain([
+                new SendPaymentReceipt($payments),
+                ])->dispatch();
+
             return redirect()->back()->with('success', 'Payment Successful');
         }
         return redirect()->back()->with('error', 'Please try again.');
@@ -58,8 +66,8 @@ class CashierController extends Controller
         $bill = Bill::findOrFail($billId);
         $user = User::findOrFail($bill->user_id);
 
-        $view = view('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
-        $html = $view->render();
+        // $view = view('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
+        // $html = $view->render();
         // $cssToInlineStyles = new CssToInlineStyles();
         // $cssToInlineStyles->setHTML($html);
         // $cssToInlineStyles->setUseInlineStylesBlock(true);
@@ -73,9 +81,9 @@ class CashierController extends Controller
         // $length = $endPosition - $startPosition + strlen($endMarker);
         // $sectionHtml = substr($htmlWithInlineStyles, $startPosition, $length);
 
-        $pdf = Pdf::loadHTML($html);
+        // $pdf = Pdf::loadHTML($html);
 
-        // $pdf = Pdf::loadView('cashier.payments.genarate-bill', ['bill' => $bill, 'user' => $user]);
+        $pdf = Pdf::loadView('layouts.ebill2pdf', ['bill' => $bill, 'user' => $user]);
         return $pdf->download('invoice.pdf');
         // return view('cashier.payments.download-bill', compact('bill'));
     }
@@ -111,8 +119,8 @@ class CashierController extends Controller
         return view('cashier.profile');
     }
 
-    public function cashierReceipt()
-    {
-        return view('cashier.payments.payment-receipt');
-    }
+    // public function cashierReceipt()
+    // {
+    //     return view('cashier.payments.payment-receipt');
+    // }
 }

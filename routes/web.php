@@ -26,7 +26,7 @@ Route::prefix('cashier')->middleware(['auth', 'role:cashier'])->controller(Cashi
     Route::get('/payment/genarate-bill/{billId}', 'cashierGenarateBill')->name('genarate-bill');
     Route::post('/payment/paybill', 'cashierPay')->name('paybill');
     Route::get('/payment/download/{billId}', 'downloadBill')->name('download-bill');
-    Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
+    // Route::get('/payment/receipt', 'cashierReceipt')->name('payment-receipt');
     Route::get('/profile', 'cashierProfile')->name('profile');
     Route::get('/payment-history', 'cashierPaymentHistory')->name('payment-history');
     Route::get('/email-history', 'cashierEmail')->name('email-history');
