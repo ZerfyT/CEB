@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PaymentsDataTable extends DataTable
+class CustomerPaymentsDataTable extends DataTable
 {
     private $billId;
 
@@ -22,6 +22,8 @@ class PaymentsDataTable extends DataTable
 
         return $this;
     }
+
+
     /**
      * Build the DataTable class.
      *
@@ -30,10 +32,8 @@ class PaymentsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query));
-        // ->addColumn('action', function ($payment) {
-        //         return view('components.tb_bill_buttons', compact('payment'));
-        //     });
-            // ->setRowId('id');
+        // ->addColumn('action', 'customerpayments.action')
+        // ->setRowId('id');
     }
 
     /**
@@ -42,6 +42,12 @@ class PaymentsDataTable extends DataTable
     public function query(Payment $model): QueryBuilder
     {
         return $model->newQuery();
+        // ->where('bill_id', $this->billId);
+        // ->join('bills', 'payments.bill_id', '=', 'bills.id')
+        // ->join('users', 'bills.user_id', '=', 'users.id')
+        // ->select('payments.*')
+        // ->where('bills.id', $this->billId)
+        // ->where('users.id', $this->userId);
     }
 
     /**
@@ -50,20 +56,24 @@ class PaymentsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('payments-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableAttribute([
+                'class' => 'table table-light table-bordered table-hover w-100'
+            ])
+            ->setTableHeadClass('table-success')
+            ->setTableId('customerpayments-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                // Button::make('excel'),
+                // Button::make('csv'),
+                // Button::make('pdf'),
+                // Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -72,17 +82,18 @@ class PaymentsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id'),
+            Column::make('bill_id'),
+            Column::make('amount'),
+            Column::make('payment_type'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
             // Column::computed('action')
             //       ->exportable(false)
             //       ->printable(false)
             //       ->width(60)
             //       ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('bill_id'),
-            Column::make('amount'),
-            Column::make('payment_type'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
@@ -91,6 +102,6 @@ class PaymentsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Payments_' . date('YmdHis');
+        return 'CustomerPayments_' . date('YmdHis');
     }
 }

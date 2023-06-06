@@ -6,7 +6,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use PDF;
 use Barryvdh\Snappy\Facades\SnappyPdf;
-use App\DataTables\PaymentsDataTable;
+use App\DataTables\CustomerPaymentsDataTable;
 use App\DataTables\CustomerBillsDataTable;
 use App\DataTables\CustomersDataTable;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +75,7 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $bill = Bill::findOrFail($id);
- 
+
         if (!$bill) {
             // Handle case when bill is not found
             return redirect()->back()->with('error', 'Bill not found.');
@@ -90,7 +90,7 @@ class CustomerController extends Controller
         $dompdf->setOptions($options);
 
         // Load the HTML view file into Dompdf
-        $html = view('layouts.bill_pdf', compact('bill', 'user'))->render();
+        $html = view('PDF.bill_pdf', compact('bill', 'user'))->render();
         $dompdf->loadHtml($html);
 
         // Render the PDF
@@ -105,19 +105,13 @@ class CustomerController extends Controller
     }
 
 
-    public function customerPayment(PaymentsDataTable $dataTable)
+    public function customerPayment(CustomerPaymentsDataTable $dataTable)
     {
         $user = Auth::user();
         $userId = $user->id;
         $billId = DB::table('bills')
             ->select('id')
             ->where('user_id', '=', $userId);
-
-        // $payments = DB::table('payments')
-        //     ->select('*')
-        //     ->where('bill_id', '=', $billId)
-        //     ->orderBy('date', 'DESC')
-        //     ->limit(1);
         $dataTable->setBillId($billId);
         return $dataTable->render('customer.payment');
     }
