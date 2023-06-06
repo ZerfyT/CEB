@@ -21,16 +21,16 @@
 </head>
 
 <body>
-    <div class="wrapper d-flex align-items-stretch">
+    <div class="wrapper d-flex align-items-stretch justify-content-between">
 
         {{-- @include('layouts.sidebar') --}}
         @yield('sidebar')
 
-        <div class="main-content w-100">
+        <div class="main-content w-100 h-100 d-flex flex-column justify-content-between">
 
             @include('layouts.header')
 
-            <main class="container py-4 px-2">
+            <main class="container p-0 m-0">
                 @yield('content')
 
             </main>

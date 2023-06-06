@@ -21,13 +21,13 @@
 </head>
 
 <body>
-    <div class="wrapper d-flex align-items-stretch">
+    <div class="wrapper d-flex align-items-stretch justify-content-between">
 
-        <div class="main-content w-100">
+        <div class="main-content w-100 h-100 d-flex flex-column justify-content-between">
 
             @include('layouts.navbar')
 
-            <main class="py-0 px-0">
+            <main class="p-0 m-0">
                 @yield('content')
             </main>
 

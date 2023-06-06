@@ -46,11 +46,11 @@ a:focus {
 
 // Mreader Home
 .card {
-  margin-bottom: 1.5rem;
+  //   margin-bottom: 1.5rem;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-  padding: 10px 6px;
+  //   padding: 10px 6px;
 
   .card-body {
     padding: 0 20px 20px 20px;
@@ -144,7 +144,7 @@ a:focus {
     .carousel-inner {
       .carousel-item {
         img {
-          height: 550px;
+          height: 70vh;
         }
       }
     }

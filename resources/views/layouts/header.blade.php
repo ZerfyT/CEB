@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light bg-light shadow-sm px-2 py-1">
+<nav class="navbar navbar-expand navbar-dark bg-dark shadow-sm px-2 py-1 rounded-0">
     <div class="container-fluid">
 
         {{-- Brand Name --}}
@@ -23,7 +23,7 @@
                         aria-expanded="false">
                         <i class="bi bi-person-circle fs-4 mx-1"></i>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu dropdown-menu-start dropdown-center">
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -33,15 +33,15 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }} <i class="bi bi-x-circle-fill"></i>
-                                    </a>
+                                    {{ __('Logout') }} <i class="bi bi-x-circle-fill"></i>
+                                </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container py-3">
+    <div class="container">
 
         {{-- Breadcrumbs --}}
         <nav aria-label="breadcrumb">
