@@ -1,7 +1,7 @@
 import './bootstrap';
 import 'laravel-datatables-vite';
 
-import jQuery from 'jquery';
+import jQuery, { htmlPrefilter } from 'jquery';
 // import modal from "bootstrap/js/src/modal";
 
 window.$ = jQuery;
@@ -60,6 +60,9 @@ $(document).ready(function() {
                 $('#userAccountType').text(response.user_account_type);
                 $('#userArea').text(response.user_area);
 
+                $('#downloadBtn').attr(
+                    'href', 'download-bill-modal-pdf/' + response.id
+                )
 
 
                 // Open the modal
@@ -76,17 +79,17 @@ $(document).ready(function() {
 });
 
 
-function openBillModal(billId) {
-    $.ajax({
-        url: '{{ route("customer.details") }}',
-        type: 'GET',
-        data: { billId: billId },
-        success: function (response) {
-            $('#billModal').html(response);
-            $('#billModal').modal('show');
-        },
-        error: function (xhr) {
-            console.log(xhr.responseText);
-        }
-    });
-}
+// function openBillModal(bill) {
+//     $.ajax({
+//         url: '{{ route("customer.details") }}',
+//         type: 'GET',
+//         data: { billId: billId },
+//         success: function (response) {
+//             $('#billModal').html(response);
+//             $('#billModal').modal('show');
+//         },
+//         error: function (xhr) {
+//             console.log(xhr.responseText);
+//         }
+//     });
+// }

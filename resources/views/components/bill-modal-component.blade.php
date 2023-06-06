@@ -43,11 +43,11 @@
                                                         style="color:#5d9fc5 ;" id="billId"></span></li>
                                                 <li class="text-muted"><span class="fw-bold">Date :</span> <span
                                                         style="color:#5d9fc5 ;" id="billNewReadingDate"></span></li>
-                                                {{-- <li class="text-muted"><i class="fas fa-circle"
+                                                <li class="text-muted"><i class="fas fa-circle"
                                                         style="color:#84B0CA ;"></i> <span
                                                         class="me-1 fw-bold">Status:</span><span
                                                         class="badge bg-warning text-black fw-bold" id="billStatus">
-                                                    </span></li> --}}
+                                                    </span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -159,8 +159,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <a href="{{ route('customer.downloadBill') }}"
-                                            class="btn btn-primary" data-bill-id={{$bill->id}} >Download</a>
+                                        <a href="" id="downloadBtn"
+                                            class="btn btn-primary">Download</a>
                                     </div>
                                 </div>
                             </div>

@@ -62,11 +62,10 @@ Route::prefix('customer')->middleware(['auth', 'role:user'])->controller(Custome
     Route::get('/payment', 'customerPayment')->name('customer.payment');
     Route::get('/details', 'customerDetails')->name('customer.details');
     Route::get('/details/bill/{id}', 'show')->name('show.bill');
-    Route::get('/download-bill-modal-pdf', 'downloadBillPDF')->name('customer.downloadBill');
+    Route::get('/download-bill-modal-pdf/{id}', 'downloadBillPDF')->name('customer.downloadBill');
     Route::get('/profile', 'customerProfile')->name('customer.profile');
     Route::post('/profile/update-info', 'updateProfileInfo')->name('customer.updateProfileInfo');
-    Route::post('/profile/update-password', 'updateProfilePassword')->name('customer.updateProfilePassword');
-    
+    Route::post('/profile/update-password', 'updateProfilePassword')->name('customer.updateProfilePassword');    
 });
 
 
