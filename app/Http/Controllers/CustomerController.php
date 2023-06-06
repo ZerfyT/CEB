@@ -33,6 +33,7 @@ class CustomerController extends Controller
 
     public function show($id)
     {
+        // $this->id = $id;
         $user = Auth::user();
         $bill = Bill::findOrFail($id);
 
@@ -63,43 +64,46 @@ class CustomerController extends Controller
             'user_phone' => $user->phone,
             'user_account_type' => $user->account_type,
             'user_area' => $user->area,
+
         ]);
+        $this->downloadBillPDF($id);
     }
 
     // Generate PDF/ Assuming you have a Bill model
-    
-    public function downloadBillPDF($billId)
+
+    public function downloadBillPDF($id)
     {
-        // Retrieve the bill based on the provided ID
-        $bill = Bill::find($billId);
-    
+        $user = Auth::user();
+        $bill = Bill::findOrFail($id);
+ 
         if (!$bill) {
             // Handle case when bill is not found
             return redirect()->back()->with('error', 'Bill not found.');
         }
-    
+
         // Create a new instance of Dompdf
         $dompdf = new Dompdf();
-    
+
         // Set any options you want (optional)
         $options = new Options();
         $options->set('defaultFont', 'Arial'); // Set the default font
         $dompdf->setOptions($options);
-    
+
         // Load the HTML view file into Dompdf
-        $html = view('layouts.bill_pdf', compact('bill'))->render();
+        $html = view('layouts.bill_pdf', compact('bill', 'user'))->render();
         $dompdf->loadHtml($html);
-    
+
         // Render the PDF
         $dompdf->render();
-    
+
         // Generate the PDF filename
         $filename = 'bill_' . $bill->id . '.pdf';
-    
+
         // Output the PDF for download
         return $dompdf->stream($filename);
+        // echo $id;
     }
-    
+
 
     public function customerPayment(PaymentsDataTable $dataTable)
     {

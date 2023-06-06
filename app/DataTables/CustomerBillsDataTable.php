@@ -34,8 +34,7 @@ class CustomerBillsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($bill) {
                 return view('components.customer_bill_button', [
-                    'bill' => $bill,
-                    'selectedBill' => $this->selectedBill,
+                    'bill' => $bill
                 ]);
                 // ->setRowId('id');
             });
@@ -91,10 +90,10 @@ class CustomerBillsDataTable extends DataTable
                 ->printable(false)
                 // ->width(60)
                 ->addClass('text-center'),
-            Column::computed('selectedBill')
-                ->data('id')
-                ->name('selectedBill')
-                ->visible(false),
+            // Column::computed('selectedBill')
+            //     ->data('id')
+            //     ->name('selectedBill')
+            //     ->visible(false),
         ];
     }
 

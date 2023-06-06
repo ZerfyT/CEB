@@ -159,8 +159,8 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <a href="{{ route('customer.downloadBill', ['billId' => $bill->id]) }}"
-                                            class="btn btn-primary">Download</a>
+                                        <a href="{{ route('customer.downloadBill') }}"
+                                            class="btn btn-primary" data-bill-id={{$bill->id}} >Download</a>
                                     </div>
                                 </div>
                             </div>
