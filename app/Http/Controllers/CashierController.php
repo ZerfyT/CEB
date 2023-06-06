@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\BillsDataTable;
+use App\DataTables\PaymentHistoryDataTable;
 use App\DataTables\UsersDataTable;
 use App\Jobs\SendPaymentReceipt;
 use App\Models\Bill;
@@ -113,9 +114,9 @@ class CashierController extends Controller
     // Display payment history of customers.
     public function cashierPaymentHistory()
     {
-        $payments = Payment::all();
+        $dataTable = new PaymentHistoryDataTable();
 
-        return view('cashier.payment-history', compact('payments'));
+        return $dataTable->render('cashier.payment-history');
     }
 
     // Display cashier profile details.

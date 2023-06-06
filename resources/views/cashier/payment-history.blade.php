@@ -5,23 +5,30 @@
 @endsection
 
 @section('content')
-    <label class="form-control" for="floatingInput">Payment</label> <br>
-    <h2 class="fw-bold">Payment</h2>
+    <div class="container py-3">
 
-    {{-- Search --}}
-    <div class="col-3">
-        <div class="container">
-            <label for="AccountNo" class="rounded mb-1">Account No</label>
-            <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-success">search</button>
+        {{-- Breadcrumbs --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('cashier.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Recent Payments</li>
+            </ol>
+        </nav>
+
+        {{-- Heading --}}
+        <h2 class="fw-bold">Recent Payments</h2>
+
+        {{-- Table --}}
+        <div class="py-4">
+            <div class="table-responsive">
+                {{ $dataTable->table() }}
             </div>
         </div>
-    </div>
-    
-    {{-- Table --}}
-    <div class="container py-4">
+
+        @push('scripts')
+            {{ $dataTable->scripts() }}
+        @endpush
+        {{-- <div class="container py-4">
         <table class="table table-sm table-bordered table-hover" id="paymentTable">
             <thead class="bg-secondary">
               <tr class="">
@@ -46,5 +53,6 @@
                    @endforeach
             </tbody>
           </table>
+    </div> --}}
     </div>
 @endsection
