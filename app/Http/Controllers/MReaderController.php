@@ -26,7 +26,7 @@ class MReaderController extends Controller
         $user = User::create([
             'name' => $request->fname,
             'email' => $request->email,
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
             'phone' => $request->pNumber,
             'address' => $request->address,
         ]);

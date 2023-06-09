@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'role_id' => 1,
             'name' => 'Super-Admin Test',
             'email' => 'superadmin@gmail.com',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
         $superAdmin->assignRole('super-admin');
 
@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             'role_id' => 2,
             'name' => 'Admin Test',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
         $admin->assignRole('admin');
 
@@ -36,7 +36,7 @@ class AdminSeeder extends Seeder
             'role_id' => 3,
             'name' => 'Cashier Test',
             'email' => 'cashier@gmail.com',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
         $cashier->assignRole('cashier');
 
@@ -45,7 +45,7 @@ class AdminSeeder extends Seeder
             'role_id' => 4,
             'name' => 'Meter-Reader Test',
             'email' => 'mreader@gmail.com',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
         $mReader->assignRole('meter-reader');
 
@@ -54,7 +54,7 @@ class AdminSeeder extends Seeder
             'role_id' => 5,
             'name' => 'User Test',
             'email' => 'user@gmail.com',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
             'account_number' => 1000,
         ]);
         $user->assignRole('user');

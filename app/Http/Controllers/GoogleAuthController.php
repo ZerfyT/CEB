@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-use PhpParser\Node\Stmt\TryCatch;
 
 class GoogleAuthController extends Controller
 {
@@ -17,32 +15,29 @@ class GoogleAuthController extends Controller
 
     public function callbackGoogle()
     {
-        try{
+        try {
             $google_user = Socialite::driver('google')->user();
 
-            $user = User::where('google_id',$google_user->getId())->first();
-            if(!$user){
+            $user = User::where('google_id', $google_user->getId())->first();
+            if (! $user) {
                 $new_user = User::create([
                     'name' => $google_user->getName(),
                     'email' => $google_user->getEmail(),
                     'google_id' => $google_user->getId(),
-                    'password' => bcrypt('11111111')
+                    'password' => bcrypt('password'),
                 ]);
 
                 Auth::login($new_user);
 
                 return redirect()->intended(route('index'));
-            }
-            
-            else {
+            } else {
                 Auth::login($user);
 
                 return redirect()->intended(route('index'));
             }
         } catch (\Throwable $th) {
 
-           dd('Something Went Wrong '. $th->getMessage());
+            dd('Something Went Wrong '.$th->getMessage());
         }
     }
-
 }

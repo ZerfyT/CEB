@@ -1,66 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# **Laravel Electricity Board System**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a Laravel web application developed for managing electricity board operations in a general setting. It provides various features for managing billing, payments, meter readings, and user roles. The system supports multiple user roles, including admin, cashier, meter reader, and customer, each with specific permissions and functionalities. With this application, electricity board companies can efficiently handle billing, payment tracking, meter readings, and user management, enhancing their overall operational efficiency.
 
-## About Laravel
+## **Features**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Customer**
+  - View all previous bills and payments
+  - Download bills and payments as PDF
+- **Meter Reader**
+  - Add meter readings in real-time
+  - View all registered customers
+  - View previous meter readings
+  - Automatically send bills via email
+- **Cashier**
+  - View all registered customers
+  - View customer bills
+  - Pay customer bills
+  - Automatically send bill payment receipts via email
+- **Admin**
+  - Monitor all activities
+  - Manage users and their roles
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## **Prerequisites**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [PHP](https://www.php.net/) >= 8.0
+- [Composer](https://getcomposer.org/) - Dependency Manager for PHP
+- [Node.js](https://nodejs.org/en) - JavaScript runtime environment
+- [MySQL](https://www.mysql.com/) or any other compatible database system
 
-## Learning Laravel
+## **Installation**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone the repository:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```sh
+git clone https://github.com/ZerfyT/CEB.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Install the dependencies:
 
-## Laravel Sponsors
+```sh
+cd CEB
+composer install
+npm install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+3. Create a copy of the .env.example file and rename it to .env. Update the necessary configuration values such as database connection details and email settings:
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+4. Generate a new application key:
 
-## Contributing
+```bash
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Run the database migrations and seed the initial data:
 
-## Code of Conduct
+```bash
+php artisan migrate --seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Compile the assets (CSS and JS files):
 
-## Security Vulnerabilities
+```bash
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. Start the queue worker to process background jobs:
 
-## License
+```bash
+php artisan queue:work
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. Start the development server:
+
+```bash
+php artisan serve
+```
+
+9. Open your web browser and visit <http://localhost:8000> to access the application.
+
+## **Usage**
+
+- Register a new user account to access the respective functionalities.
+- Log in to the system using your credentials.
+- Contact the admin to change your role to the desired one (cashier, meter reader, or admin).
+- Once the admin updates your role, you will gain access to the corresponding features and permissions associated with your new role.
+- Explore the application and perform various actions based on your assigned role.
+
+- The system comes with pre-seeded sample user accounts for testing purposes:
+  - Cashier
+    - Email: <cashier@gmail.com>
+    - Password: password
+  - Meter Reader
+    - Email: <mreader@gmail.com>
+    - Password: password
+  - Customer
+    - Email: <user@gmail.com>
+    - Password: password
+
+## **Roadmap**
+
+The development roadmap for this project includes the following:
+
+- Implementing the admin panel for monitoring activities and managing users.
+- Enhancing the user interface and user experience.
+Adding additional features based on user feedback and requirements.
+
+## **License**
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## **Acknowledgments**
+
+- [Laravel](https://laravel.com/) - The PHP Framework for Web Artisans
+- [Bootstrap](https://getbootstrap.com/) - Front-end Framework
+- [Bootstrap Icons](https://icons.getbootstrap.com/) - Icon Set
+- [DomPdf](https://github.com/barryvdh/laravel-dompdf) - PDF Processing Library
+- [Mailtrap](https://mailtrap.io/) - Email Testing
+- [Spatie Permission](https://spatie.be/docs/laravel-permission/v5/introduction) User Roles and Permission Management
