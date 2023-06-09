@@ -17,6 +17,6 @@ class MeterReading extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class)->where('role_id', 5);
+        return $this->belongsTo(User::class);
     }
 }

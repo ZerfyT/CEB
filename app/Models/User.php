@@ -92,4 +92,6 @@ class User extends Authenticatable
             $user->account_number = $newAccountNumber;
         });
     }
+
+    
 }

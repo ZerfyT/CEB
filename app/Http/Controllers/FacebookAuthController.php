@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -16,32 +17,30 @@ class FacebookAuthController extends Controller
     public function facebookCallback()
     {
         try {
-        
+
             $user = Socialite::driver('facebook')->user();
-         
+
             $finduser = User::where('facebook_id', $user->id)->first();
-        
-            if($finduser){
-         
+
+            if ($finduser) {
+
                 Auth::login($finduser);
-        
-                return redirect()->intended('dashboard');
-         
-            }else{
+
+                return redirect()->intended(route('index'));
+            } else {
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'facebook_id'=> $user->id,
+                    'facebook_id' => $user->id,
                 ]);
-        
+
                 Auth::login($newUser);
-        
-                return redirect()->intended('dashboard');
+
+                return redirect()->intended(route('index'));
             }
-        
         } catch (\Throwable $th) {
 
-            dd('Something Went Wrong '. $th->getMessage());
-         }
+            dd('Something Went Wrong ' . $th->getMessage());
+        }
     }
 }

@@ -36,6 +36,6 @@ class Bill extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->where('role_id', 5);
+        return $this->belongsTo(User::class, 'id');
     }
 }

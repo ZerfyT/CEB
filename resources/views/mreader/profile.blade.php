@@ -9,7 +9,7 @@
         {{-- Breadcrumbs --}}
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('mreader.home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('customer.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Profile</li>
             </ol>
         </nav>
@@ -17,26 +17,10 @@
         {{-- Heading --}}
         <h2 class="fw-bold">Profile Info</h2>
 
-        @if ($errors->any())
-            @include('components.alert_error', ['message' => $errors->first()])
-        @endif
-        @if (Session::get('error') && Session::get('error') != null)
-            @include('components.alert_error', ['message' => Session::get('error')])
-            @php
-                Session::put('error', null);
-            @endphp
-        @endif
-        @if (Session::get('success') && Session::get('success') != null)
-            @include('components.alert_success', ['message' => Session::get('success')])
-            @php
-                Session::put('success', null);
-            @endphp
-        @endif
-
         <div class="container">
             <div class="row border rounded shadow-sm">
                 <div class="col-md-6 border border-top-0 border-bottom-0 border-start-0 shadow-sm">
-                    <form class="p-3" method="POST" action="{{ route('mreader.updateProfileInfo') }}">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfileInfo') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="fname">Full Name</label>
@@ -69,7 +53,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form class="p-3" method="POST" action="{{ route('mreader.updateProfilePassword') }}">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfilePassword') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="currentPassword">Current Password</label>

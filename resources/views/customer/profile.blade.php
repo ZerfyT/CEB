@@ -1,88 +1,82 @@
 @extends('layouts.app')
 
 @section('sidebar')
-@include('customer.sidebar')
+    @include('customer.sidebar')
 @endsection
 
 @section('content')
-<div class="col-md-10">
-    <div class="d-flex">
-        <a href="" class="btn btn-primary-link btn floating"><small>Home</small></a>
-        <div class="vr"></div>
-        <a href="" class="btn btn-primary-link btn floating"><small>My Account</small></a>
-        <div class="vr"></div>
-        <a href="" class="btn btn-primary-link btn floating"><small>Profile</small></a>
-    </div>
-    <div class="head-1 mt-2">
-        <p class="h5">Profile</p>
-        <p class="h6">My Profile Details</p>
-    </div>
-    <div class="container con">
-        <div class="row">
-            <div class="row">
-                <div class="d-flex mb-4">
-                    <input type="text" class="form-control me-2 w-25" role="search" id="search" placeholder="search">
-                    <button type="button" class="btn btn-outline-success">Search</button>
+    <div class="container py-3">
+        {{-- Breadcrumbs --}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('customer.home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+            </ol>
+        </nav>
+
+        {{-- Heading --}}
+        <h2 class="fw-bold">Profile Info</h2>
+
+        <div class="container">
+            <div class="row border rounded shadow-sm">
+                <div class="col-md-6 border border-top-0 border-bottom-0 border-start-0 shadow-sm">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfileInfo') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="fname">Full Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="Full Name"
+                                value="{{ auth()->user()->name }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nic">NIC</label>
+                            <input type="number" class="form-control" id="nic" name="nic" placeholder="NIC"
+                                value="{{ auth()->user()->nic }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                value="{{ auth()->user()->email }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fname">Address</label>
+                            <textarea type="text" class="form-control" id="fname" name="address" placeholder="Address">{{ auth()->user()->address }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pNumber">Phone Number</label>
+                            <input type="number" class="form-control" id="pNumber" name="pNumber"
+                                placeholder="0777 666 555" value="{{ auth()->user()->phone }}">
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-danger">Save</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form class="p-3" method="POST" action="{{ route('customer.updateProfilePassword') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                                placeholder="Current Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                placeholder="New Password" aria-labelledby="passwordHelpLine">
+                            <span class="form-text" id="passwordHelpLine">Must be 8-20 characters long.</span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                placeholder="Confirm Password">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger">Change Password</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form action="">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">Full Name</label>
-                            <input type="text" class="form-control mb-2" id="f_name" placeholder="Fullname">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">Current password</label>
-                            <input type="password" class="form-control mb-2" id="c_psw">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">NIC</label>
-                            <input type="text" class="form-control mb-2" id="nic">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">New password</label>
-                            <input type="password" class="form-control mb-2" id="n_psw">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">E-mail</label>
-                            <input type="email" class="form-control mb-2" id="mail" placeholder="example@gmail.com">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-outline">
-                            <label for="" class="form-label">Confirm password</label>
-                            <input type="password" class="form-control mb-2" id="con_psw">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="button text-center">
-                            <button type="submit" class="btn btn-primary w-25">SAVE</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="button text-center">
-                            <button type="submit" class="btn btn-primary w-50">CHANGE PASSWORD</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
         </div>
     </div>
-</div>
 @endsection
